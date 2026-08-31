@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import DadosEstruturados from "@/components/DadosEstruturados";
-import { site } from "@/lib/site";
+import { site, ogPadrao } from "@/lib/site";
 
 const sans = Inter({
   subsets: ["latin"],
@@ -33,11 +33,13 @@ export const metadata: Metadata = {
     title: `${site.nome} — ${site.tagline}`,
     description: site.descricao,
     url: site.dominio,
+    images: [ogPadrao],
   },
   twitter: {
     card: "summary_large_image",
     title: `${site.nome} — ${site.tagline}`,
     description: site.descricao,
+    images: [ogPadrao.url],
   },
   alternates: { canonical: "/" },
   robots: { index: true, follow: true },

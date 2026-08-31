@@ -10,7 +10,7 @@ import Footer from "@/components/Footer";
 import DadosEstruturados from "@/components/DadosEstruturados";
 import { AvatarAutor } from "@/components/SobreAutor";
 import { todosOsArtigos, artigoPorSlug, relacionados, dataExtenso } from "@/lib/artigos";
-import { site, pilares } from "@/lib/site";
+import { site, pilares, ogPadrao } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -37,9 +37,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       modifiedTime: a.atualizado ?? a.data,
       authors: [site.autor.nome],
       url: `${site.dominio}/artigos/${slug}/`,
-      ...(a.imagem ? { images: [{ url: a.imagem, alt: a.imagemAlt ?? a.titulo }] } : {}),
+      images: a.imagem ? [{ url: a.imagem, alt: a.imagemAlt ?? a.titulo }] : [ogPadrao],
     },
-    ...(a.imagem ? { twitter: { card: "summary_large_image", images: [a.imagem] } } : {}),
+    twitter: {
+      card: "summary_large_image",
+      images: [a.imagem ?? ogPadrao.url],
+    },
   };
 }
 

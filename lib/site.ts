@@ -27,6 +27,18 @@ export const cores = {
 } as const;
 
 /**
+ * Imagem Open Graph por defeito, para paginas sem imagem propria.
+ * Ficheiro estatico em public/ — o site e' export estatico, nao ha next/og
+ * em runtime. Gerado por scripts/gerar-og.mjs.
+ */
+export const ogPadrao = {
+  url: "/og-default.png",
+  width: 1200,
+  height: 630,
+  alt: "Pegar no Sono — métodos naturais para dormir melhor",
+};
+
+/**
  * Foto do autor. Ponha um ficheiro em public/autor.jpg e ele entra sozinho.
  * Enquanto nao existir, e' desenhado um monograma — nunca uma foto de outra pessoa.
  */

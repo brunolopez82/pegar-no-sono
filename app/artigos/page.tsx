@@ -6,13 +6,20 @@ import Revelar from "@/components/Revelar";
 import Subscrever from "@/components/Subscrever";
 import Footer from "@/components/Footer";
 import { todosOsArtigos } from "@/lib/artigos";
-import { pilares, ordemPilares } from "@/lib/site";
+import { pilares, ordemPilares, ogPadrao } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Todos os artigos",
   description:
     "Todos os artigos do Pegar no Sono, organizados por tema: respiração, rotina noturna, ambiente do quarto, ansiedade, ritmo circadiano e medição do sono.",
   alternates: { canonical: "/artigos/" },
+  openGraph: {
+    type: "website",
+    title: "Todos os artigos",
+    description:
+      "Todos os artigos do Pegar no Sono, organizados por tema: respiração, rotina noturna, ambiente do quarto, ansiedade, ritmo circadiano e medição do sono.",
+    images: [ogPadrao],
+  },
 };
 
 export default function Pagina() {

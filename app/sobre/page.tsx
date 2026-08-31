@@ -5,13 +5,20 @@ import Revelar from "@/components/Revelar";
 import Subscrever from "@/components/Subscrever";
 import Footer from "@/components/Footer";
 import { AvatarAutor } from "@/components/SobreAutor";
-import { site } from "@/lib/site";
+import { site, ogPadrao } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Sobre e método editorial",
   description:
     "Quem escreve o Pegar no Sono, como os artigos são escritos, o que este site nunca faz e onde ficam os limites entre informação e aconselhamento médico.",
   alternates: { canonical: "/sobre/" },
+  openGraph: {
+    type: "profile",
+    title: "Sobre e método editorial",
+    description:
+      "Quem escreve o Pegar no Sono, como os artigos são escritos, e onde ficam os limites entre informação e aconselhamento médico.",
+    images: [ogPadrao],
+  },
 };
 
 const regras = [

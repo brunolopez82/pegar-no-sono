@@ -8,7 +8,7 @@ import Subscrever from "@/components/Subscrever";
 import Footer from "@/components/Footer";
 import DadosEstruturados from "@/components/DadosEstruturados";
 import { artigosDoPilar } from "@/lib/artigos";
-import { pilares, ordemPilares, site, type PilarSlug } from "@/lib/site";
+import { pilares, ordemPilares, site, ogPadrao, type PilarSlug } from "@/lib/site";
 
 type Props = { params: Promise<{ pilar: string }> };
 
@@ -29,7 +29,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: dados.titulo,
     description: dados.descricao,
     alternates: { canonical: `/temas/${pilar}/` },
-    openGraph: { title: dados.titulo, description: dados.descricao, type: "website" },
+    openGraph: {
+      title: dados.titulo,
+      description: dados.descricao,
+      type: "website",
+      images: [ogPadrao],
+    },
     ...(vazio ? { robots: { index: false, follow: true } } : {}),
   };
 }
