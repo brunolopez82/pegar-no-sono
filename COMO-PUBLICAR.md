@@ -98,6 +98,43 @@ Dois minutos depois do primeiro push, abrir o site:
 
 ---
 
+## Se o site não muda depois de publicar
+
+Verificado a 31/08/2026: a CDN da Hostinger guardou o `index.html` com
+`s-maxage=31536000` — validade de um ano — e continuou a servir a versão anterior
+mesmo com os ficheiros novos já no servidor.
+
+**Como distinguir "não fez deploy" de "está em cache".** Pedir a página com uma query
+string, que a CDN não tem em cache:
+
+```bash
+curl -s "https://pegarnosono.com/?bust=$(date +%s)" | grep -o "<title>.*</title>"
+```
+
+- Sai o conteúdo **novo** → o deploy correu bem; o problema é só a cache.
+- Sai o conteúdo **antigo** → aí sim, o deploy falhou. Ver o branch `deploy` no GitHub.
+
+Ver os cabeçalhos, para confirmar:
+
+```bash
+curl -sI https://pegarnosono.com/ | grep -i "x-hcdn-cache-status\|age\|cache-control"
+```
+
+`x-hcdn-cache-status: HIT` com um `Age` alto = está a ser servido da cache.
+
+**Resolver:** hPanel → Websites → Dashboard → Performance → CDN → **Purge cache**.
+
+**Resolver de vez**, para não repetir a cada artigo: no mesmo painel, desligar a cache de
+HTML, ou **Disable** na CDN. Para um site estático e pequeno com público português, a CDN
+acrescenta pouco e é a origem deste problema.
+
+O `public/.htaccess` já envia `Cache-Control: public, max-age=0, s-maxage=0,
+must-revalidate` no HTML, que é o pedido explícito para as caches partilhadas não
+guardarem as páginas. Se a CDN da Hostinger respeitar esse cabeçalho, o problema
+desaparece sozinho; se o ignorar, é preciso desligá-la no painel.
+
+---
+
 ## Regras de ouro
 
 **Nunca correr `npm run build` com o `npm run dev` ligado.** Os dois escrevem na mesma
