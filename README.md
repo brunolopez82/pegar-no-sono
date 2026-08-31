@@ -78,6 +78,9 @@ npm run build   # gera out/
 publica **apenas o HTML** no branch `deploy`. A Hostinger fica ligada ao branch `deploy`,
 nunca ao `main` — assim o alojamento nunca vê `node_modules` nem o código-fonte.
 
+Procedimento completo, ligação da Hostinger e resolução de problemas:
+[COMO-PUBLICAR.md](./COMO-PUBLICAR.md).
+
 ## Lista de emails
 
 Ainda não está ligada, de propósito. O formulário está isolado em `lib/subscribe.ts`:
