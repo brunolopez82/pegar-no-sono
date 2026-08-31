@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-noite-800 text-texto font-sans antialiased;
+  }
+
+  ::selection {
+    @apply bg-ambar-400/25 text-texto;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-ambar-400/70 ring-offset-2 ring-offset-noite-800 rounded-sm;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .envolve {
+    @apply mx-auto w-full max-w-conteudo px-5 sm:px-8;
+  }
+
+  .etiqueta {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04]
+           px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-texto-suave;
+  }
+
+  .botao-primario {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-ambar-400 px-6 py-3.5
+           text-[15px] font-semibold text-noite-900 transition
+           hover:bg-ambar-300 active:scale-[0.985];
+  }
+
+  .botao-secundario {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-white/12
+           bg-white/[0.03] px-6 py-3.5 text-[15px] font-medium text-texto transition
+           hover:border-white/25 hover:bg-white/[0.06];
+  }
+
+  .cartao {
+    @apply rounded-2xl border border-white/8 bg-noite-700/60 transition
+           hover:border-white/16 hover:bg-noite-700;
+  }
+}
+
+/* Corpo do artigo — legibilidade primeiro, decoracao depois. */
+.artigo {
+  @apply prose prose-invert max-w-none
+         prose-p:text-[17px] prose-p:leading-[1.78] prose-p:text-texto-suave
+         prose-headings:font-serif prose-headings:text-texto prose-headings:font-semibold
+         prose-h2:mt-14 prose-h2:mb-5 prose-h2:text-[27px] prose-h2:leading-snug
+         prose-h3:mt-10 prose-h3:mb-3 prose-h3:text-[20px]
+         prose-li:text-[17px] prose-li:leading-[1.75] prose-li:text-texto-suave
+         prose-strong:text-texto prose-strong:font-semibold
+         prose-a:text-ambar-300 prose-a:underline prose-a:decoration-ambar-400/35
+         prose-a:underline-offset-4 hover:prose-a:decoration-ambar-300
+         prose-blockquote:border-l-2 prose-blockquote:border-ambar-400/60
+         prose-blockquote:bg-white/[0.03] prose-blockquote:rounded-r-xl
+         prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:not-italic
+         prose-blockquote:text-texto prose-blockquote:font-serif prose-blockquote:text-[19px]
+         prose-hr:border-white/10 prose-hr:my-12
+         prose-table:text-[15px] prose-th:text-texto prose-td:text-texto-suave;
+}
+
+.artigo ol > li::marker { @apply text-ambar-400 font-semibold; }
+.artigo ul > li::marker { @apply text-ambar-400; }

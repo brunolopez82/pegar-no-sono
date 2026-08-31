@@ -1,0 +1,40 @@
+name: Build e publicar no branch deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build          # output:'export' gera o HTML estatico em out/
+
+      # Publica APENAS o HTML compilado no branch "deploy".
+      # A Hostinger fica ligada a esse branch, nunca ao main.
+      - name: Publicar no branch deploy
+        run: |
+          cd out
+          touch .nojekyll
+          git init -b deploy
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Build de ${GITHUB_SHA::7}"
+          git push --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" deploy
