@@ -17,6 +17,16 @@ export const site = {
 } as const;
 
 /**
+ * Cores da marca em hexadecimal, para onde CSS nao chega: manifest, icones,
+ * imagem Open Graph. Os mesmos valores estao em app/globals.css como tokens.
+ */
+export const cores = {
+  fundo: "#F3F3F5",
+  tinta: "#000000",
+  gradiente: ["#F5C6B0", "#F4A5A0", "#E8A0BF"],
+} as const;
+
+/**
  * Foto do autor. Ponha um ficheiro em public/autor.jpg e ele entra sozinho.
  * Enquanto nao existir, e' desenhado um monograma — nunca uma foto de outra pessoa.
  */
