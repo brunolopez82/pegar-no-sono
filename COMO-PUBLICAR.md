@@ -44,7 +44,13 @@ deployment automático.
 npm run dev
 ```
 
-**3. Publicar**
+**3. Se o artigo tiver capa, descarregá-la**
+
+```bash
+node scripts/descarregar-imagens.ts
+```
+
+**4. Publicar**
 
 ```bash
 git add -A && git commit -m "Artigo: o-slug-do-artigo" && git push
@@ -132,6 +138,20 @@ O `public/.htaccess` já envia `Cache-Control: public, max-age=0, s-maxage=0,
 must-revalidate` no HTML, que é o pedido explícito para as caches partilhadas não
 guardarem as páginas. Se a CDN da Hostinger respeitar esse cabeçalho, o problema
 desaparece sozinho; se o ignorar, é preciso desligá-la no painel.
+
+---
+
+## Scripts do repositório
+
+Nenhum destes corre no build. São ferramentas para correr à mão, e o resultado fica
+versionado.
+
+| Script | Quando |
+|---|---|
+| `node scripts/descarregar-imagens.ts` | sempre que um artigo novo tiver `imagem` |
+| `node scripts/auditar-contraste.mjs` | ao mexer nos gradientes ou na opacidade de texto |
+| `node scripts/gerar-icones.mjs` | se a marca mudar (favicon, ícone Apple, manifest) |
+| `node scripts/gerar-og.mjs` | se o nome do site ou a paleta mudarem |
 
 ---
 

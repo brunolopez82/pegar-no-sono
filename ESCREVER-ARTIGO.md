@@ -61,13 +61,33 @@ Do Unsplash, o formato é `https://images.unsplash.com/photo-ID?w=1800&h=1000&fi
 Antes de a usar: abrir o URL e **ver a fotografia**. Sem imagem, o artigo continua a
 funcionar — usa o gradiente do tema no lugar da foto.
 
-## 5. Verificar
+## 5. Descarregar a capa
+
+Sempre que acrescentar um artigo **com** `imagem`:
+
+```bash
+node scripts/descarregar-imagens.ts
+```
+
+Descarrega a foto para `public/imagens/artigos/<slug>.jpg` e escreve as dimensões reais em
+`content/imagens.json`. É isso que permite servir a imagem do próprio domínio, sem pedidos
+ao Unsplash e sem salto de layout. Ambos os ficheiros são versionados — commitar junto com
+o artigo.
+
+Se se esquecer, o site continua a funcionar: cai para o URL remoto do frontmatter.
+
+## 6. Verificar
 
 ```bash
 npm run build
 ```
 
-Se compilar, está pronto. `git push` para `main` e a Action publica no branch `deploy`.
+Se compilar, está pronto. O build **falha de propósito** se faltar um campo obrigatório, se
+o `pilar` não existir, se uma data ou um URL estiverem mal formados, se houver `imagem` sem
+`imagemAlt`, ou se um `relacionados` apontar para um artigo que não existe — sempre com o
+nome do ficheiro e do campo.
+
+`git push` para `main` e a Action publica no branch `deploy`.
 
 ---
 
