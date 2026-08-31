@@ -1,7 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-import type { PilarSlug } from "./site";
+import { z } from "zod";
+import { ordemPilares, type PilarSlug } from "./site";
 
 const PASTA = path.join(process.cwd(), "content", "artigos");
 const MANIFESTO_IMAGENS = path.join(process.cwd(), "content", "imagens.json");
@@ -17,9 +18,63 @@ const imagensLocais: Record<string, EntradaImagem> = fs.existsSync(MANIFESTO_IMA
   ? JSON.parse(fs.readFileSync(MANIFESTO_IMAGENS, "utf8"))
   : {};
 
-export type Passo = { nome: string; texto: string };
-export type Pergunta = { pergunta: string; resposta: string };
-export type Fonte = { titulo: string; url: string; nota?: string };
+// ---------------------------------------------------------------------------
+// Esquema do frontmatter
+//
+// A disciplina e' a de sempre: um artigo mal formado parte o build com o nome
+// do ficheiro e do campo, em vez de ser publicado em silencio com um campo
+// vazio ou um pilar que nao existe.
+// ---------------------------------------------------------------------------
+
+const DATA_ISO = /^\d{4}-\d{2}-\d{2}$/;
+
+/** O YAML converte datas sem aspas em Date. Normaliza-se antes de validar. */
+const dataCurta = z.preprocess(
+  (v) => (v instanceof Date ? v.toISOString().slice(0, 10) : v),
+  z.string().regex(DATA_ISO, "tem de estar no formato AAAA-MM-DD"),
+);
+
+const esquemaPasso = z.object({
+  nome: z.string().min(1),
+  texto: z.string().min(1),
+});
+
+const esquemaPergunta = z.object({
+  pergunta: z.string().min(1),
+  resposta: z.string().min(1),
+});
+
+const esquemaFonte = z.object({
+  titulo: z.string().min(1),
+  url: z.url("tem de ser um URL completo, com https://"),
+  nota: z.string().optional(),
+});
+
+const esquemaFrontmatter = z
+  .object({
+    titulo: z.string().min(1),
+    descricao: z.string().min(1),
+    resposta: z.string().min(1),
+    pilar: z.enum(ordemPilares as [PilarSlug, ...PilarSlug[]]),
+    data: dataCurta,
+    atualizado: dataCurta.optional(),
+    destaque: z.boolean().optional(),
+    imagem: z.url("tem de ser um URL completo, com https://").optional(),
+    imagemAlt: z.string().min(1).optional(),
+    passos: z.array(esquemaPasso).min(1).optional(),
+    faq: z.array(esquemaPergunta).min(1).optional(),
+    fontes: z.array(esquemaFonte).min(1).optional(),
+    relacionados: z.array(z.string().min(1)).optional(),
+  })
+  // Uma capa sem descricao e' uma capa invisivel para quem usa leitor de ecra.
+  .refine((d) => !d.imagem || Boolean(d.imagemAlt), {
+    path: ["imagemAlt"],
+    message: "obrigatorio sempre que existe `imagem`",
+  });
+
+export type Passo = z.infer<typeof esquemaPasso>;
+export type Pergunta = z.infer<typeof esquemaPergunta>;
+export type Fonte = z.infer<typeof esquemaFonte>;
 
 export type MetaArtigo = {
   slug: string;
@@ -29,6 +84,8 @@ export type MetaArtigo = {
   resposta: string;
   pilar: PilarSlug;
   data: string;
+  atualizado?: string;
+  destaque?: boolean;
   /** Imagem de capa: usada no tile da listagem e no topo do artigo. */
   imagem?: string;
   imagemAlt?: string;
@@ -36,8 +93,6 @@ export type MetaArtigo = {
   imagemLocal?: string;
   imagemLargura?: number;
   imagemAltura?: number;
-  atualizado?: string;
-  destaque?: boolean;
   passos?: Passo[];
   faq?: Pergunta[];
   fontes?: Fonte[];
@@ -59,44 +114,75 @@ function ler(ficheiro: string): Artigo {
   const bruto = fs.readFileSync(path.join(PASTA, ficheiro), "utf8");
   const { data, content } = matter(bruto);
 
-  const palavras = content.trim().split(/\s+/).length;
-
-  const obrigatorios = ["titulo", "descricao", "resposta", "pilar", "data"];
-  for (const campo of obrigatorios) {
-    if (!data[campo]) {
-      throw new Error(`content/artigos/${ficheiro}: falta o campo "${campo}" no frontmatter.`);
-    }
+  const resultado = esquemaFrontmatter.safeParse(data);
+  if (!resultado.success) {
+    const problemas = resultado.error.issues
+      .map((i) => `  - ${i.path.join(".") || "(raiz)"}: ${i.message}`)
+      .join("\n");
+    throw new Error(`content/artigos/${ficheiro} — frontmatter invalido:\n${problemas}`);
   }
+
+  const fm = resultado.data;
+  const palavras = content.trim().split(/\s+/).length;
 
   return {
     slug,
-    titulo: data.titulo,
-    descricao: data.descricao,
-    resposta: data.resposta,
-    pilar: data.pilar,
-    data: String(data.data),
-    imagem: data.imagem ?? undefined,
-    imagemAlt: data.imagemAlt ?? undefined,
+    ...fm,
     imagemLocal: imagensLocais[slug]?.ficheiro,
     imagemLargura: imagensLocais[slug]?.largura,
     imagemAltura: imagensLocais[slug]?.altura,
-    atualizado: data.atualizado ? String(data.atualizado) : undefined,
-    destaque: Boolean(data.destaque),
-    passos: data.passos ?? undefined,
-    faq: data.faq ?? undefined,
-    fontes: data.fontes ?? undefined,
-    relacionados: data.relacionados ?? undefined,
     palavras,
-    // 200 palavras/minuto, arredondado para cima, minimo de 1.
+    // 200 palavras/minuto, arredondado, minimo de 1.
     minutos: Math.max(1, Math.round(palavras / 200)),
     corpo: content,
   };
 }
 
+/**
+ * Segunda passagem: so' se pode verificar depois de todos os artigos estarem
+ * lidos. Um `relacionados` a apontar para um slug que nao existe daria uma
+ * ligacao para 404 — e' preferivel partir o build.
+ */
+function validarReferencias(artigos: Artigo[]): void {
+  const existentes = new Set(artigos.map((a) => a.slug));
+  const erros: string[] = [];
+
+  for (const a of artigos) {
+    for (const alvo of a.relacionados ?? []) {
+      if (alvo === a.slug) {
+        erros.push(`content/artigos/${a.slug}.mdx — relacionados: aponta para si proprio`);
+      } else if (!existentes.has(alvo)) {
+        erros.push(
+          `content/artigos/${a.slug}.mdx — relacionados: "${alvo}" nao corresponde a nenhum artigo`,
+        );
+      }
+    }
+  }
+
+  const destaques = artigos.filter((a) => a.destaque).map((a) => a.slug);
+  if (destaques.length > 1) {
+    erros.push(`destaque: so' pode haver um, e estao marcados ${destaques.length}: ${destaques.join(", ")}`);
+  }
+
+  if (erros.length) throw new Error(`Referencias invalidas:\n${erros.map((e) => `  - ${e}`).join("\n")}`);
+}
+
+// Em producao le-se e valida-se uma vez. Em desenvolvimento nao se guarda em
+// cache, para que editar um .mdx apareca no ecra sem reiniciar o servidor.
+const emProducao = process.env.NODE_ENV === "production";
+let cache: Artigo[] | null = null;
+
 export function todosOsArtigos(): Artigo[] {
-  return ficheiros()
+  if (emProducao && cache) return cache;
+
+  const artigos = ficheiros()
     .map(ler)
     .sort((a, b) => (a.data < b.data ? 1 : -1));
+
+  validarReferencias(artigos);
+
+  if (emProducao) cache = artigos;
+  return artigos;
 }
 
 export function artigoPorSlug(slug: string): Artigo | undefined {
