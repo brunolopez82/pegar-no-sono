@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Revelar from "./Revelar";
+import ImagemArtigo from "./ImagemArtigo";
 import { pilares } from "@/lib/site";
 import { dataExtenso, type MetaArtigo } from "@/lib/artigos";
 
@@ -28,11 +29,11 @@ export default function CartaoArtigo({
           href={`/artigos/${artigo.slug}/`}
           className="group relative flex h-full min-h-[360px] flex-col justify-end overflow-hidden"
         >
-          <img
-            src={artigo.imagem}
-            alt={artigo.imagemAlt ?? ""}
-            loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          <ImagemArtigo
+            artigo={artigo}
+            preencher
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
           <div className="relative p-8 lg:p-10">

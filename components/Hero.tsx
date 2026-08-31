@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Revelar from "./Revelar";
 import FormularioSubscricao from "./FormularioSubscricao";
+import ImagemArtigo from "./ImagemArtigo";
 import type { MetaArtigo } from "@/lib/artigos";
 import { pilares } from "@/lib/site";
 
@@ -53,11 +54,12 @@ export default function Hero({ destaque }: { destaque?: MetaArtigo }) {
               href={`/artigos/${destaque.slug}/`}
               className="group relative block min-h-[280px] flex-1 overflow-hidden"
             >
-              <img
-                src={destaque.imagem}
-                alt={destaque.imagemAlt ?? ""}
-                loading="eager"
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              <ImagemArtigo
+                artigo={destaque}
+                preencher
+                prioridade
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-8 lg:p-10">

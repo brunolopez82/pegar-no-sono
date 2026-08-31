@@ -9,6 +9,7 @@ import Subscrever from "@/components/Subscrever";
 import Footer from "@/components/Footer";
 import DadosEstruturados from "@/components/DadosEstruturados";
 import { AvatarAutor } from "@/components/SobreAutor";
+import ImagemArtigo from "@/components/ImagemArtigo";
 import { todosOsArtigos, artigoPorSlug, relacionados, dataExtenso } from "@/lib/artigos";
 import { site, pilares, ogPadrao } from "@/lib/site";
 
@@ -24,6 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const a = artigoPorSlug(slug);
   if (!a) return {};
 
+  // Preferir a copia local: nao depende do Unsplash continuar a servir a foto.
+  const capa = a.imagemLocal ?? a.imagem;
+
   return {
     title: a.titulo,
     description: a.descricao,
@@ -37,11 +41,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       modifiedTime: a.atualizado ?? a.data,
       authors: [site.autor.nome],
       url: `${site.dominio}/artigos/${slug}/`,
-      images: a.imagem ? [{ url: a.imagem, alt: a.imagemAlt ?? a.titulo }] : [ogPadrao],
+      images: capa ? [{ url: capa, alt: a.imagemAlt ?? a.titulo }] : [ogPadrao],
     },
     twitter: {
       card: "summary_large_image",
-      images: [a.imagem ?? ogPadrao.url],
+      images: [capa ?? ogPadrao.url],
     },
   };
 }
@@ -73,7 +77,7 @@ export default async function Pagina({ params }: Props) {
       publisher: { "@id": `${site.dominio}/#autor` },
       mainEntityOfPage: url,
       isPartOf: { "@type": "WebSite", name: site.nome, url: site.dominio },
-      ...(a.imagem ? { image: a.imagem } : {}),
+      ...(a.imagemLocal ?? a.imagem ? { image: a.imagemLocal ?? a.imagem } : {}),
       ...(a.fontes?.length ? { citation: a.fontes.map((f) => f.titulo) } : {}),
     },
     {
@@ -145,9 +149,10 @@ export default async function Pagina({ params }: Props) {
           {/* Capa */}
           {a.imagem ? (
             <div className="relative overflow-hidden rounded-t-[14px]">
-              <img
-                src={a.imagem}
-                alt={a.imagemAlt ?? ""}
+              <ImagemArtigo
+                artigo={a}
+                prioridade
+                sizes="(max-width: 860px) 100vw, 860px"
                 className="h-[50vh] w-full object-cover lg:h-[62vh]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />

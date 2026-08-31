@@ -4,6 +4,18 @@ import matter from "gray-matter";
 import type { PilarSlug } from "./site";
 
 const PASTA = path.join(process.cwd(), "content", "artigos");
+const MANIFESTO_IMAGENS = path.join(process.cwd(), "content", "imagens.json");
+
+type EntradaImagem = { ficheiro: string; largura: number; altura: number; origem: string };
+
+/**
+ * Capas ja descarregadas para public/, escritas por scripts/descarregar-imagens.ts.
+ * Ter as dimensoes reais aqui e' o que permite usar next/image sem salto de layout.
+ * Se o ficheiro nao existir, o site continua a funcionar com os URLs remotos.
+ */
+const imagensLocais: Record<string, EntradaImagem> = fs.existsSync(MANIFESTO_IMAGENS)
+  ? JSON.parse(fs.readFileSync(MANIFESTO_IMAGENS, "utf8"))
+  : {};
 
 export type Passo = { nome: string; texto: string };
 export type Pergunta = { pergunta: string; resposta: string };
@@ -20,6 +32,10 @@ export type MetaArtigo = {
   /** Imagem de capa: usada no tile da listagem e no topo do artigo. */
   imagem?: string;
   imagemAlt?: string;
+  /** Caminho local da capa, quando ja foi descarregada. Preferir sempre a este. */
+  imagemLocal?: string;
+  imagemLargura?: number;
+  imagemAltura?: number;
   atualizado?: string;
   destaque?: boolean;
   passos?: Passo[];
@@ -61,6 +77,9 @@ function ler(ficheiro: string): Artigo {
     data: String(data.data),
     imagem: data.imagem ?? undefined,
     imagemAlt: data.imagemAlt ?? undefined,
+    imagemLocal: imagensLocais[slug]?.ficheiro,
+    imagemLargura: imagensLocais[slug]?.largura,
+    imagemAltura: imagensLocais[slug]?.altura,
     atualizado: data.atualizado ? String(data.atualizado) : undefined,
     destaque: Boolean(data.destaque),
     passos: data.passos ?? undefined,
