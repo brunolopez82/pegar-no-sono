@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 import CartaoArtigo from "@/components/CartaoArtigo";
+import Revelar from "@/components/Revelar";
 import Subscrever from "@/components/Subscrever";
+import Footer from "@/components/Footer";
 import { todosOsArtigos } from "@/lib/artigos";
-import { pilares, ordemPilares, site } from "@/lib/site";
+import { pilares, ordemPilares } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Todos os artigos",
@@ -18,53 +21,72 @@ export default function Pagina() {
 
   return (
     <>
-      <section className="envolve py-16 sm:py-20">
-        <p className="etiqueta">Arquivo</p>
-        <h1 className="mt-5 max-w-2xl font-serif text-[36px] font-semibold leading-tight sm:text-[48px]">
-          Todos os artigos
-        </h1>
-        <p className="mt-4 max-w-xl text-[16.5px] leading-relaxed text-texto-suave">
-          {artigos.length === 1 ? "1 artigo" : `${artigos.length} artigos`}, agrupados por tema.
-          Dentro de cada tema, a ordem de leitura é de cima para baixo.
-        </p>
+      <Navbar />
 
-        <div className="mt-8 flex flex-wrap gap-2">
-          {comArtigos.map((p) => (
-            <a
-              key={p}
-              href={`#${p}`}
-              className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-[13.5px] text-texto-suave transition hover:border-ambar-400/40 hover:text-ambar-300"
-            >
-              {pilares[p].nome}
-            </a>
-          ))}
-        </div>
+      <main id="conteudo" className="pagina">
+        <div className="bento">
+          <div className="tile rounded-t-[14px] p-8 lg:p-14">
+            <Revelar>
+              <span className="etiqueta">Arquivo</span>
+              <h1 className="font-display text-5xl font-black leading-[0.95] tracking-tighter text-foreground lg:text-7xl">
+                Todos os artigos
+              </h1>
+              <p className="mt-6 max-w-lg text-base text-muted-foreground lg:text-lg">
+                {artigos.length === 1 ? "1 artigo" : `${artigos.length} artigos`}, agrupados por
+                tema. Dentro de cada tema, a ordem de leitura é de cima para baixo.
+              </p>
 
-        <div className="mt-14 space-y-16">
-          {comArtigos.map((p) => (
-            <div key={p} id={p} className="scroll-mt-24">
-              <div className="mb-6 flex flex-wrap items-baseline justify-between gap-3 border-b border-white/8 pb-4">
-                <h2 className="font-serif text-[26px] font-semibold">{pilares[p].nome}</h2>
-                <Link
-                  href={`/temas/${p}/`}
-                  className="text-[14px] text-texto-fraco transition hover:text-ambar-300"
+              <div className="mt-8 flex flex-wrap gap-2">
+                {comArtigos.map((p) => (
+                  <Link
+                    key={p}
+                    href={`/temas/${p}/`}
+                    className="rounded-full border border-black/10 px-4 py-1.5 text-sm text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
+                  >
+                    {pilares[p].nome}
+                  </Link>
+                ))}
+              </div>
+            </Revelar>
+          </div>
+
+          {comArtigos.map((p) => {
+            const doPilar = artigos.filter((a) => a.pilar === p);
+            return (
+              <div key={p} className="flex flex-col gap-[2px]">
+                <div
+                  className="flex flex-wrap items-baseline justify-between gap-3 px-8 py-6 lg:px-14"
+                  style={{ background: pilares[p].gradiente }}
                 >
-                  Ver o tema completo →
-                </Link>
-              </div>
-              <div className="grid gap-4 md:grid-cols-2">
-                {artigos
-                  .filter((a) => a.pilar === p)
-                  .map((a) => (
-                    <CartaoArtigo key={a.slug} artigo={a} />
-                  ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+                  <h2 className="font-display text-2xl font-black tracking-tight text-foreground lg:text-3xl">
+                    {pilares[p].nome}
+                  </h2>
+                  <Link
+                    href={`/temas/${p}/`}
+                    className="text-sm font-semibold text-foreground/60 transition-colors hover:text-foreground"
+                  >
+                    Ver o tema completo →
+                  </Link>
+                </div>
 
-      <Subscrever />
+                <div className="grid grid-cols-1 gap-[2px] md:grid-cols-2 lg:grid-cols-3">
+                  {doPilar.map((a, i) => (
+                    <CartaoArtigo
+                      key={a.slug}
+                      artigo={a}
+                      variante={i % 3 === 1 ? "imagem" : "liso"}
+                      atraso={i * 0.06}
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+
+          <Subscrever />
+          <Footer />
+        </div>
+      </main>
     </>
   );
 }

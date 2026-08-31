@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -11,13 +13,16 @@ export const metadata: Metadata = {
 
 export default function Pagina() {
   return (
-    <section className="envolve py-16 sm:py-20">
-      <div className="mx-auto max-w-leitura">
-        <h1 className="font-serif text-[34px] font-semibold leading-tight sm:text-[42px]">
-          Política de privacidade
-        </h1>
+    <>
+      <Navbar />
+      <main id="conteudo" className="pagina">
+        <div className="bento">
+          <div className="tile rounded-t-[14px] px-6 py-12 lg:px-14 lg:py-16">
+            <h1 className="mb-10 font-display text-4xl font-black leading-[0.95] tracking-tighter text-foreground lg:text-5xl">
+              Política de privacidade
+            </h1>
 
-        <div className="artigo mt-10">
+            <div className="artigo max-w-none">
           <p>
             Versão curta: este site não tem publicidade, não vende dados e não usa cookies de
             seguimento. A única informação pessoal que pode chegar aqui é o endereço de email, e
@@ -63,8 +68,11 @@ export default function Pagina() {
             Se esta política mudar, a alteração fica descrita nesta página. Responsável pelo
             tratamento dos dados: {site.autor.nome}, {site.autor.email}.
           </p>
+            </div>
+          </div>
+          <Footer />
         </div>
-      </div>
-    </section>
+      </main>
+    </>
   );
 }

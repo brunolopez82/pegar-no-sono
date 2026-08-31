@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 import CartaoArtigo from "@/components/CartaoArtigo";
+import Revelar from "@/components/Revelar";
 import Subscrever from "@/components/Subscrever";
+import Footer from "@/components/Footer";
 import DadosEstruturados from "@/components/DadosEstruturados";
 import { artigosDoPilar } from "@/lib/artigos";
 import { pilares, ordemPilares, site, type PilarSlug } from "@/lib/site";
@@ -55,67 +58,85 @@ export default async function Pagina({ params }: Props) {
 
   return (
     <>
+      <Navbar />
       <DadosEstruturados dados={lista} />
 
-      <section className="envolve py-16 sm:py-20">
-        <nav aria-label="Migalhas" className="text-[13px] text-texto-fraco">
-          <Link href="/" className="transition hover:text-ambar-300">Início</Link>
-          <span className="px-2">/</span>
-          <Link href="/artigos/" className="transition hover:text-ambar-300">Artigos</Link>
-          <span className="px-2">/</span>
-          <span className="text-texto-suave">{dados.nome}</span>
-        </nav>
+      <main id="conteudo" className="pagina">
+        <div className="bento">
+          {/* Cabecalho com o gradiente do tema */}
+          <div
+            className="rounded-t-[14px] p-8 lg:p-14"
+            style={{ background: dados.gradiente }}
+          >
+            <Revelar>
+              <nav aria-label="Migalhas" className="mb-6 flex items-center gap-1.5 text-sm text-foreground/50">
+                <Link href="/" className="transition-colors hover:text-foreground">Início</Link>
+                <span>/</span>
+                <Link href="/artigos/" className="transition-colors hover:text-foreground">Artigos</Link>
+                <span>/</span>
+                <span className="font-medium text-foreground">{dados.nome}</span>
+              </nav>
 
-        <h1 className="mt-6 max-w-3xl font-serif text-[36px] font-semibold leading-tight sm:text-[50px]">
-          {dados.titulo}
-        </h1>
-        <p className="mt-5 max-w-2xl font-serif text-[20px] leading-relaxed text-texto-suave sm:text-[23px]">
-          {dados.resumo}
-        </p>
-        <p className="mt-4 max-w-2xl text-[16px] leading-relaxed text-texto-fraco">
-          {dados.descricao}
-        </p>
+              <h1 className="max-w-3xl font-display text-4xl font-black leading-[0.95] tracking-tighter text-foreground lg:text-6xl">
+                {dados.titulo}
+              </h1>
+              <p className="mt-6 max-w-2xl font-display text-lg font-bold leading-snug text-foreground/70 lg:text-2xl">
+                {dados.resumo}
+              </p>
+              <p className="mt-4 max-w-2xl text-sm text-foreground/50 lg:text-base">
+                {dados.descricao}
+              </p>
+            </Revelar>
+          </div>
 
-        <div className="mt-12">
           {artigos.length > 0 ? (
-            <div className="grid gap-4 md:grid-cols-2">
-              {artigos.map((a) => (
-                <CartaoArtigo key={a.slug} artigo={a} />
+            <div className="grid grid-cols-1 gap-[2px] md:grid-cols-2 lg:grid-cols-3">
+              {artigos.map((a, i) => (
+                <CartaoArtigo
+                  key={a.slug}
+                  artigo={a}
+                  variante={i % 2 === 0 ? "imagem" : "liso"}
+                  atraso={i * 0.06}
+                />
               ))}
             </div>
           ) : (
-            <div className="rounded-2xl border border-dashed border-white/12 p-8 text-center">
-              <p className="font-serif text-[19px]">Este tema ainda está por escrever.</p>
-              <p className="mx-auto mt-2 max-w-md text-[15px] leading-relaxed text-texto-suave">
+            <div className="tile p-12 text-center lg:p-20">
+              <p className="font-display text-2xl font-black tracking-tight lg:text-3xl">
+                Este tema ainda está por escrever.
+              </p>
+              <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted-foreground lg:text-base">
                 Um tema só é publicado quando está completo — artigos soltos espalhados por seis
                 temas não servem a ninguém.
               </p>
-              <Link href="/#newsletter" className="botao-secundario mt-6">
+              <Link href="/#subscrever" className="botao-gradiente mt-8">
                 Avisar-me quando sair
               </Link>
             </div>
           )}
-        </div>
 
-        <div className="mt-16 border-t border-white/8 pt-8">
-          <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-texto-fraco">
-            Outros temas
-          </p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {outros.map((p) => (
-              <Link
-                key={p}
-                href={`/temas/${p}/`}
-                className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-[13.5px] text-texto-suave transition hover:border-ambar-400/40 hover:text-ambar-300"
-              >
-                {pilares[p].nome}
-              </Link>
-            ))}
+          <div className="tile p-8 lg:p-12">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-foreground/40">
+              Outros temas
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {outros.map((p) => (
+                <Link
+                  key={p}
+                  href={`/temas/${p}/`}
+                  className="rounded-full px-4 py-1.5 text-sm font-medium text-foreground/70 transition-opacity hover:opacity-80"
+                  style={{ background: pilares[p].gradiente }}
+                >
+                  {pilares[p].nome}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
 
-      <Subscrever />
+          <Subscrever />
+          <Footer />
+        </div>
+      </main>
     </>
   );
 }

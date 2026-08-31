@@ -1,51 +1,82 @@
 import Link from "next/link";
+import Revelar from "./Revelar";
 import FormularioSubscricao from "./FormularioSubscricao";
+import type { MetaArtigo } from "@/lib/artigos";
+import { pilares } from "@/lib/site";
 
-export default function Hero() {
+export default function Hero({ destaque }: { destaque?: MetaArtigo }) {
   return (
-    <section className="relative overflow-hidden">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-40 left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-ambar-400/10 blur-[110px] animate-respirar"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ambar-400/30 to-transparent"
-      />
-
-      <div className="envolve relative py-20 sm:py-28">
-        <div className="mx-auto max-w-3xl text-center animate-subir">
-          <p className="etiqueta">Técnicas, não substâncias</p>
-
-          <h1 className="mt-6 font-serif text-[38px] font-semibold leading-[1.1] tracking-tight sm:text-[58px]">
-            Deitou-se cansado.
-            <br />
-            <span className="text-ambar-300">A cabeça é que não se deitou.</span>
-          </h1>
-
-          <p className="mx-auto mt-6 max-w-xl text-[17.5px] leading-relaxed text-texto-suave">
-            Métodos naturais para adormecer mais depressa e voltar a adormecer a meio da noite:
-            respiração, rotinas, luz, temperatura e horários. Sem suplementos, sem promessas e em
-            português de Portugal.
-          </p>
-
-          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link href="/temas/respiracao/" className="botao-primario w-full sm:w-auto">
-              Começar pela respiração
-            </Link>
-            <Link href="/artigos/" className="botao-secundario w-full sm:w-auto">
-              Ver todos os artigos
-            </Link>
-          </div>
-
-          <div className="mx-auto mt-14 max-w-md">
-            <p className="mb-3 text-[13px] uppercase tracking-[0.14em] text-texto-fraco">
-              Ou receba uma técnica por semana
+    <div className="flex flex-col gap-[2px]">
+      <div className="grid grid-cols-1 gap-[2px] lg:grid-cols-2">
+        {/* Titulo */}
+        <div className="tile flex min-h-[420px] flex-col justify-center rounded-tl-[14px] p-8 lg:min-h-[540px] lg:p-14">
+          <Revelar>
+            <h1 className="font-display text-5xl font-black leading-[0.95] tracking-tighter text-foreground lg:text-7xl">
+              Aprenda a adormecer outra vez
+            </h1>
+          </Revelar>
+          <Revelar atraso={0.12}>
+            <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground lg:text-lg">
+              Métodos naturais para quem se deita com a cabeça acelerada. Respiração, rotinas e
+              ambiente — explicados com as fontes à vista, em português de Portugal. Sem
+              suplementos e sem promessas.
             </p>
-            <FormularioSubscricao compacto />
-          </div>
+          </Revelar>
+        </div>
+
+        <div className="flex flex-col gap-[2px]">
+          {/* Estatistica com fonte. Nao ha numeros sem fonte neste site. */}
+          <Revelar
+            atraso={0.08}
+            className="tile flex flex-1 flex-col justify-end rounded-tr-[14px] p-8 lg:p-10"
+          >
+            <p className="font-display text-xl font-black leading-snug text-foreground lg:text-2xl">
+              Portugal é o país da OCDE onde se consomem mais ansiolíticos, hipnóticos e
+              sedativos. Escreve-se muito sobre o que tomar. Quase nada sobre o que fazer.
+            </p>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Fonte:{" "}
+              <a
+                href="https://www.infarmed.pt/documents/15786/17838/Estudo-BZD.pdf/b8951315-1c12-43b0-a1bc-53246c2b8482"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-black/20 underline-offset-4 hover:text-foreground"
+              >
+                INFARMED
+              </a>
+            </p>
+          </Revelar>
+
+          {/* Artigo em destaque, com imagem */}
+          {destaque?.imagem && (
+            <Link
+              href={`/artigos/${destaque.slug}/`}
+              className="group relative block min-h-[280px] flex-1 overflow-hidden"
+            >
+              <img
+                src={destaque.imagem}
+                alt={destaque.imagemAlt ?? ""}
+                loading="eager"
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-8 lg:p-10">
+                <span className="mb-3 block text-xs font-semibold uppercase tracking-widest text-white/60">
+                  {pilares[destaque.pilar].nome} · {destaque.minutos} min
+                </span>
+                <p className="font-display text-xl font-black leading-snug text-white lg:text-2xl">
+                  {destaque.titulo}
+                </p>
+              </div>
+            </Link>
+          )}
         </div>
       </div>
-    </section>
+
+      {/* Barra de subscricao */}
+      <div className="tile p-4 lg:p-5">
+        <FormularioSubscricao etiqueta="Receba uma técnica por semana" />
+      </div>
+    </div>
   );
 }

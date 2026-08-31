@@ -26,6 +26,23 @@ Por isso tudo aqui é gerado no build:
 - Cada artigo abre com uma **resposta direta em ~40 palavras** — o bloco que um motor de IA
   consegue citar inteiro.
 
+## Desenho
+
+Herda a identidade visual do template de newsletter, portada para Next.js:
+
+- **Bento grid.** Um contentor preto com `padding: 2px` e `gap: 2px` deixa passar fios
+  pretos entre os tiles. Classes `.bento` e `.tile` em `globals.css`.
+- **Paleta clara.** Fundo `#F3F3F5`, tiles off-white quente, texto preto, sem modo escuro.
+- **Montserrat** nos títulos (`font-black`, `tracking-tighter`, `leading-[0.95]`),
+  **Inter** no corpo.
+- **Gradiente da marca** `--grad-cta` (pêssego para rosa) nos botões, na caixa da resposta
+  curta e na citação em destaque. Cada pilar tem o seu gradiente, definido em `lib/site.ts`.
+- **Imagens** com sobreposição preta em gradiente e texto branco por cima — no topo do
+  artigo, no tile em destaque e nos cartões da listagem.
+- **Movimento** por `components/Revelar.tsx`: IntersectionObserver + CSS, cerca de 1 kB,
+  em vez de importar uma biblioteca de animação de 50 kB. Sem JavaScript, o conteúdo
+  aparece na mesma (`noscript` no layout).
+
 ## Estrutura
 
 ```
@@ -36,7 +53,7 @@ app/
   temas/[pilar]/page.tsx   pagina de cluster, uma por pilar
   sobre/  privacidade/     entidade do autor e RGPD
   sitemap.ts  robots.ts    gerados no build
-components/                Navbar, Footer, Hero, cartoes, formulario
+components/                Navbar, Footer, Hero, tiles, formulario, Revelar
 content/artigos/*.mdx      >>> o conteudo. E' so' isto que se toca para publicar
 lib/site.ts                nome, dominio, autor, os seis pilares
 lib/artigos.ts             leitura do MDX, tempo de leitura, relacionados
@@ -70,6 +87,13 @@ visitante.
 
 Não há contadores de subscritores nem prova social em lado nenhum deste site, e não devem
 ser acrescentados.
+
+## Foto do autor
+
+Ponha um ficheiro em `public/autor.jpg` e ele entra sozinho na página inicial, na barra de
+cada artigo e na página Sobre. Enquanto não existir, é desenhado um monograma com as
+iniciais — nunca uma fotografia de outra pessoa. Conteúdo de saúde assinado com o retrato
+de um desconhecido é o oposto do que torna um site citável.
 
 ## Linha editorial
 

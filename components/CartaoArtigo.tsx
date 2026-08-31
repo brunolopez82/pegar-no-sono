@@ -1,53 +1,85 @@
 import Link from "next/link";
+import Revelar from "./Revelar";
 import { pilares } from "@/lib/site";
 import { dataExtenso, type MetaArtigo } from "@/lib/artigos";
 
+/**
+ * Tile de artigo no bento.
+ * - "imagem": foto de capa com sobreposicao escura e texto branco
+ * - "gradiente": gradiente do pilar
+ * - "liso": bg-card
+ */
 export default function CartaoArtigo({
   artigo,
-  grande = false,
+  variante = "gradiente",
+  atraso = 0,
 }: {
   artigo: MetaArtigo;
-  grande?: boolean;
+  variante?: "imagem" | "gradiente" | "liso";
+  atraso?: number;
 }) {
-  return (
-    <article className={`cartao group flex flex-col ${grande ? "p-7 sm:p-9" : "p-6"}`}>
-      <div className="flex items-center gap-3 text-[12px] text-texto-fraco">
-        <Link
-          href={`/temas/${artigo.pilar}/`}
-          className="rounded-full border border-ambar-400/25 bg-ambar-400/8 px-2.5 py-0.5 font-medium text-ambar-300 transition hover:bg-ambar-400/15"
-        >
-          {pilares[artigo.pilar].nome}
-        </Link>
-        <span>{artigo.minutos} min de leitura</span>
-      </div>
+  const pilar = pilares[artigo.pilar];
+  const comImagem = variante === "imagem" && Boolean(artigo.imagem);
 
-      <h3
-        className={`mt-4 font-serif font-semibold leading-snug ${
-          grande ? "text-[28px] sm:text-[34px]" : "text-[21px]"
-        }`}
-      >
-        <Link href={`/artigos/${artigo.slug}/`} className="transition group-hover:text-ambar-300">
-          {artigo.titulo}
-        </Link>
-      </h3>
-
-      <p
-        className={`mt-3 flex-1 leading-relaxed text-texto-suave ${
-          grande ? "text-[16.5px]" : "text-[15px]"
-        }`}
-      >
-        {grande ? artigo.resposta : artigo.descricao}
-      </p>
-
-      <div className="mt-6 flex items-center justify-between border-t border-white/8 pt-4 text-[13px] text-texto-fraco">
-        <time dateTime={artigo.data}>{dataExtenso(artigo.data)}</time>
+  if (comImagem) {
+    return (
+      <Revelar atraso={atraso} className="h-full">
         <Link
           href={`/artigos/${artigo.slug}/`}
-          className="font-medium text-texto-suave transition group-hover:text-ambar-300"
+          className="group relative flex h-full min-h-[360px] flex-col justify-end overflow-hidden"
         >
-          Ler →
+          <img
+            src={artigo.imagem}
+            alt={artigo.imagemAlt ?? ""}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
+          <div className="relative p-8 lg:p-10">
+            <span className="mb-4 inline-block text-xs font-semibold uppercase tracking-widest text-white/60">
+              {pilar.nome}
+            </span>
+            <h3 className="mb-3 font-display text-xl font-black leading-tight text-white lg:text-2xl">
+              {artigo.titulo}
+            </h3>
+            <p className="mb-6 text-sm leading-relaxed text-white/70">{artigo.descricao}</p>
+            <div className="flex items-center justify-between border-t border-white/20 pt-5">
+              <span className="text-xs text-white/50">{artigo.minutos} min de leitura</span>
+              <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-white transition-all duration-200 group-hover:gap-2.5">
+                Ler <span aria-hidden="true">→</span>
+              </span>
+            </div>
+          </div>
         </Link>
-      </div>
-    </article>
+      </Revelar>
+    );
+  }
+
+  return (
+    <Revelar atraso={atraso} className="h-full">
+      <Link
+        href={`/artigos/${artigo.slug}/`}
+        className="group flex h-full min-h-[360px] flex-col justify-end p-8 lg:p-10"
+        style={
+          variante === "gradiente"
+            ? { background: pilar.gradiente }
+            : { background: "hsl(var(--card))" }
+        }
+      >
+        <span className="etiqueta">{pilar.nome}</span>
+        <h3 className="mb-3 font-display text-xl font-black leading-tight text-foreground lg:text-2xl">
+          {artigo.titulo}
+        </h3>
+        <p className="mb-6 text-sm leading-relaxed text-foreground/60">{artigo.descricao}</p>
+        <div className="flex items-center justify-between border-t border-black/10 pt-5">
+          <span className="text-xs text-foreground/40">
+            <time dateTime={artigo.data}>{dataExtenso(artigo.data)}</time> · {artigo.minutos} min
+          </span>
+          <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground transition-all duration-200 group-hover:gap-2.5">
+            Ler <span aria-hidden="true">→</span>
+          </span>
+        </div>
+      </Link>
+    </Revelar>
   );
 }

@@ -30,6 +30,8 @@ o artigo pedir.
 | `resposta` | sim | resposta direta em ~40 palavras, na caixa do topo |
 | `pilar` | sim | um de: `respiracao`, `rotina`, `ambiente`, `ansiedade`, `ritmo-circadiano`, `medir` |
 | `data` | sim | `AAAA-MM-DD` |
+| `imagem` | recomendado | capa do artigo: topo da página, tile na listagem e imagem de partilha |
+| `imagemAlt` | com `imagem` | descrição da foto para leitores de ecrã. Nunca deixar vazio |
 | `atualizado` | não | `AAAA-MM-DD`, quando o artigo for revisto |
 | `destaque` | não | `true` põe o artigo em grande na página inicial. Só um de cada vez |
 | `passos` | não | gera o bloco "Resumo em passos" **e** o schema HowTo |
@@ -50,7 +52,16 @@ título e já está feito.
 Ligações internas com caminho absoluto e barra no fim:
 `[método 4-7-8](/artigos/metodo-4-7-8-para-adormecer/)`.
 
-## 4. Verificar
+## 4. Escolher a imagem
+
+A capa entra em três sítios: no topo do artigo (com o título por cima, a branco), no tile
+da listagem, e na pré-visualização quando o link é partilhado.
+
+Do Unsplash, o formato é `https://images.unsplash.com/photo-ID?w=1800&h=1000&fit=crop&auto=format&q=85`.
+Antes de a usar: abrir o URL e **ver a fotografia**. Sem imagem, o artigo continua a
+funcionar — usa o gradiente do tema no lugar da foto.
+
+## 5. Verificar
 
 ```bash
 npm run build
@@ -77,7 +88,9 @@ Isto não é estilo. É o que separa este site do resto do que existe em portugu
 6. **Português de Portugal.** Sempre. Preços em euros, realidade portuguesa, SNS, Linha SNS 24.
 7. **Resposta primeiro.** O campo `resposta` responde à pergunta por completo em ~40
    palavras. É esse bloco que um motor de IA cita.
-8. **Fechar clusters.** Acabar um pilar antes de começar outro. Artigos soltos por seis
+8. **Imagens só depois de vistas.** Nunca colar um URL de imagem sem abrir a imagem
+   primeiro. Uma capa errada num artigo sobre sono estraga a página inteira.
+9. **Fechar clusters.** Acabar um pilar antes de começar outro. Artigos soltos por seis
    temas não ranqueiam para nada.
 
 ---
@@ -91,6 +104,8 @@ descricao: "Uma ou duas frases. Aparece no Google e no cartão da listagem."
 resposta: "A resposta completa em cerca de 40 palavras, sem rodeios e sem introdução."
 pilar: "respiracao"
 data: "2026-09-05"
+imagem: "https://images.unsplash.com/photo-XXXX?w=1800&h=1000&fit=crop&auto=format&q=85"
+imagemAlt: "O que se ve na foto, numa frase"
 relacionados:
   - "slug-de-outro-artigo"
 passos:

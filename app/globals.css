@@ -4,7 +4,23 @@
 
 @layer base {
   :root {
-    color-scheme: dark;
+    --background: 240 4% 96%;      /* #F3F3F5 */
+    --foreground: 0 0% 0%;
+    --card: 30 10% 97%;            /* off-white quente */
+    --muted: 240 4% 93%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 15 80% 88%;          /* pessego suave */
+    --border: 240 4% 90%;
+    --radius: 1rem;
+
+    /* Gradientes da marca. Um sitio so' a definir, usados em tiles e CTAs. */
+    --grad-cta: linear-gradient(135deg, #F5C6B0, #F4A5A0, #E8A0BF);
+    --grad-roxo: linear-gradient(160deg, #E8E0F8 0%, #D0C8F5 40%, #C0B8F0 100%);
+    --grad-verde: linear-gradient(160deg, #D8F0E0 0%, #C0E8D0 40%, #A8E0C4 100%);
+    --grad-pessego: linear-gradient(160deg, #F8E8E0 0%, #F5D5C8 40%, #F0C4B8 100%);
+    --grad-azul: linear-gradient(160deg, #E0EDF8 0%, #C8DEF5 40%, #B8D2F0 100%);
+    --grad-rosa: linear-gradient(160deg, #FBE4EE 0%, #F5CBDF 40%, #E8A0BF 100%);
+    --grad-areia: linear-gradient(160deg, #F6F0E6 0%, #EDE2CE 40%, #E2D2B4 100%);
   }
 
   html {
@@ -13,15 +29,26 @@
   }
 
   body {
-    @apply bg-noite-800 text-texto font-sans antialiased;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+    overflow-wrap: break-word;
   }
 
   ::selection {
-    @apply bg-ambar-400/25 text-texto;
+    background: #F4A5A0;
+    @apply text-foreground;
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-ambar-400/70 ring-offset-2 ring-offset-noite-800 rounded-sm;
+    @apply outline-none ring-2 ring-foreground/20 ring-offset-2 ring-offset-background;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -35,51 +62,127 @@
 }
 
 @layer components {
-  .envolve {
-    @apply mx-auto w-full max-w-conteudo px-5 sm:px-8;
+  /* Bento: contentor preto de 2px que deixa passar os fios entre tiles. */
+  .bento {
+    @apply flex flex-col gap-[2px] overflow-hidden rounded-2xl bg-black p-[2px];
+  }
+
+  .tile {
+    @apply bg-card;
+  }
+
+  .pagina {
+    @apply mx-auto px-5 pb-5 lg:px-10 lg:pb-10;
+  }
+
+  .botao-gradiente {
+    background: var(--grad-cta);
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-7 py-3.5
+           text-sm font-semibold text-foreground transition-all duration-200
+           hover:opacity-90 active:scale-[0.97] disabled:opacity-70;
+  }
+
+  .botao-preto {
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-foreground
+           px-5 py-2.5 text-sm font-semibold text-background transition-all duration-200
+           hover:opacity-90 active:scale-[0.97];
+  }
+
+  .campo {
+    @apply w-full rounded-full border border-black/10 bg-background/50 px-5 py-3.5 text-sm
+           transition-all placeholder:text-muted-foreground/50
+           focus:border-foreground focus:outline-none focus:ring-2 focus:ring-foreground/10
+           disabled:opacity-50;
   }
 
   .etiqueta {
-    @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04]
-           px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-texto-suave;
+    @apply mb-4 inline-block text-xs font-semibold uppercase tracking-widest text-foreground/50;
   }
 
-  .botao-primario {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-ambar-400 px-6 py-3.5
-           text-[15px] font-semibold text-noite-900 transition
-           hover:bg-ambar-300 active:scale-[0.985];
+  /* Revelacao ao scroll. A classe base esconde; .visivel dispara a animacao. */
+  .revelar {
+    opacity: 0;
   }
 
-  .botao-secundario {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-white/12
-           bg-white/[0.03] px-6 py-3.5 text-[15px] font-medium text-texto transition
-           hover:border-white/25 hover:bg-white/[0.06];
-  }
-
-  .cartao {
-    @apply rounded-2xl border border-white/8 bg-noite-700/60 transition
-           hover:border-white/16 hover:bg-noite-700;
+  .revelar.visivel {
+    @apply animate-fade-up;
   }
 }
 
-/* Corpo do artigo — legibilidade primeiro, decoracao depois. */
+/* Corpo do artigo em MDX. Reproduz a tipografia do template sem plugin externo. */
 .artigo {
-  @apply prose prose-invert max-w-none
-         prose-p:text-[17px] prose-p:leading-[1.78] prose-p:text-texto-suave
-         prose-headings:font-serif prose-headings:text-texto prose-headings:font-semibold
-         prose-h2:mt-14 prose-h2:mb-5 prose-h2:text-[27px] prose-h2:leading-snug
-         prose-h3:mt-10 prose-h3:mb-3 prose-h3:text-[20px]
-         prose-li:text-[17px] prose-li:leading-[1.75] prose-li:text-texto-suave
-         prose-strong:text-texto prose-strong:font-semibold
-         prose-a:text-ambar-300 prose-a:underline prose-a:decoration-ambar-400/35
-         prose-a:underline-offset-4 hover:prose-a:decoration-ambar-300
-         prose-blockquote:border-l-2 prose-blockquote:border-ambar-400/60
-         prose-blockquote:bg-white/[0.03] prose-blockquote:rounded-r-xl
-         prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:not-italic
-         prose-blockquote:text-texto prose-blockquote:font-serif prose-blockquote:text-[19px]
-         prose-hr:border-white/10 prose-hr:my-12
-         prose-table:text-[15px] prose-th:text-texto prose-td:text-texto-suave;
+  @apply text-base leading-relaxed text-foreground/70 lg:text-lg;
 }
 
-.artigo ol > li::marker { @apply text-ambar-400 font-semibold; }
-.artigo ul > li::marker { @apply text-ambar-400; }
+.artigo > p {
+  @apply mb-6;
+}
+
+/* Capitular no primeiro paragrafo, como no template. */
+.artigo > p:first-of-type {
+  @apply mb-8 font-display text-lg text-foreground/80 lg:text-xl;
+}
+
+.artigo > p:first-of-type::first-letter {
+  @apply float-left mr-3 mt-1 font-display text-7xl font-black leading-[0.8] text-foreground;
+}
+
+.artigo h2 {
+  @apply mb-6 mt-14 text-3xl font-black tracking-tight text-foreground lg:text-4xl;
+}
+
+.artigo h3 {
+  @apply mb-4 mt-10 text-xl font-black tracking-tight text-foreground lg:text-2xl;
+}
+
+.artigo ul,
+.artigo ol {
+  @apply mb-8 space-y-3 pl-6;
+}
+
+.artigo ul > li {
+  @apply list-disc marker:text-foreground/30;
+}
+
+.artigo ol > li {
+  @apply list-decimal marker:font-black marker:text-foreground/40;
+}
+
+.artigo strong {
+  @apply font-bold text-foreground;
+}
+
+.artigo a {
+  @apply font-medium text-foreground underline decoration-black/25 underline-offset-4
+         transition-colors hover:decoration-black;
+}
+
+.artigo em {
+  @apply italic;
+}
+
+/* Citacao em destaque: sai das margens e usa o gradiente da marca. */
+.artigo blockquote {
+  background: var(--grad-cta);
+  @apply relative -mx-6 my-16 px-8 py-10 lg:-mx-14 lg:px-12 lg:py-12;
+}
+
+.artigo blockquote p {
+  @apply mb-0 font-display text-2xl font-black leading-snug tracking-tight text-foreground lg:text-4xl;
+}
+
+.artigo hr {
+  @apply my-14 border-border;
+}
+
+.artigo table {
+  @apply mb-8 w-full border-collapse text-sm;
+}
+
+.artigo th {
+  @apply border-b border-black/15 py-3 pr-4 text-left font-bold text-foreground;
+}
+
+.artigo td {
+  @apply border-b border-black/10 py-3 pr-4 align-top;
+}

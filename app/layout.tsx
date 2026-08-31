@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, Newsreader } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import DadosEstruturados from "@/components/DadosEstruturados";
 import { site } from "@/lib/site";
 
@@ -12,10 +10,10 @@ const sans = Inter({
   display: "swap",
 });
 
-const serif = Newsreader({
+const display = Montserrat({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-serif",
+  weight: ["700", "800", "900"],
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -75,19 +73,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   ];
 
   return (
-    <html lang="pt-PT" className={`${sans.variable} ${serif.variable}`}>
-      <body className="min-h-screen">
+    <html lang="pt-PT" className={`${sans.variable} ${display.variable}`}>
+      <head>
+        {/* Sem JavaScript, o conteudo tem de aparecer na mesma. */}
+        <noscript>
+          <style>{`.revelar{opacity:1 !important}`}</style>
+        </noscript>
+      </head>
+      <body className="min-h-screen bg-background">
         <DadosEstruturados dados={identidade} />
         <a
           href="#conteudo"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60]
-                     focus:rounded-lg focus:bg-ambar-400 focus:px-4 focus:py-2 focus:text-noite-900"
+                     focus:rounded-full focus:bg-foreground focus:px-4 focus:py-2 focus:text-background"
         >
           Saltar para o conteúdo
         </a>
-        <Navbar />
-        <main id="conteudo">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

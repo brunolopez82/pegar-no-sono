@@ -17,6 +17,9 @@ export type MetaArtigo = {
   resposta: string;
   pilar: PilarSlug;
   data: string;
+  /** Imagem de capa: usada no tile da listagem e no topo do artigo. */
+  imagem?: string;
+  imagemAlt?: string;
   atualizado?: string;
   destaque?: boolean;
   passos?: Passo[];
@@ -56,6 +59,8 @@ function ler(ficheiro: string): Artigo {
     resposta: data.resposta,
     pilar: data.pilar,
     data: String(data.data),
+    imagem: data.imagem ?? undefined,
+    imagemAlt: data.imagemAlt ?? undefined,
     atualizado: data.atualizado ? String(data.atualizado) : undefined,
     destaque: Boolean(data.destaque),
     passos: data.passos ?? undefined,
