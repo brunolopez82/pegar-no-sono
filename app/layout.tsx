@@ -12,7 +12,8 @@ const sans = Inter({
 
 const display = Montserrat({
   subsets: ["latin"],
-  weight: ["700", "800", "900"],
+  // 600 porque font-semibold e usado; 800 saiu porque font-extrabold nao e usado.
+  weight: ["600", "700", "900"],
   variable: "--font-display",
   display: "swap",
 });

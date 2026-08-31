@@ -1,20 +1,38 @@
 {
+  "metodo-4-7-8-para-adormecer": {
+    "ficheiro": "/imagens/artigos/metodo-4-7-8-para-adormecer.jpg",
+    "largura": 1800,
+    "altura": 1000,
+    "origem": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=1800&h=1000&fit=crop&auto=format&q=85",
+    "larguras": [
+      480,
+      768,
+      1200,
+      1800
+    ]
+  },
   "respiracao-em-caixa-box-breathing": {
     "ficheiro": "/imagens/artigos/respiracao-em-caixa-box-breathing.jpg",
     "largura": 1800,
     "altura": 1000,
-    "origem": "https://images.unsplash.com/photo-1507502707541-f369a3b18502?w=1800&h=1000&fit=crop&auto=format&q=85"
+    "origem": "https://images.unsplash.com/photo-1507502707541-f369a3b18502?w=1800&h=1000&fit=crop&auto=format&q=85",
+    "larguras": [
+      480,
+      768,
+      1200,
+      1800
+    ]
   },
   "tecnica-militar-para-adormecer-em-dois-minutos": {
     "ficheiro": "/imagens/artigos/tecnica-militar-para-adormecer-em-dois-minutos.jpg",
     "largura": 1800,
     "altura": 1000,
-    "origem": "https://images.unsplash.com/photo-1531353826977-0941b4779a1c?w=1800&h=1000&fit=crop&auto=format&q=85"
-  },
-  "metodo-4-7-8-para-adormecer": {
-    "ficheiro": "/imagens/artigos/metodo-4-7-8-para-adormecer.jpg",
-    "largura": 1800,
-    "altura": 1000,
-    "origem": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=1800&h=1000&fit=crop&auto=format&q=85"
+    "origem": "https://images.unsplash.com/photo-1531353826977-0941b4779a1c?w=1800&h=1000&fit=crop&auto=format&q=85",
+    "larguras": [
+      480,
+      768,
+      1200,
+      1800
+    ]
   }
 }

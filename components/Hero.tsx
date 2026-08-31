@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Revelar from "./Revelar";
 import FormularioSubscricao from "./FormularioSubscricao";
 import ImagemArtigo from "./ImagemArtigo";
 import type { MetaArtigo } from "@/lib/artigos";
@@ -11,26 +10,22 @@ export default function Hero({ destaque }: { destaque?: MetaArtigo }) {
       <div className="grid grid-cols-1 gap-[2px] lg:grid-cols-2">
         {/* Titulo */}
         <div className="tile flex min-h-[420px] flex-col justify-center rounded-tl-[14px] p-8 lg:min-h-[540px] lg:p-14">
-          <Revelar>
+          {/* Nada aqui usa <Revelar>. Este bloco e' o primeiro ecra: escondê-lo
+              atras de JavaScript atrasava o LCP ate a' hidratacao (4,4 s medidos
+              a 01/09/2026). O movimento fica para o que esta abaixo da dobra. */}
             <h1 className="font-display text-5xl font-black leading-[0.95] tracking-tighter text-foreground lg:text-7xl">
               Aprenda a adormecer outra vez
             </h1>
-          </Revelar>
-          <Revelar atraso={0.12}>
             <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground lg:text-lg">
               Métodos naturais para quem se deita com a cabeça acelerada. Respiração, rotinas e
               ambiente — explicados com as fontes à vista, em português de Portugal. Sem
               suplementos e sem promessas.
             </p>
-          </Revelar>
         </div>
 
         <div className="flex flex-col gap-[2px]">
           {/* Estatistica com fonte. Nao ha numeros sem fonte neste site. */}
-          <Revelar
-            atraso={0.08}
-            className="tile flex flex-1 flex-col justify-end rounded-tr-[14px] p-8 lg:p-10"
-          >
+          <div className="tile flex flex-1 flex-col justify-end rounded-tr-[14px] p-8 lg:p-10">
             <p className="font-display text-xl font-black leading-snug text-foreground lg:text-2xl">
               Portugal é o país da OCDE onde se consomem mais ansiolíticos, hipnóticos e
               sedativos. Escreve-se muito sobre o que tomar. Quase nada sobre o que fazer.
@@ -46,7 +41,7 @@ export default function Hero({ destaque }: { destaque?: MetaArtigo }) {
                 INFARMED
               </a>
             </p>
-          </Revelar>
+          </div>
 
           {/* Artigo em destaque, com imagem */}
           {destaque?.imagem && (
@@ -57,7 +52,6 @@ export default function Hero({ destaque }: { destaque?: MetaArtigo }) {
               <ImagemArtigo
                 artigo={destaque}
                 preencher
-                prioridade
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />

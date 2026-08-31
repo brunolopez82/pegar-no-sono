@@ -7,7 +7,14 @@ import { ordemPilares, type PilarSlug } from "./site";
 const PASTA = path.join(process.cwd(), "content", "artigos");
 const MANIFESTO_IMAGENS = path.join(process.cwd(), "content", "imagens.json");
 
-type EntradaImagem = { ficheiro: string; largura: number; altura: number; origem: string };
+type EntradaImagem = {
+  ficheiro: string;
+  largura: number;
+  altura: number;
+  origem: string;
+  /** Larguras geradas em .jpg e .webp por scripts/descarregar-imagens.ts. */
+  larguras: number[];
+};
 
 /**
  * Capas ja descarregadas para public/, escritas por scripts/descarregar-imagens.ts.
@@ -93,6 +100,8 @@ export type MetaArtigo = {
   imagemLocal?: string;
   imagemLargura?: number;
   imagemAltura?: number;
+  /** Larguras disponiveis para srcset. Vazio quando nao ha copia local. */
+  imagemLarguras?: number[];
   passos?: Passo[];
   faq?: Pergunta[];
   fontes?: Fonte[];
@@ -131,6 +140,7 @@ function ler(ficheiro: string): Artigo {
     imagemLocal: imagensLocais[slug]?.ficheiro,
     imagemLargura: imagensLocais[slug]?.largura,
     imagemAltura: imagensLocais[slug]?.altura,
+    imagemLarguras: imagensLocais[slug]?.larguras,
     palavras,
     // 200 palavras/minuto, arredondado, minimo de 1.
     minutos: Math.max(1, Math.round(palavras / 200)),
