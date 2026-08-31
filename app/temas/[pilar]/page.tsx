@@ -80,7 +80,7 @@ export default async function Pagina({ params }: Props) {
             style={{ background: dados.gradiente }}
           >
             <Revelar>
-              <nav aria-label="Migalhas" className="mb-6 flex items-center gap-1.5 text-sm text-foreground/50">
+              <nav aria-label="Migalhas" className="mb-6 flex items-center gap-1.5 text-sm text-foreground/70">
                 <Link href="/" className="transition-colors hover:text-foreground">Início</Link>
                 <span>/</span>
                 <Link href="/artigos/" className="transition-colors hover:text-foreground">Artigos</Link>
@@ -94,7 +94,7 @@ export default async function Pagina({ params }: Props) {
               <p className="mt-6 max-w-2xl font-display text-lg font-bold leading-snug text-foreground/70 lg:text-2xl">
                 {dados.resumo}
               </p>
-              <p className="mt-4 max-w-2xl text-sm text-foreground/50 lg:text-base">
+              <p className="mt-4 max-w-2xl text-sm text-foreground/70 lg:text-base">
                 {dados.descricao}
               </p>
             </Revelar>
@@ -127,7 +127,7 @@ export default async function Pagina({ params }: Props) {
           )}
 
           <div className="tile p-8 lg:p-12">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-foreground/40">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-foreground/70">
               Outros temas
             </p>
             <div className="flex flex-wrap gap-2">

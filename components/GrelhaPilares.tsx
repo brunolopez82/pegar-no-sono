@@ -30,15 +30,15 @@ export default function GrelhaPilares() {
           const conteudo = (
             <>
               <div className="mb-auto flex items-baseline justify-between">
-                <span className="font-display text-sm font-black text-foreground/30">
+                <span className="font-display text-sm font-black text-foreground/70">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 {vazio ? (
-                  <span className="rounded-full bg-black/10 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-widest text-foreground/50">
+                  <span className="rounded-full bg-black/10 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-widest text-foreground/70">
                     Brevemente
                   </span>
                 ) : (
-                  <span className="text-xs text-foreground/40">
+                  <span className="text-xs text-foreground/70">
                     {total === 1 ? "1 artigo" : `${total} artigos`}
                   </span>
                 )}
@@ -46,7 +46,7 @@ export default function GrelhaPilares() {
               <h3 className="mb-2.5 mt-8 font-display text-xl font-black tracking-tight text-foreground lg:text-2xl">
                 {pilar.nome}
               </h3>
-              <p className="text-sm leading-relaxed text-foreground/60">{pilar.resumo}</p>
+              <p className="text-sm leading-relaxed text-foreground/70">{pilar.resumo}</p>
             </>
           );
 

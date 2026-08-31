@@ -105,13 +105,13 @@ export default function Pagina() {
                   className="flex h-full min-h-[280px] flex-col justify-end p-8 lg:p-10"
                   style={{ background: r.grad }}
                 >
-                  <span className="mb-auto font-display text-sm font-black text-foreground/30">
+                  <span className="mb-auto font-display text-sm font-black text-foreground/70">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h2 className="mb-3 mt-8 font-display text-xl font-black tracking-tight text-foreground lg:text-2xl">
                     {r.titulo}
                   </h2>
-                  <p className="text-sm leading-relaxed text-foreground/60">{r.texto}</p>
+                  <p className="text-sm leading-relaxed text-foreground/70">{r.texto}</p>
                 </div>
               </Revelar>
             ))}

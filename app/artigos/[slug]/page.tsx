@@ -204,7 +204,7 @@ export default async function Pagina({ params }: Props) {
 
           {/* Resposta direta: o bloco que um motor de IA cita inteiro */}
           <div className="p-8 lg:px-14 lg:py-10" style={{ background: "var(--grad-cta)" }}>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-foreground/50">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-foreground/70">
               Resposta curta
             </p>
             <p className="font-display text-xl font-black leading-snug tracking-tight text-foreground lg:text-3xl">
@@ -263,7 +263,7 @@ export default async function Pagina({ params }: Props) {
                       <summary className="flex cursor-pointer list-none items-start justify-between gap-4 font-bold text-foreground">
                         {f.pergunta}
                         <span
-                          className="mt-0.5 shrink-0 text-xl leading-none text-foreground/40 transition-transform group-open:rotate-45"
+                          className="mt-0.5 shrink-0 text-xl leading-none text-foreground/70 transition-transform group-open:rotate-45"
                           aria-hidden="true"
                         >
                           +
@@ -303,7 +303,7 @@ export default async function Pagina({ params }: Props) {
             )}
 
             <aside className="mt-16 rounded-2xl border border-border p-6">
-              <p className="text-xs font-semibold uppercase tracking-widest text-foreground/40">
+              <p className="text-xs font-semibold uppercase tracking-widest text-foreground/70">
                 Aviso
               </p>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">

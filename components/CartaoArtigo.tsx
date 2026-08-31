@@ -71,9 +71,9 @@ export default function CartaoArtigo({
         <h3 className="mb-3 font-display text-xl font-black leading-tight text-foreground lg:text-2xl">
           {artigo.titulo}
         </h3>
-        <p className="mb-6 text-sm leading-relaxed text-foreground/60">{artigo.descricao}</p>
+        <p className="mb-6 text-sm leading-relaxed text-foreground/70">{artigo.descricao}</p>
         <div className="flex items-center justify-between border-t border-black/10 pt-5">
-          <span className="text-xs text-foreground/40">
+          <span className="text-xs text-foreground/70">
             <time dateTime={artigo.data}>{dataExtenso(artigo.data)}</time> · {artigo.minutos} min
           </span>
           <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground transition-all duration-200 group-hover:gap-2.5">

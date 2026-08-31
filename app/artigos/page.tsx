@@ -75,7 +75,7 @@ export default function Pagina() {
                   </h2>
                   <Link
                     href={`/temas/${p}/`}
-                    className="text-sm font-semibold text-foreground/60 transition-colors hover:text-foreground"
+                    className="text-sm font-semibold text-foreground/70 transition-colors hover:text-foreground"
                   >
                     Ver o tema completo →
                   </Link>
