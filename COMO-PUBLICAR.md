@@ -134,10 +134,31 @@ curl -sI https://pegarnosono.com/ | grep -i "x-hcdn-cache-status\|age\|cache-con
 HTML, ou **Disable** na CDN. Para um site estático e pequeno com público português, a CDN
 acrescenta pouco e é a origem deste problema.
 
-O `public/.htaccess` já envia `Cache-Control: public, max-age=0, s-maxage=0,
-must-revalidate` no HTML, que é o pedido explícito para as caches partilhadas não
-guardarem as páginas. Se a CDN da Hostinger respeitar esse cabeçalho, o problema
-desaparece sozinho; se o ignorar, é preciso desligá-la no painel.
+### O `.htaccess` não funciona neste alojamento — verificado
+
+Testado a 31/08/2026 em pedidos que chegaram à origem (`x-hcdn-cache-status: DYNAMIC`,
+sem cache pelo meio). Nenhuma directiva do `public/.htaccess` tem efeito:
+
+| Directiva | Resultado |
+|---|---|
+| `Header always set X-Origem-Htaccess` | o cabeçalho não chega ao cliente |
+| `RewriteRule` de www para o domínio | não redireciona, devolve 200 |
+| `ErrorDocument 404` | 404 genérico, não o do site |
+
+Prova decisiva: `/sobre` redireciona com **308**. O Apache a executar
+`RewriteRule [R=301]` devolveria **301**. O 308 vem da camada de edge da Hostinger.
+
+**Conclusão: o site é servido pela CDN, que trata dos redirecionamentos, ignora o
+`.htaccess` e impõe `s-maxage=31536000` ao HTML.** O ficheiro fica no repositório porque
+volta a ser útil em qualquer alojamento Apache normal, mas aqui é inerte — não percas
+tempo a afiná-lo. A correcção é sempre no painel.
+
+### Consequência: www e domínio podem divergir
+
+A CDN guarda uma cópia por hostname. A 31/08/2026 `pegarnosono.com` servia a versão nova
+e `www.pegarnosono.com` continuava na primeira versão, com ETags diferentes. Como o
+`.htaccess` não pode redirecionar, o www tem de ser tratado no painel da Hostinger — ou
+apontado para o domínio, ou não usado de todo.
 
 ---
 
