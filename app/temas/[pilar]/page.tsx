@@ -20,11 +20,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { pilar } = await params;
   const dados = pilares[pilar as PilarSlug];
   if (!dados) return {};
+
+  // Tema ainda sem artigos: continua acessivel por navegacao interna, mas fora
+  // do indice. Uma pagina vazia indexada e' thin content e arrasta o dominio.
+  const vazio = artigosDoPilar(pilar as PilarSlug).length === 0;
+
   return {
     title: dados.titulo,
     description: dados.descricao,
     alternates: { canonical: `/temas/${pilar}/` },
     openGraph: { title: dados.titulo, description: dados.descricao, type: "website" },
+    ...(vazio ? { robots: { index: false, follow: true } } : {}),
   };
 }
 

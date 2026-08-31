@@ -25,6 +25,45 @@ export default function GrelhaPilares() {
         {ordemPilares.map((slug, i) => {
           const pilar = pilares[slug];
           const total = artigos.filter((a) => a.pilar === slug).length;
+          const vazio = total === 0;
+
+          const conteudo = (
+            <>
+              <div className="mb-auto flex items-baseline justify-between">
+                <span className="font-display text-sm font-black text-foreground/30">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                {vazio ? (
+                  <span className="rounded-full bg-black/10 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-widest text-foreground/50">
+                    Brevemente
+                  </span>
+                ) : (
+                  <span className="text-xs text-foreground/40">
+                    {total === 1 ? "1 artigo" : `${total} artigos`}
+                  </span>
+                )}
+              </div>
+              <h3 className="mb-2.5 mt-8 font-display text-xl font-black tracking-tight text-foreground lg:text-2xl">
+                {pilar.nome}
+              </h3>
+              <p className="text-sm leading-relaxed text-foreground/60">{pilar.resumo}</p>
+            </>
+          );
+
+          // Um tema sem artigos nao e' uma ligacao: mandar alguem para uma
+          // listagem vazia gasta um clique e nao devolve nada.
+          if (vazio) {
+            return (
+              <Revelar key={slug} atraso={i * 0.06} className="h-full">
+                <div
+                  className="flex h-full min-h-[260px] flex-col justify-end p-8 opacity-60 lg:p-10"
+                  style={{ background: pilar.gradiente }}
+                >
+                  {conteudo}
+                </div>
+              </Revelar>
+            );
+          }
 
           return (
             <Revelar key={slug} atraso={i * 0.06} className="h-full">
@@ -33,18 +72,7 @@ export default function GrelhaPilares() {
                 className="group flex h-full min-h-[260px] flex-col justify-end p-8 lg:p-10"
                 style={{ background: pilar.gradiente }}
               >
-                <div className="mb-auto flex items-baseline justify-between">
-                  <span className="font-display text-sm font-black text-foreground/30">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-xs text-foreground/40">
-                    {total === 0 ? "em preparação" : total === 1 ? "1 artigo" : `${total} artigos`}
-                  </span>
-                </div>
-                <h3 className="mb-2.5 mt-8 font-display text-xl font-black tracking-tight text-foreground lg:text-2xl">
-                  {pilar.nome}
-                </h3>
-                <p className="text-sm leading-relaxed text-foreground/60">{pilar.resumo}</p>
+                {conteudo}
               </Link>
             </Revelar>
           );
