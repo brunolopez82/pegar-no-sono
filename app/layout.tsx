@@ -77,6 +77,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-PT" className={`${sans.variable} ${display.variable}`}>
       <head>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={`${site.nome} — artigos`}
+          href="/feed.xml"
+        />
         {/* Sem JavaScript, o conteudo tem de aparecer na mesma. */}
         <noscript>
           <style>{`.revelar{opacity:1 !important}`}</style>

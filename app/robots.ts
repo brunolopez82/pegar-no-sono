@@ -12,6 +12,8 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "*", allow: "/", disallow: "/privacidade/" },
     ],
     sitemap: `${site.dominio}/sitemap.xml`,
+    // O feed nao e' um sitemap, mas e' uma segunda porta de entrada para
+    // agregadores e crawlers que preferem RSS a HTML.
     host: site.dominio,
   };
 }
