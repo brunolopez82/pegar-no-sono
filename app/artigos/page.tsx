@@ -3,6 +3,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import CartaoArtigo from "@/components/CartaoArtigo";
 import Revelar from "@/components/Revelar";
+import Pesquisa from "@/components/Pesquisa";
 import Subscrever from "@/components/Subscrever";
 import Footer from "@/components/Footer";
 import { todosOsArtigos } from "@/lib/artigos";
@@ -42,6 +43,10 @@ export default function Pagina() {
                 {artigos.length === 1 ? "1 artigo" : `${artigos.length} artigos`}, agrupados por
                 tema. Dentro de cada tema, a ordem de leitura é de cima para baixo.
               </p>
+
+              <div className="mt-8">
+                <Pesquisa />
+              </div>
 
               <div className="mt-8 flex flex-wrap gap-2">
                 {comArtigos.map((p) => (
