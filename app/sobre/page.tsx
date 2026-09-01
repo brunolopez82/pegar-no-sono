@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Revelar from "@/components/Revelar";
 import Subscrever from "@/components/Subscrever";
 import Footer from "@/components/Footer";
+import DadosEstruturados from "@/components/DadosEstruturados";
 import { AvatarAutor } from "@/components/SobreAutor";
 import { site, ogPadrao } from "@/lib/site";
 
@@ -55,9 +56,24 @@ const regras = [
 ];
 
 export default function Pagina() {
+  // Esta e' a pagina de E-E-A-T do site: e' aqui que um motor confirma quem
+  // escreve e com que regras. Sem ProfilePage, e' apenas mais uma pagina de
+  // texto; com ela, aponta explicitamente para a entidade Person ja declarada
+  // no layout, e o `@id` liga tudo ao mesmo autor.
+  const perfil = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    name: "Sobre e método editorial",
+    url: `${site.dominio}/sobre/`,
+    inLanguage: "pt-PT",
+    isPartOf: { "@type": "WebSite", name: site.nome, url: site.dominio },
+    mainEntity: { "@id": `${site.dominio}/#autor` },
+  };
+
   return (
     <>
       <Navbar />
+      <DadosEstruturados dados={perfil} />
 
       <main id="conteudo" className="pagina">
         <div className="bento">

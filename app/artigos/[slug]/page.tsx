@@ -77,7 +77,14 @@ export default async function Pagina({ params }: Props) {
       publisher: { "@id": `${site.dominio}/#autor` },
       mainEntityOfPage: url,
       isPartOf: { "@type": "WebSite", name: site.nome, url: site.dominio },
-      ...(a.imagemLocal ?? a.imagem ? { image: a.imagemLocal ?? a.imagem } : {}),
+      // O schema.org exige URL absoluto em `image`. A capa local vem como
+      // caminho relativo ("/imagens/..."), por isso tem de levar o dominio a
+      // frente — senao os validadores nao a resolvem.
+      ...(() => {
+        const capa = a.imagemLocal ?? a.imagem;
+        if (!capa) return {};
+        return { image: capa.startsWith("http") ? capa : `${site.dominio}${capa}` };
+      })(),
       ...(a.fontes?.length ? { citation: a.fontes.map((f) => f.titulo) } : {}),
     },
     {

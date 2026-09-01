@@ -6,8 +6,9 @@ import Revelar from "@/components/Revelar";
 import Pesquisa from "@/components/Pesquisa";
 import Subscrever from "@/components/Subscrever";
 import Footer from "@/components/Footer";
+import DadosEstruturados from "@/components/DadosEstruturados";
 import { todosOsArtigos } from "@/lib/artigos";
-import { pilares, ordemPilares, ogPadrao } from "@/lib/site";
+import { pilares, ordemPilares, ogPadrao, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Todos os artigos",
@@ -27,9 +28,32 @@ export default function Pagina() {
   const artigos = todosOsArtigos();
   const comArtigos = ordemPilares.filter((p) => artigos.some((a) => a.pilar === p));
 
+  // Mesmo padrao das paginas de tema: o indice tambem e' uma coleccao, e sem
+  // ItemList nenhum motor sabe que artigos estao aqui sem seguir cada link.
+  const lista = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Todos os artigos",
+    description:
+      "Todos os artigos do Pegar no Sono, organizados por tema: respiração, rotina noturna, ambiente do quarto, ansiedade, ritmo circadiano e medição do sono.",
+    url: `${site.dominio}/artigos/`,
+    inLanguage: "pt-PT",
+    isPartOf: { "@type": "WebSite", name: site.nome, url: site.dominio },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: artigos.map((a, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        url: `${site.dominio}/artigos/${a.slug}/`,
+        name: a.titulo,
+      })),
+    },
+  };
+
   return (
     <>
       <Navbar />
+      <DadosEstruturados dados={lista} />
 
       <main id="conteudo" className="pagina">
         <div className="bento">
