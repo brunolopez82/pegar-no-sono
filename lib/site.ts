@@ -13,6 +13,23 @@ export const site = {
     // Sem credencial clínica. Dizer isto em voz alta é o que torna o site citável.
     bio: "Passei anos a dormir mal e a tentar resolver o problema como resolvo tudo o resto: a testar, a medir e a registar. Escrevo aqui o que li nas fontes primárias e o que experimentei em mim — incluindo o que não funcionou. Não vendo suplementos e não dou conselhos médicos: para isso existe o seu médico de família.",
     email: "ola@pegarnosono.com",
+    /**
+     * Perfis publicos do autor, para `sameAs` no schema Person.
+     *
+     * Isto e' o que liga "Bruno Lopez" a uma pessoa verificavel em vez de a um
+     * nome numa pagina. Em conteudo de saude conta desproporcionadamente: um
+     * autor sem presenca externa comprovavel e' E-E-A-T fraco.
+     *
+     * Regra: so entram aqui perfis que existem mesmo e que sao do autor. Um
+     * `sameAs` errado e' pior do que nenhum. Se a lista ficar vazia, a
+     * propriedade nao e' emitida de todo.
+     */
+    perfis: [
+      "https://github.com/brunolopez82",
+      // Acrescentar quando existirem — o LinkedIn e' o que mais pesa aqui:
+      // "https://www.linkedin.com/in/...",
+      // "https://www.instagram.com/...",
+    ] as string[],
   },
 } as const;
 

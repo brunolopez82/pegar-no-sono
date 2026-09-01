@@ -72,6 +72,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         "higiene do sono",
         "ritmo circadiano",
       ],
+      // So emite `sameAs` se houver perfis reais. Uma lista vazia no schema
+      // e' ruido; um perfil errado e' pior do que nenhum.
+      ...(site.autor.perfis.length > 0 ? { sameAs: site.autor.perfis } : {}),
     },
   ];
 
