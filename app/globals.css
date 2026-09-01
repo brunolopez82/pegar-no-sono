@@ -21,6 +21,7 @@
     --grad-azul: linear-gradient(160deg, #E0EDF8 0%, #C8DEF5 40%, #B8D2F0 100%);
     --grad-rosa: linear-gradient(160deg, #FBE4EE 0%, #F5CBDF 40%, #E8A0BF 100%);
     --grad-areia: linear-gradient(160deg, #F6F0E6 0%, #EDE2CE 40%, #E2D2B4 100%);
+    --grad-bruma: linear-gradient(160deg, #E2E4F5 0%, #C6CBEE 40%, #AEB5E4 100%);
   }
 
   html {

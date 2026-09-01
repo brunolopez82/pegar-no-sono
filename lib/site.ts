@@ -67,6 +67,7 @@ export function temFotoAutor(): boolean {
 }
 
 export type PilarSlug =
+  | "fundamentos"
   | "respiracao"
   | "rotina"
   | "ambiente"
@@ -81,9 +82,21 @@ export type Pilar = {
   resumo: string;
   /** Gradiente do tile no bento. Definido em globals.css. */
   gradiente: string;
+  /** Ocupa a linha toda na grelha. Reservado ao pilar-base. */
+  largo?: boolean;
 };
 
 export const pilares: Record<PilarSlug, Pilar> = {
+  fundamentos: {
+    nome: "Fundamentos",
+    titulo: "Porque é que o sono importa",
+    descricao:
+      "O que o corpo faz enquanto dorme, porque é que uma noite má arrasta o dia inteiro atrás dela, e o que muda quando se trata o sono como um hábito em vez de uma emergência.",
+    resumo:
+      "Antes das técnicas, a razão. O sono não é mais um item na lista das coisas saudáveis — é o que decide se consegue fazer as outras.",
+    gradiente: "var(--grad-bruma)",
+    largo: true,
+  },
   respiracao: {
     nome: "Respiração",
     titulo: "Respiração para dormir",
@@ -141,6 +154,7 @@ export const pilares: Record<PilarSlug, Pilar> = {
 };
 
 export const ordemPilares: PilarSlug[] = [
+  "fundamentos",
   "respiracao",
   "rotina",
   "ambiente",

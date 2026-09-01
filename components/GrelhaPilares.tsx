@@ -26,6 +26,9 @@ export default function GrelhaPilares() {
           const pilar = pilares[slug];
           const total = artigos.filter((a) => a.pilar === slug).length;
           const vazio = total === 0;
+          // O pilar-base ocupa a linha toda: a grelha fica sem orfaos e a
+          // hierarquia le-se sem precisar de legenda.
+          const largura = pilar.largo ? "h-full lg:col-span-3" : "h-full";
 
           const conteudo = (
             <>
@@ -54,7 +57,7 @@ export default function GrelhaPilares() {
           // listagem vazia gasta um clique e nao devolve nada.
           if (vazio) {
             return (
-              <Revelar key={slug} atraso={i * 0.06} className="h-full">
+              <Revelar key={slug} atraso={i * 0.06} className={largura}>
                 <div
                   className="flex h-full min-h-[260px] flex-col justify-end p-8 opacity-60 lg:p-10"
                   style={{ background: pilar.gradiente }}
@@ -66,7 +69,7 @@ export default function GrelhaPilares() {
           }
 
           return (
-            <Revelar key={slug} atraso={i * 0.06} className="h-full">
+            <Revelar key={slug} atraso={i * 0.06} className={largura}>
               <Link
                 href={`/temas/${slug}/`}
                 className="group flex h-full min-h-[260px] flex-col justify-end p-8 lg:p-10"
