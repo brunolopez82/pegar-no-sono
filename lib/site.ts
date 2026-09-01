@@ -11,7 +11,7 @@ export const site = {
     nome: "Bruno Lopez",
     funcao: "Designer e programador. Não sou médico.",
     // Sem credencial clínica. Dizer isto em voz alta é o que torna o site citável.
-    bio: "Toda a gente que dorme mal já fez a mesma pesquisa às duas da manhã. Eu fi-la em português e voltaram sites brasileiros com preços em reais, páginas do Estado paradas há uma década e publicidade a comprimidos. Construo sites para viver e durmo mal há anos — por isso fiz o que sei fazer: fui às fontes primárias, li os estudos e escrevi em português de Portugal a metade que faltava. Não sou médico e não vendo nada que se tome.",
+    bio: "Quando acordava a meio da noite, fumava um cigarro. Achava que me acalmava. Não me acalmava. Depois pegava no telemóvel — e essa, provavelmente, também já fez. Construo sites para viver e durmo mal há anos; quando fui procurar melhor, em português só encontrei conselhos brasileiros, páginas paradas há uma década e publicidade a comprimidos. Por isso fui às fontes primárias e comecei a escrever a metade que faltava. Não sou médico e não vendo nada que se tome.",
     email: "ola@pegarnosono.com",
     /**
      * Perfis publicos do autor, para `sameAs` no schema Person.

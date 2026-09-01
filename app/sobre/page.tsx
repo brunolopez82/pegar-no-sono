@@ -95,18 +95,27 @@ export default function Pagina() {
           <div className="tile px-6 py-12 lg:px-14 lg:py-16">
             <div className="artigo max-w-none">
               <p>
-                Vale a pena contar o que estava do outro lado dessa pesquisa, porque foi isso que
-                fez este site existir. Escrevi a pergunta em português — a pergunta exata, a que se
-                escreve com o brilho no mínimo para não acordar de vez — e li três páginas de
-                resultados. Voltaram conselhos brasileiros para um clima que não é o nosso e
-                produtos com preços em reais. Voltaram páginas institucionais atualizadas pela
-                última vez numa década anterior. E voltou publicidade. Muita publicidade, a coisas
-                para tomar.
+                Durante anos, o que eu fazia às três da manhã era isto: levantava-me e ia fumar um
+                cigarro. Fazia-o com a convicção de quem sabe o que está a fazer — o cigarro
+                acalmava-me, portanto ajudava-me a voltar a adormecer. Nunca me passou pela cabeça
+                que pudesse ser ao contrário.
               </p>
               <p>
-                Em inglês estava tudo lá. Os estudos, as revisões, as normas clínicas. Em
-                português, entre mim e essa informação, havia um muro feito de conteúdo escrito
-                para outro país ou para vender outra coisa.
+                Quando o cigarro não chegava, pegava no telemóvel. Essa parte não preciso de
+                explicar a ninguém que esteja a ler isto às duas da manhã.
+              </p>
+              <p>
+                Nenhuma das duas resultou, uma única vez. E o que demorei a perceber não foi que
+                não resultavam — isso via-se todas as noites. Foi que uma delas estava a fazer o
+                oposto do que eu julgava, e que eu tinha passado anos sem nunca ter ido verificar.
+              </p>
+              <p>
+                Quando finalmente fui procurar melhor, em português, encontrei um muro. Voltaram
+                conselhos brasileiros para um clima que não é o nosso e produtos com preços em
+                reais. Voltaram páginas institucionais atualizadas pela última vez numa década
+                anterior. E voltou publicidade, muita publicidade, a coisas para tomar. Em inglês
+                estava tudo lá: os estudos, as revisões, as normas clínicas. Em português, entre
+                mim e essa informação, não estava nada.
               </p>
               <p>
                 Chamo-me {site.autor.nome}. Construo sites para viver e durmo mal há anos, o que faz

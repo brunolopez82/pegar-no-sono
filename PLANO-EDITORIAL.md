@@ -43,6 +43,13 @@ procura real mais próximo que se obtém sem ferramenta paga. O que apareceu:
 1. `acordar-as-3-da-manha` — **a maior query do mapa.** O ângulo é a honestidade:
    acordar de madrugada é normal em ciclos de sono; o que transforma isso em
    problema é o que se faz nos dez minutos seguintes. Concorrência = astrologia.
+   **Material do Bruno para este artigo** (dado a 1 set 2026, já publicado na
+   `/sobre`): durante anos, ao acordar de madrugada levantava-se para fumar um
+   cigarro, convencido de que o acalmava; e quando isso não chegava, pegava no
+   telemóvel. Nenhuma das duas resultou. É a espinha do artigo — a secção sobre
+   nicotina precisa de fonte primária sobre o efeito estimulante e sobre o
+   sono, e a regra 1 continua a valer: descreve-se o que não resultou, não se
+   dá conselho sobre deixar de fumar. Isso é conversa para o médico.
 2. `nao-consigo-desligar-a-cabeca` — ruminação noturna
 3. `despejo-mental-antes-de-deitar` — brain dump
 4. `o-que-fazer-quando-nao-adormeces` — controlo de estímulos: sair da cama
