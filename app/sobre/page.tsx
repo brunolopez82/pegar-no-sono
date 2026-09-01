@@ -95,21 +95,47 @@ export default function Pagina() {
           <div className="tile px-6 py-12 lg:px-14 lg:py-16">
             <div className="artigo max-w-none">
               <p>
-                Chamo-me {site.autor.nome}. Construo sites para viver e durmo mal há anos — foi por
-                aí que isto começou. Passei tempo demasiado a ler sobre sono em inglês e a
-                encontrar, em português, ou conteúdo brasileiro com preços em reais, ou páginas
-                institucionais paradas há uma década, ou marketing de farmácia.
+                Vale a pena contar o que estava do outro lado dessa pesquisa, porque foi isso que
+                fez este site existir. Escrevi a pergunta em português — a pergunta exata, a que se
+                escreve com o brilho no mínimo para não acordar de vez — e li três páginas de
+                resultados. Voltaram conselhos brasileiros para um clima que não é o nosso e
+                produtos com preços em reais. Voltaram páginas institucionais atualizadas pela
+                última vez numa década anterior. E voltou publicidade. Muita publicidade, a coisas
+                para tomar.
               </p>
               <p>
-                <strong>Não sou médico, nem psicólogo, nem terapeuta do sono.</strong> Digo isto no
-                início e não no rodapé, porque é a coisa mais importante a saber antes de ler o
-                resto. O que faço é ler as fontes primárias, escrever o que elas dizem em português
-                claro, experimentar em mim, e registar o que acontece.
+                Em inglês estava tudo lá. Os estudos, as revisões, as normas clínicas. Em
+                português, entre mim e essa informação, havia um muro feito de conteúdo escrito
+                para outro país ou para vender outra coisa.
               </p>
               <p>
-                Este site existe porque Portugal é o maior consumidor de ansiolíticos da OCDE.
-                Escreve-se muito, em português, sobre o que tomar para dormir. Quase nada sobre o
-                que fazer. É essa metade que falta.
+                Chamo-me {site.autor.nome}. Construo sites para viver e durmo mal há anos, o que faz
+                de mim exatamente duas coisas: alguém que conhece este problema por dentro, e alguém
+                sem qualquer credencial clínica para o tratar.
+              </p>
+              <p>
+                <strong>Não sou médico, nem psicólogo, nem terapeuta do sono.</strong> Digo-o aqui em
+                cima e não no rodapé, porque é a coisa mais importante a saber antes de ler o resto
+                desta página.
+              </p>
+              <p>
+                O que sei fazer é outra coisa, e é a única coisa que este site promete. Ir à fonte:
+                ler o estudo em vez da notícia sobre o estudo. Reparar quando um número que toda a
+                gente repete vem de um livro e não de um ensaio — e escrever no artigo que é frágil,
+                sobretudo quando dava mais jeito não escrever. E depois passar tudo isso para
+                português de Portugal, com euros, com prédios com vizinhos, com agosto sem ar
+                condicionado.
+              </p>
+              <p>
+                Este site existe por causa de um número. Portugal é o país da OCDE onde se consomem
+                mais ansiolíticos, hipnóticos e sedativos. Escreve-se muito, em português, sobre o
+                que tomar para dormir. Quase nada sobre o que fazer antes disso. É essa metade que
+                falta, e é só essa metade que se escreve aqui.
+              </p>
+              <p>
+                Por isso não lhe vou prometer que dorme hoje. Vou dizer-lhe o que a evidência
+                mostra, quão sólida ela é, e onde é frágil — e o que pode experimentar esta noite
+                sem comprar nada. O resto faz-se com semanas, não com uma noite.
               </p>
             </div>
           </div>
