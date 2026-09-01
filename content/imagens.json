@@ -1,4 +1,16 @@
 {
+  "higiene-do-sono": {
+    "ficheiro": "/imagens/artigos/higiene-do-sono.jpg",
+    "largura": 1800,
+    "altura": 1000,
+    "origem": "https://images.unsplash.com/photo-1763168421821-e7cb2efcc555?w=1800&h=1000&fit=crop&auto=format&q=85",
+    "larguras": [
+      480,
+      768,
+      1200,
+      1800
+    ]
+  },
   "metodo-4-7-8-para-adormecer": {
     "ficheiro": "/imagens/artigos/metodo-4-7-8-para-adormecer.jpg",
     "largura": 1800,
@@ -16,6 +28,18 @@
     "largura": 1800,
     "altura": 1000,
     "origem": "https://images.unsplash.com/photo-1542411702-f4a33029283d?w=1800&h=1000&fit=crop&auto=format&q=85",
+    "larguras": [
+      480,
+      768,
+      1200,
+      1800
+    ]
+  },
+  "quantas-horas-de-sono-por-noite": {
+    "ficheiro": "/imagens/artigos/quantas-horas-de-sono-por-noite.jpg",
+    "largura": 1800,
+    "altura": 1000,
+    "origem": "https://images.unsplash.com/photo-1778136157872-44684bf44c57?w=1800&h=1000&fit=crop&auto=format&q=85",
     "larguras": [
       480,
       768,
