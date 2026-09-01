@@ -22,6 +22,13 @@
     --grad-rosa: linear-gradient(160deg, #FBE4EE 0%, #F5CBDF 40%, #E8A0BF 100%);
     --grad-areia: linear-gradient(160deg, #F6F0E6 0%, #EDE2CE 40%, #E2D2B4 100%);
     --grad-bruma: linear-gradient(160deg, #E2E4F5 0%, #C6CBEE 40%, #AEB5E4 100%);
+
+    /* Diagramas dos artigos. Uma paleta so', para todos se parecerem. */
+    --dia-profundo: #DDE1F4;
+    --dia-rem: #F8E3DA;
+    --dia-tinta: #000000;
+    --dia-fraco: rgba(0, 0, 0, 0.45);
+    --dia-grelha: rgba(0, 0, 0, 0.12);
   }
 
   html {
@@ -110,6 +117,89 @@
   .revelar.visivel {
     @apply animate-fade-up;
   }
+}
+
+/* Figuras e diagramas dentro de um artigo. */
+.artigo figure.figura {
+  margin: 3rem 0;
+}
+
+.artigo .figura-tela {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius);
+  background: hsl(var(--card));
+  padding: 1.25rem 1rem;
+}
+
+@media (min-width: 768px) {
+  .artigo .figura-tela {
+    padding: 1.75rem 1.5rem;
+  }
+}
+
+/*
+ * Um diagrama de linha temporal nao encolhe: a 343 px de ecra, um viewBox de
+ * 800 poe as letras a 4 px. Fixa-se uma largura minima legivel e deixa-se o
+ * contentor deslizar na horizontal, que e' o unico compromisso honesto aqui.
+ */
+.artigo .figura-tela svg {
+  min-width: 660px;
+}
+
+.artigo figure.figura figcaption {
+  margin-top: 0.9rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: hsl(var(--muted-foreground));
+}
+
+.artigo .figura-fonte {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+  opacity: 0.75;
+}
+
+.artigo img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+/* Tracos e letras dos diagramas SVG. */
+.dia-linha {
+  fill: none;
+  stroke: var(--dia-tinta);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.dia-grelha {
+  stroke: var(--dia-grelha);
+  stroke-width: 1;
+}
+
+.dia-fase,
+.dia-hora,
+.dia-zona {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  fill: var(--dia-fraco);
+  font-size: 15px;
+}
+
+.dia-fase {
+  font-weight: 600;
+  fill: var(--dia-tinta);
+}
+
+.dia-zona {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  fill: var(--dia-fraco);
 }
 
 /* Corpo do artigo em MDX. Reproduz a tipografia do template sem plugin externo. */

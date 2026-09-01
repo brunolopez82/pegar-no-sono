@@ -10,6 +10,16 @@ import Footer from "@/components/Footer";
 import DadosEstruturados from "@/components/DadosEstruturados";
 import { AvatarAutor } from "@/components/SobreAutor";
 import ImagemArtigo from "@/components/ImagemArtigo";
+import Figura from "@/components/Figura";
+import Hipnograma from "@/components/diagramas/Hipnograma";
+
+/**
+ * Componentes que um artigo pode usar no corpo em MDX.
+ *
+  * Sem isto, um Hipnograma escrito no .mdx e uma etiqueta que nao renderiza. Um
+ * diagrama novo entra aqui e fica disponivel a todos os artigos.
+ */
+const componentesMDX = { Figura, Hipnograma };
 import { todosOsArtigos, artigoPorSlug, relacionados, dataExtenso } from "@/lib/artigos";
 import { site, pilares, ogPadrao } from "@/lib/site";
 
@@ -224,6 +234,7 @@ export default async function Pagina({ params }: Props) {
             <div className="artigo">
               <MDXRemote
                 source={a.corpo}
+                components={componentesMDX}
                 options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
               />
             </div>
