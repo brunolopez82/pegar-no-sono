@@ -1,4 +1,16 @@
 {
+  "dormir-8-horas-e-acordar-cansado": {
+    "ficheiro": "/imagens/artigos/dormir-8-horas-e-acordar-cansado.jpg",
+    "largura": 2752,
+    "altura": 1536,
+    "origem": "https://d8j0ntlcm91z4.cloudfront.net/user_37btFbmV85BYxoZlYjUSwsRgGIb/hf_20260901_215738_6e7e55b4-bbd4-4752-a3c1-42f8b74e49b0.png",
+    "larguras": [
+      480,
+      768,
+      1200,
+      1800
+    ]
+  },
   "higiene-do-sono": {
     "ficheiro": "/imagens/artigos/higiene-do-sono.jpg",
     "largura": 1800,
@@ -52,6 +64,18 @@
     "largura": 1800,
     "altura": 1000,
     "origem": "https://images.unsplash.com/photo-1507502707541-f369a3b18502?w=1800&h=1000&fit=crop&auto=format&q=85",
+    "larguras": [
+      480,
+      768,
+      1200,
+      1800
+    ]
+  },
+  "sono-profundo-e-sono-rem": {
+    "ficheiro": "/imagens/artigos/sono-profundo-e-sono-rem.jpg",
+    "largura": 2752,
+    "altura": 1536,
+    "origem": "https://d8j0ntlcm91z4.cloudfront.net/user_37btFbmV85BYxoZlYjUSwsRgGIb/hf_20260901_215730_566e1513-2320-4d1c-80c4-4d238cef6321.png",
     "larguras": [
       480,
       768,
