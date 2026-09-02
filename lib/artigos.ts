@@ -195,6 +195,25 @@ function validarReferencias(artigos: Artigo[]): void {
     }
   }
 
+  // Uma data no futuro vai parar ao dateModified do schema e ao lastmod do
+  // sitemap. E' factualmente errado — o artigo ja' esta' publicado — e um
+  // motor de busca tem razoes para desconfiar. Aconteceu 11 vezes antes desta
+  // guarda existir.
+  const hoje = new Date().toISOString().slice(0, 10);
+  for (const a of artigos) {
+    if (a.data > hoje) {
+      erros.push(`content/artigos/${a.slug}.mdx — data "${a.data}" esta no futuro (hoje e ${hoje})`);
+    }
+    if (a.atualizado) {
+      if (a.atualizado > hoje) {
+        erros.push(`content/artigos/${a.slug}.mdx — atualizado "${a.atualizado}" esta no futuro (hoje e ${hoje})`);
+      }
+      if (a.atualizado < a.data) {
+        erros.push(`content/artigos/${a.slug}.mdx — atualizado "${a.atualizado}" e anterior a data "${a.data}"`);
+      }
+    }
+  }
+
   // O <title> real leva " | Pegar no Sono" colado atras, e e' o total que
   // conta. Sem esta guarda, um titulo de artigo longo passa despercebido.
   const SUFIXO = " | Pegar no Sono".length;
