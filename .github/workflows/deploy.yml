@@ -74,6 +74,12 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          # FTPS explicito, na mesma porta 21. Em FTP simples as credenciais
+          # viajam em texto claro. Se a Hostinger recusar o TLS, o passo falha
+          # com erro de certificado ou de AUTH — nesse caso, e so' nesse caso,
+          # trocar para "ftp".
+          protocol: ftps
+          port: 21
           local-dir: ./out/
           server-dir: /public_html/
           # O .git do out/ e' um artefacto do passo anterior, nao pertence ao site.
