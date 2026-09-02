@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "auditar": "node scripts/auditar-seo.mjs"
+    "auditar": "node scripts/auditar-seo.mjs",
+    "verificar": "node scripts/verificar-artigos.mjs",
+    "verificar-fontes": "node scripts/verificar-fontes.mjs"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.20",
