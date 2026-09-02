@@ -259,6 +259,31 @@ segurança para o que ainda não tem guarda.
 
 ---
 
+## Quirk conhecido: 500 em `/artigos/<algo-que-nao-existe>/`
+
+Um caminho inexistente sob `/artigos/` devolve **500** em vez de 404. Em todas as outras
+pastas — `/temas/`, `/sobre/`, a raiz — devolve 404 correctamente.
+
+Investigado a 2 de setembro de 2026 e **não resolvido**. O que foi excluído:
+
+- não é cache: acontece na origem, com `?bust=`
+- não é ficheiro antigo: um `dangerous-clean-slate` apagou tudo e voltou a acontecer
+- não é `.htaccess` na pasta: a listagem por FTP de `/artigos/` não tem ficheiros ocultos
+- não é o `.htaccess` da raiz: ele é inerte neste alojamento (ver secção acima)
+
+A conclusão provável é que vem da camada de edge da Hostinger, que é a mesma que faz os
+redireccionamentos 308 e impõe o `s-maxage`. Não há correcção do lado do repositório.
+
+**Exposição real: nenhuma.** Não há um único link, interno ou no sitemap, que aponte para
+um URL destes — a auditoria confirma zero ligações partidas e os 18 URLs do sitemap
+respondem 200. Só se chega lá escrevendo um endereço errado à mão.
+
+Se um dia isto passar a importar — por exemplo se um artigo for renomeado e ficarem links
+antigos a apontar para o slug velho — a saída é abrir um ticket ao suporte da Hostinger com
+esta comparação: `/temas/naoexiste/` dá 404 e `/artigos/naoexiste/` dá 500, no mesmo site.
+
+---
+
 ## Regras de ouro
 
 **Nunca correr `npm run build` com o `npm run dev` ligado.** Os dois escrevem na mesma
