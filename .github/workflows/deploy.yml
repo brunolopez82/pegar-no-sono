@@ -1,4 +1,4 @@
-name: Build e publicar no branch deploy
+name: Build e publicar
 
 on:
   push:
@@ -15,6 +15,14 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    env:
+      # Definidos em Settings > Secrets and variables > Actions.
+      # Sem eles, o passo de FTP e' saltado e o site nao e' atualizado.
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+      FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -35,9 +43,10 @@ jobs:
           mkdir -p anterior
           git --work-tree=anterior checkout origin/deploy -- . || true
 
-      # Publica APENAS o HTML compilado no branch "deploy".
-      # A Hostinger fica ligada a esse branch, nunca ao main.
-      - name: Publicar no branch deploy
+      # O branch deploy deixou de ser o que alimenta o alojamento e passa a ser
+      # o registo do que foi publicado: serve para comparar versoes, para o
+      # calculo do IndexNow, e para repor a mao se for preciso.
+      - name: Guardar o build no branch deploy
         run: |
           cd out
           touch .nojekyll
@@ -48,20 +57,45 @@ jobs:
           git commit -m "Build de ${GITHUB_SHA::7}"
           git push --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" deploy
 
+      # Envia o site para a Hostinger por FTP.
+      #
+      # Porque FTP e nao a integracao Git da Hostinger: essa faz um build
+      # proprio do repositorio, o que nao faz sentido aqui — quem compila e'
+      # esta Action, e o alojamento so precisa de receber HTML. A integracao
+      # Git tambem nunca apagou ficheiros de versoes antigas, e foram esses que
+      # andaram a devolver 500 em /artigos/<slug-inexistente>/.
+      #
+      # Esta accao guarda no servidor um ficheiro de estado e envia apenas o
+      # que mudou, apagando o que deixou de existir.
+      - name: Enviar para a Hostinger por FTP
+        if: env.FTP_SERVER != ''
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./out/
+          server-dir: /public_html/
+          # O .git do out/ e' um artefacto do passo anterior, nao pertence ao site.
+          exclude: |
+            **/.git*
+            **/.git*/**
+
+      - name: Avisar que faltam os segredos de FTP
+        if: env.FTP_SERVER == ''
+        run: |
+          echo "::warning::FTP_SERVER nao esta definido. O build foi guardado no branch deploy mas o site nao foi atualizado."
+          echo "Defina FTP_SERVER, FTP_USERNAME e FTP_PASSWORD em Settings > Secrets and variables > Actions."
+
       # Avisa o Bing (e Yandex, Seznam, Naver). O Google nao usa IndexNow.
       #
       # Submete SO as paginas cujo HTML mudou desde o deploy anterior. As
       # guidelines do Bing desaconselham submissoes em lote e contam a
-      # re-submissao de paginas iguais como desperdicio de rastreio: com um
-      # artigo novo por semana, mandar o site inteiro de cada vez seria pedir
-      # ao Bing para reler noventa e nove paginas que nao mexeram.
-      #
-      # Sem versao anterior (primeiro deploy), submete tudo — a e' correcto.
+      # re-submissao de paginas iguais como desperdicio de rastreio.
       #
       # Nunca pode partir o deploy: o site ja esta publicado neste ponto.
-      #
-      # A chave tem de ser a mesma que esta em public/<chave>.txt.
       - name: Avisar o IndexNow do que mudou
+        if: env.FTP_SERVER != ''
         continue-on-error: true
         env:
           CHAVE: e21db589dfd8f6a4b157daf462a26e93
@@ -89,5 +123,3 @@ jobs:
           codigo=$(curl -s -o resposta.txt -w '%{http_code}' -X POST -H 'Content-Type: application/json; charset=utf-8' --data-binary @corpo.json https://api.indexnow.org/indexnow)
           echo "IndexNow devolveu HTTP $codigo"
           cat resposta.txt
-          # 200 = aceite. 202 = aceite, a validar a chave. 403 = a chave nao bate
-          # com o ficheiro em public/. 422 = URL fora do dominio declarado.

@@ -7,27 +7,52 @@ Para escrever o artigo em si, ver [ESCREVER-ARTIGO.md](./ESCREVER-ARTIGO.md).
 
 ---
 
-## Passo único: ligar a Hostinger ao repositório
+## Passo único: os três segredos de FTP
 
-**hPanel → Websites → Dashboard → Advanced → Git**
+O site é enviado para a Hostinger por FTP, a partir do GitHub Actions. Não se usa a
+integração Git da Hostinger — ver abaixo porquê.
 
-| Campo | Valor |
+**1. Buscar as credenciais:** hPanel → Websites → `pegarnosono.com` → **Files → FTP Accounts**.
+Anotar o servidor (algo como `ftp.pegarnosono.com`), o utilizador e a palavra-passe. Se não
+souber a palavra-passe, criar uma conta FTP nova ou redefini-la aí.
+
+**2. Guardar no GitHub:** repositório → **Settings → Secrets and variables → Actions** →
+*New repository secret*, três vezes:
+
+| Nome | Valor |
 |---|---|
-| Repositório | `brunolopez82/pegar-no-sono` |
-| Branch | **`deploy`** |
-| Root directory | `public_html` |
+| `FTP_SERVER` | o servidor de FTP |
+| `FTP_USERNAME` | o utilizador |
+| `FTP_PASSWORD` | a palavra-passe |
 
-### O branch tem de ser `deploy`, nunca `main`
+Os nomes têm de ser exactamente estes. Enquanto faltar o `FTP_SERVER`, o workflow compila e
+guarda o build, mas **não actualiza o site** — e deixa um aviso a dizê-lo, em vez de falhar
+em silêncio.
 
-Esta é a única forma de partir o site, por isso fica escrita em voz alta.
+**3. Desligar a integração Git da Hostinger**, se ainda estiver activa: hPanel → Advanced →
+Git → remover. Ter os dois métodos ao mesmo tempo é a receita para não se saber que versão
+está online.
 
-- `main` — o projeto: código-fonte, `package.json`, `app/`, `content/`. Não é um site.
-  Apontar a Hostinger para aqui deixa a página em branco.
-- `deploy` — só o HTML compilado, já com `.htaccess`, `sitemap.xml` e `robots.txt`.
-  É este que o alojamento serve.
+### Porque não a integração Git da Hostinger
 
-Depois de ligado, a Hostinger cria o webhook sozinha: cada push para `deploy` dispara um
-deployment automático.
+Tentámos, e falhou de três maneiras diferentes:
+
+- Apontada ao `main`, a Hostinger tenta **compilar o projecto** ela própria. O build até
+  corre, mas depois fica à espera de uma aplicação Node para arrancar — e este site não é
+  uma aplicação, é HTML já compilado. Dá "Build failed" com um diagnóstico que diz que o
+  build correu bem.
+- Apontada ao `deploy`, funcionava, mas **nunca apagava ficheiros de versões anteriores**.
+  Foram esses restos que andaram a devolver HTTP 500 em `/artigos/<slug-inexistente>/`.
+- E esvaziar o `public_html` à mão parte o estado que ela guarda lá dentro, deixando o site
+  em baixo até se recriar a ligação de raiz.
+
+O envio por FTP não tem nenhum destes problemas: quem compila é a Action, o alojamento só
+recebe ficheiros, e a acção guarda um registo do que enviou — por isso **apaga o que
+deixou de existir**.
+
+O branch `deploy` continua a ser escrito a cada build. Deixou de alimentar o alojamento e
+passou a ser o registo do que foi publicado: serve para comparar versões, para calcular o
+que o IndexNow deve submeter, e para repor à mão se for preciso.
 
 ---
 
