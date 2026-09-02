@@ -41,7 +41,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const meta = metaDescricao(a);
 
   return {
-    title: a.titulo,
+    // O <title> encurta quando o artigo declara `tituloSeo`; o H1 nao muda.
+    title: a.tituloSeo ?? a.titulo,
     description: meta,
     alternates: { canonical: `/artigos/${slug}/` },
     openGraph: {

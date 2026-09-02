@@ -60,6 +60,12 @@ const esquemaFonte = z.object({
 const esquemaFrontmatter = z
   .object({
     titulo: z.string().min(1),
+    // Titulo para a etiqueta <title>, quando o `titulo` do artigo e' longo
+    // demais para caber num resultado do Google. O Google corta por volta dos
+    // 60 caracteres, e o site acrescenta " | Pegar no Sono" (16), por isso o
+    // que sobra para o artigo sao cerca de 44. O H1 continua a ser o `titulo`
+    // completo: e' o <title> que se encurta, nao a pagina.
+    tituloSeo: z.string().min(1).max(46).optional(),
     descricao: z.string().min(1),
     // Meta description. Se faltar, usa-se a `descricao` — e nesse caso ela
     // propria tem de caber nos 160. Ver validarMetaDescricoes().
@@ -90,6 +96,8 @@ export type Fonte = z.infer<typeof esquemaFonte>;
 export type MetaArtigo = {
   slug: string;
   titulo: string;
+  /** Titulo curto so' para a etiqueta <title>. O H1 usa sempre `titulo`. */
+  tituloSeo?: string;
   /** Texto do cartao nas listagens. Sem limite apertado. */
   descricao: string;
   /** Meta description, quando a `descricao` e' longa de mais para servir de meta. */
