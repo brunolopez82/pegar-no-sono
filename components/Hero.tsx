@@ -49,9 +49,17 @@ export default function Hero({ destaque }: { destaque?: MetaArtigo }) {
               href={`/artigos/${destaque.slug}/`}
               className="group relative block min-h-[280px] flex-1 overflow-hidden"
             >
+              {/*
+                `prioridade` nao e' decoracao: esta e' a maior imagem acima da
+                dobra da pagina inicial e, por isso, a candidata a LCP. Sem ela
+                sai com loading="lazy" e o browser adia-a — que era exatamente
+                o que estava a acontecer, e o que segurava o Speed Index em
+                movel.
+              */}
               <ImagemArtigo
                 artigo={destaque}
                 preencher
+                prioridade
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
