@@ -195,6 +195,19 @@ function validarReferencias(artigos: Artigo[]): void {
     }
   }
 
+  // O <title> real leva " | Pegar no Sono" colado atras, e e' o total que
+  // conta. Sem esta guarda, um titulo de artigo longo passa despercebido.
+  const SUFIXO = " | Pegar no Sono".length;
+  for (const a of artigos) {
+    const t = (a.tituloSeo ?? a.titulo).length + SUFIXO;
+    if (t > 60) {
+      erros.push(
+        `content/artigos/${a.slug}.mdx — <title> com ${t} caracteres contando o sufixo (max 60). ` +
+          "Acrescente um campo `tituloSeo` curto; o `titulo` continua a ser o H1.",
+      );
+    }
+  }
+
   // Os motores de busca cortam a descricao a' volta dos 160 caracteres. Uma
   // descricao truncada e' pior do que uma curta, por isso o limite e' duro.
   for (const a of artigos) {

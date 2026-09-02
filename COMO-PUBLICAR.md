@@ -207,10 +207,30 @@ versionado.
 
 | Script | Quando |
 |---|---|
+| `npm run auditar` | depois de um `npm run build`, para verificar o HTML já compilado |
 | `node scripts/descarregar-imagens.ts` | sempre que um artigo novo tiver `imagem` |
 | `node scripts/auditar-contraste.mjs` | ao mexer nos gradientes ou na opacidade de texto |
 | `node scripts/gerar-icones.mjs` | se a marca mudar (favicon, ícone Apple, manifest) |
 | `node scripts/gerar-og.mjs` | se o nome do site ou a paleta mudarem |
+
+---
+
+## Auditoria on-page
+
+```bash
+npm run build && npm run auditar
+```
+
+Verifica o HTML já compilado, que é o que o crawler vê: comprimento e duplicação de
+`<title>` e `meta description`, um único `H1` por página, imagens sem `alt`, canonical
+presente e a apontar para si própria, e ligações internas para páginas que não existem.
+
+Páginas com `noindex` são ignoradas nas verificações de indexação — uma página fora do
+índice não precisa de canonical nem compete com nenhuma outra.
+
+O que esta auditoria apanha **depois** do build, as guardas do `lib/artigos.ts` e do
+`lib/site.ts` apanham **durante** — e essas partem a build. A auditoria é a rede de
+segurança para o que ainda não tem guarda.
 
 ---
 

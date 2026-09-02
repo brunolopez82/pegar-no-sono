@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const meta = dados.meta ?? dados.descricao;
 
   return {
-    title: dados.titulo,
+    title: dados.tituloSeo ?? dados.titulo,
     description: meta,
     alternates: { canonical: `/temas/${pilar}/` },
     openGraph: {

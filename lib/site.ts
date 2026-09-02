@@ -79,7 +79,10 @@ export type PilarSlug =
 
 export type Pilar = {
   nome: string;
+  /** H1 da pagina do tema. */
   titulo: string;
+  /** Titulo curto so' para a etiqueta <title>, quando o `titulo` e' longo. */
+  tituloSeo?: string;
   /** Paragrafo na pagina do tema. Sem limite apertado. */
   descricao: string;
   /** Meta description, quando a `descricao` passa dos 160 caracteres. */
@@ -156,6 +159,7 @@ export const pilares: Record<PilarSlug, Pilar> = {
   biohacking: {
     nome: "Biohacking",
     titulo: "Biohacking do sono: o que resiste à evidência",
+    tituloSeo: "Biohacking do sono: o que resiste",
     descricao:
       "Banho gelado, jejum, sauna, exposição ao frio, protocolos de luz. Os hábitos que toda a gente experimenta à volta do sono, testados um a um contra o que os estudos mostram — e separados dos que são apenas moda.",
     meta:
@@ -209,12 +213,24 @@ export const ordemMomentos: MomentoSlug[] = (
 // Guarda de build. Os motores cortam a descricao por volta dos 160 caracteres,
 // e uma descricao truncada e' pior do que uma curta. Falha alto em vez de
 // publicar em silencio — a mesma disciplina do frontmatter dos artigos.
+const SUFIXO_TITULO = ` | ${site.nome}`.length;
+
 for (const [slug, p] of Object.entries(pilares)) {
   const m = p.meta ?? p.descricao;
   if (m.length > 160) {
     throw new Error(
       `lib/site.ts — pilar "${slug}": meta description com ${m.length} caracteres (max 160). ` +
         "Acrescente um campo `meta` curto.",
+    );
+  }
+
+  // O <title> real leva " | Pegar no Sono" colado atras. E' o total que o
+  // Google corta, por volta dos 60.
+  const t = (p.tituloSeo ?? p.titulo).length + SUFIXO_TITULO;
+  if (t > 60) {
+    throw new Error(
+      `lib/site.ts — pilar "${slug}": <title> com ${t} caracteres contando o sufixo (max 60). ` +
+        "Acrescente um campo `tituloSeo` curto.",
     );
   }
 }

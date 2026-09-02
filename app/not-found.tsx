@@ -1,6 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+// Sem isto, a pagina de erro herda o title, a descricao e o canonical da
+// pagina inicial — o que a torna um duplicado exacto dela aos olhos de um
+// crawler, e um duplicado que aponta o canonical para a raiz.
+export const metadata: Metadata = {
+  title: "Página não encontrada",
+  description:
+    "O endereço que abriu não existe neste site. O arquivo completo de artigos está a um clique.",
+  robots: { index: false, follow: true },
+  alternates: { canonical: undefined },
+};
 
 export default function NaoEncontrado() {
   return (
