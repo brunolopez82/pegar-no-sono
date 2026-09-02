@@ -4,8 +4,9 @@ export const site = {
   nome: "Pegar no Sono",
   dominio: "https://pegarnosono.com",
   tagline: "Métodos naturais para dormir melhor",
+  // Serve de meta description da pagina inicial: tem de caber nos 160.
   descricao:
-    "Respiração, rotinas, ambiente e hábitos. Métodos naturais e não-químicos para dormir melhor, e o que a evidência diz sobre os hábitos que toda a gente experimenta à volta do sono. Escrito em português de Portugal.",
+    "Métodos naturais para dormir melhor: respiração, rotinas, ambiente e hábitos. Com as fontes à vista, em português de Portugal.",
   idioma: "pt-PT",
   autor: {
     nome: "Bruno Lopez",
@@ -79,7 +80,10 @@ export type PilarSlug =
 export type Pilar = {
   nome: string;
   titulo: string;
+  /** Paragrafo na pagina do tema. Sem limite apertado. */
   descricao: string;
+  /** Meta description, quando a `descricao` passa dos 160 caracteres. */
+  meta?: string;
   resumo: string;
   /** Gradiente do tile no bento. Definido em globals.css. */
   gradiente: string;
@@ -93,6 +97,8 @@ export const pilares: Record<PilarSlug, Pilar> = {
     titulo: "Porque é que o sono importa",
     descricao:
       "O que o corpo faz enquanto dorme, porque é que uma noite má arrasta o dia inteiro atrás dela, e o que muda quando se trata o sono como um hábito em vez de uma emergência.",
+    meta:
+      "O que o corpo faz enquanto dorme, e porque é que uma noite má arrasta o dia inteiro atrás dela.",
     resumo:
       "Antes das técnicas, a razão. O sono não é mais um item na lista das coisas saudáveis — é o que decide se consegue fazer as outras.",
     gradiente: "var(--grad-bruma)",
@@ -103,6 +109,8 @@ export const pilares: Record<PilarSlug, Pilar> = {
     titulo: "Respiração para dormir",
     descricao:
       "Técnicas de respiração para adormecer: método 4-7-8, respiração em caixa, a técnica militar e a respiração diafragmática. Passo a passo, em português de Portugal.",
+    meta:
+      "Técnicas de respiração para adormecer: método 4-7-8, respiração em caixa, técnica militar e diafragmática. Passo a passo.",
     resumo:
       "A respiração é a única função automática do corpo que consegue controlar de propósito. É por isso que é o caminho mais curto entre uma cabeça acelerada e um corpo pronto para dormir.",
     gradiente: "var(--grad-roxo)",
@@ -112,6 +120,8 @@ export const pilares: Record<PilarSlug, Pilar> = {
     titulo: "Rotinas de noite e de manhã",
     descricao:
       "O que fazer na hora antes de deitar e nos primeiros minutos depois de acordar: banho quente, alongamentos, horários fixos, luz da manhã e o que fazer antes do primeiro café.",
+    meta:
+      "O que fazer na hora antes de deitar e nos primeiros minutos depois de acordar. As duas pontas do dia que decidem a noite.",
     resumo:
       "Ninguém adormece a um interruptor. O sono é a última etapa de um processo que começa uma a duas horas antes de se deitar — e a noite de hoje começa a ser decidida na manhã de hoje.",
     gradiente: "var(--grad-verde)",
@@ -148,6 +158,8 @@ export const pilares: Record<PilarSlug, Pilar> = {
     titulo: "Biohacking do sono: o que resiste à evidência",
     descricao:
       "Banho gelado, jejum, sauna, exposição ao frio, protocolos de luz. Os hábitos que toda a gente experimenta à volta do sono, testados um a um contra o que os estudos mostram — e separados dos que são apenas moda.",
+    meta:
+      "Banho gelado, jejum, frio e luz. Os hábitos que toda a gente experimenta à volta do sono, testados contra o que os estudos mostram.",
     resumo:
       "Mudar uma variável de cada vez, medir, e ficar com o que resiste. É isso que a palavra quer dizer aqui — e não há nada de obscuro nela.",
     gradiente: "var(--grad-gelo)",
@@ -193,6 +205,19 @@ export const momentos: Record<MomentoSlug, { nome: string; ordem: number }> = {
 export const ordemMomentos: MomentoSlug[] = (
   Object.keys(momentos) as MomentoSlug[]
 ).sort((a, b) => momentos[a].ordem - momentos[b].ordem);
+
+// Guarda de build. Os motores cortam a descricao por volta dos 160 caracteres,
+// e uma descricao truncada e' pior do que uma curta. Falha alto em vez de
+// publicar em silencio — a mesma disciplina do frontmatter dos artigos.
+for (const [slug, p] of Object.entries(pilares)) {
+  const m = p.meta ?? p.descricao;
+  if (m.length > 160) {
+    throw new Error(
+      `lib/site.ts — pilar "${slug}": meta description com ${m.length} caracteres (max 160). ` +
+        "Acrescente um campo `meta` curto.",
+    );
+  }
+}
 
 export const ordemPilares: PilarSlug[] = [
   "fundamentos",

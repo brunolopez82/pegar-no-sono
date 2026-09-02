@@ -25,13 +25,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // do indice. Uma pagina vazia indexada e' thin content e arrasta o dominio.
   const vazio = artigosDoPilar(pilar as PilarSlug).length === 0;
 
+  const meta = dados.meta ?? dados.descricao;
+
   return {
     title: dados.titulo,
-    description: dados.descricao,
+    description: meta,
     alternates: { canonical: `/temas/${pilar}/` },
     openGraph: {
       title: dados.titulo,
-      description: dados.descricao,
+      description: meta,
       type: "website",
       images: [ogPadrao],
     },

@@ -26,7 +26,8 @@ o artigo pedir.
 | Campo | Obrigatório | Para que serve |
 |---|---|---|
 | `titulo` | sim | H1 e title da página |
-| `descricao` | sim | meta description e texto do cartão na listagem |
+| `descricao` | sim | texto do cartão na listagem. Pode ser longo |
+| `meta` | se a `descricao` passar dos 160 | a meta description que vai para o Google. 25 a 160 caracteres |
 | `resposta` | sim | resposta direta em ~40 palavras, na caixa do topo |
 | `pilar` | sim | **de que assunto é.** Um de: `fundamentos`, `respiracao`, `rotina`, `ambiente`, `ansiedade`, `ritmo-circadiano`, `biohacking`, `medir` |
 | `momento` | recomendado | **quando se faz.** Um de: `manha`, `dia`, `fim-de-tarde`, `antes-de-deitar`, `na-cama`, `de-madrugada` |
@@ -89,6 +90,26 @@ o `pilar` não existir, se uma data ou um URL estiverem mal formados, se houver 
 nome do ficheiro e do campo.
 
 `git push` para `main` e a Action publica no branch `deploy`.
+
+---
+
+## `descricao` e `meta` também são coisas diferentes
+
+A `descricao` é o texto do cartão nas listagens: pode respirar e ser longo.
+
+A `meta` é o que sai no resultado de pesquisa, e tem um orçamento duro. Os motores cortam
+por volta dos **160 caracteres**, e uma descrição cortada a meio é pior do que uma curta.
+
+Se a `descricao` couber nos 160, não é preciso `meta` nenhum — usa-se a `descricao`. Se não
+couber, **o build falha** e diz quantos caracteres tem a mais.
+
+```
+content/artigos/exemplo.mdx — meta description com 251 caracteres (max 160).
+Acrescente um campo `meta` curto; a `descricao` pode continuar longa para o cartão.
+```
+
+O mesmo vale para os pilares em `lib/site.ts`, que têm um campo `meta` opcional pela mesma
+razão e uma guarda de build igual.
 
 ---
 

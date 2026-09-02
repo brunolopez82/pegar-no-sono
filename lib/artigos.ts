@@ -61,6 +61,9 @@ const esquemaFrontmatter = z
   .object({
     titulo: z.string().min(1),
     descricao: z.string().min(1),
+    // Meta description. Se faltar, usa-se a `descricao` — e nesse caso ela
+    // propria tem de caber nos 160. Ver validarMetaDescricoes().
+    meta: z.string().min(25).max(160).optional(),
     resposta: z.string().min(1),
     pilar: z.enum(ordemPilares as [PilarSlug, ...PilarSlug[]]),
     momento: z.enum(ordemMomentos as [MomentoSlug, ...MomentoSlug[]]).optional(),
@@ -87,7 +90,10 @@ export type Fonte = z.infer<typeof esquemaFonte>;
 export type MetaArtigo = {
   slug: string;
   titulo: string;
+  /** Texto do cartao nas listagens. Sem limite apertado. */
   descricao: string;
+  /** Meta description, quando a `descricao` e' longa de mais para servir de meta. */
+  meta?: string;
   /** Resposta direta em ~40 palavras. Sai no topo do artigo e alimenta os motores de IA. */
   resposta: string;
   pilar: PilarSlug;
@@ -115,6 +121,15 @@ export type MetaArtigo = {
 };
 
 export type Artigo = MetaArtigo & { corpo: string };
+
+/**
+ * O texto que vai para a meta description da pagina.
+ * A `descricao` e' escrita para o cartao na listagem e costuma ser longa
+ * de mais; o `meta` existe para esses casos.
+ */
+export function metaDescricao(a: MetaArtigo): string {
+  return a.meta ?? a.descricao;
+}
 
 function ficheiros(): string[] {
   if (!fs.existsSync(PASTA)) return [];
@@ -169,6 +184,20 @@ function validarReferencias(artigos: Artigo[]): void {
           `content/artigos/${a.slug}.mdx — relacionados: "${alvo}" nao corresponde a nenhum artigo`,
         );
       }
+    }
+  }
+
+  // Os motores de busca cortam a descricao a' volta dos 160 caracteres. Uma
+  // descricao truncada e' pior do que uma curta, por isso o limite e' duro.
+  for (const a of artigos) {
+    const m = a.meta ?? a.descricao;
+    if (m.length > 160) {
+      erros.push(
+        `content/artigos/${a.slug}.mdx — meta description com ${m.length} caracteres (max 160). ` +
+          `Acrescente um campo \`meta\` curto; a \`descricao\` pode continuar longa para o cartao.`,
+      );
+    } else if (m.length < 25) {
+      erros.push(`content/artigos/${a.slug}.mdx — meta description com apenas ${m.length} caracteres (min 25)`);
     }
   }
 

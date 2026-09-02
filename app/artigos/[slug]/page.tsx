@@ -20,7 +20,7 @@ import Hipnograma from "@/components/diagramas/Hipnograma";
  * diagrama novo entra aqui e fica disponivel a todos os artigos.
  */
 const componentesMDX = { Figura, Hipnograma };
-import { todosOsArtigos, artigoPorSlug, relacionados, dataExtenso } from "@/lib/artigos";
+import { todosOsArtigos, artigoPorSlug, relacionados, dataExtenso, metaDescricao } from "@/lib/artigos";
 import { site, pilares, momentos, ogPadrao } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -38,15 +38,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // Preferir a copia local: nao depende do Unsplash continuar a servir a foto.
   const capa = a.imagemLocal ?? a.imagem;
 
+  const meta = metaDescricao(a);
+
   return {
     title: a.titulo,
-    description: a.descricao,
+    description: meta,
     alternates: { canonical: `/artigos/${slug}/` },
     openGraph: {
       type: "article",
       locale: "pt_PT",
       title: a.titulo,
-      description: a.descricao,
+      description: meta,
       publishedTime: a.data,
       modifiedTime: a.atualizado ?? a.data,
       authors: [site.autor.nome],
