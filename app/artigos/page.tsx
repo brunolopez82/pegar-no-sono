@@ -86,7 +86,7 @@ export default function Pagina() {
             </Revelar>
           </div>
 
-          {comArtigos.map((p) => {
+          {comArtigos.map((p, iPilar) => {
             const doPilar = artigos.filter((a) => a.pilar === p);
             return (
               <div key={p} className="flex flex-col gap-[2px]">
@@ -111,6 +111,7 @@ export default function Pagina() {
                       key={a.slug}
                       artigo={a}
                       variante={i % 3 === 1 ? "imagem" : "liso"}
+                      prioridade={iPilar === 0 && i === 1}
                       atraso={i * 0.06}
                     />
                   ))}

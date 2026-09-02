@@ -109,6 +109,7 @@ export default async function Pagina({ params }: Props) {
                   key={a.slug}
                   artigo={a}
                   variante={i % 2 === 0 ? "imagem" : "liso"}
+                  prioridade={i === 0}
                   atraso={i * 0.06}
                   nivel={2}
                 />

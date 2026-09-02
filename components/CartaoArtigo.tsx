@@ -15,10 +15,16 @@ export default function CartaoArtigo({
   variante = "gradiente",
   atraso = 0,
   nivel = 3,
+  prioridade = false,
 }: {
   artigo: MetaArtigo;
   variante?: "imagem" | "gradiente" | "liso";
   atraso?: number;
+  /**
+   * Reservado ao primeiro cartao com imagem de cada pagina: e' a candidata a
+   * LCP. Sem isto sai em loading="lazy" e o browser adia-a.
+   */
+  prioridade?: boolean;
   /**
    * Nivel do titulo do cartao. Onde os cartoes vem logo a seguir ao H1, sem
    * cabecalho de seccao pelo meio, tem de ser 2 — saltar de H1 para H3 parte a
@@ -40,6 +46,7 @@ export default function CartaoArtigo({
           <ImagemArtigo
             artigo={artigo}
             preencher
+            prioridade={prioridade}
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
