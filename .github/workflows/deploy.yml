@@ -82,6 +82,12 @@ jobs:
           port: 21
           local-dir: ./out/
           server-dir: /public_html/
+          # UMA VEZ SO'. Apaga tudo no servidor antes de enviar, para varrer os
+          # ficheiros de instalacoes anteriores que sobreviveram a todos os
+          # deploys e que devolviam 500 em /artigos/<slug-inexistente>/.
+          # Tirar esta linha logo a seguir: com ela ligada, cada publicacao
+          # apaga o site inteiro antes de o repor, e isso e' downtime a toa.
+          dangerous-clean-slate: true
           # O .git do out/ e' um artefacto do passo anterior, nao pertence ao site.
           exclude: |
             **/.git*
