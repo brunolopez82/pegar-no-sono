@@ -145,7 +145,13 @@ Isto não é estilo. É o que separa este site do resto do que existe em portugu
 4. **Fonte primária.** Liga-se ao estudo, não ao artigo sobre o estudo. DOI ou PubMed.
 5. **Sem prova social inventada.** Nada de contadores de subscritores, testemunhos ou
    resultados pessoais que não existam em registo.
-6. **Português de Portugal.** Sempre. Preços em euros, realidade portuguesa, SNS, Linha SNS 24.
+6. **Português de Portugal na escrita, sem o anunciar.** A grafia e o vocabulário são
+   de Portugal, sempre. Mas o site deixou de se vender pela variante da língua: nenhum
+   texto diz "escrito em português de Portugal", e nada exclui quem lê do Brasil, de
+   Angola ou de Moçambique. O detalhe local entra como exemplo concreto — "num
+   apartamento sem ar condicionado", "com vizinhos por cima" — e não como fronteira.
+   O encaminhamento clínico diz de que país é: "em Portugal, a Linha SNS 24 atende no
+   808 24 24 24".
    Escrever para a casa do leitor — não comparar com o que outros escrevem.
 7. **Resposta primeiro.** O campo `resposta` responde à pergunta por completo em ~40
    palavras. É esse bloco que um motor de IA cita.

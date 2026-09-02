@@ -6,7 +6,7 @@ export const site = {
   tagline: "Métodos naturais para dormir melhor",
   // Serve de meta description da pagina inicial: tem de caber nos 160.
   descricao:
-    "Métodos naturais para dormir melhor: respiração, rotinas, ambiente e hábitos. Com as fontes à vista, em português de Portugal.",
+    "Métodos naturais para dormir melhor: respiração, rotinas, ambiente e hábitos. Com as fontes primárias à vista e a força de cada uma dita em voz alta.",
   idioma: "pt-PT",
   autor: {
     nome: "Bruno Lopes",
@@ -116,7 +116,7 @@ export const pilares: Record<PilarSlug, Pilar> = {
     nome: "Respiração",
     titulo: "Respiração para dormir",
     descricao:
-      "Técnicas de respiração para adormecer: método 4-7-8, respiração em caixa, a técnica militar e a respiração diafragmática. Passo a passo, em português de Portugal.",
+      "Técnicas de respiração para adormecer: método 4-7-8, respiração em caixa, a técnica militar e a respiração diafragmática, passo a passo.",
     meta:
       "Técnicas de respiração para adormecer: método 4-7-8, respiração em caixa, técnica militar e diafragmática. Passo a passo.",
     resumo:
@@ -138,7 +138,7 @@ export const pilares: Record<PilarSlug, Pilar> = {
     nome: "Ambiente do quarto",
     titulo: "O quarto certo para dormir",
     descricao:
-      "Temperatura, escuridão e ruído. Como preparar o quarto para dormir num apartamento português, sem ar condicionado e com vizinhos.",
+      "Temperatura, escuridão e ruído. Como preparar o quarto para dormir num apartamento sem ar condicionado e com vizinhos por cima.",
     resumo:
       "O quarto ou trabalha a favor do seu sono ou contra ele. Não há posição neutra.",
     gradiente: "var(--grad-azul)",
@@ -177,7 +177,7 @@ export const pilares: Record<PilarSlug, Pilar> = {
     nome: "Medir",
     titulo: "Medir o sono",
     descricao:
-      "Aplicações, anéis e relógios de sono avaliados para o mercado português: preços em euros, disponibilidade real e o que os dados valem mesmo.",
+      "Aplicações, anéis e relógios de sono avaliados a sério: o que medem bem, o que inventam, e o que os dados valem mesmo no dia seguinte.",
     resumo:
       "Medir só vale a pena se mudar alguma coisa no que faz. Caso contrário é ansiedade com gráficos.",
     gradiente: "var(--grad-rosa)",

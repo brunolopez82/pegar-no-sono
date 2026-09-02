@@ -42,9 +42,9 @@ const regras = [
     grad: "var(--grad-verde)",
   },
   {
-    titulo: "Escrito para Portugal",
+    titulo: "Aplicável à casa de quem lê",
     texto:
-      "Português de Portugal, sem exceções. Preços em euros, disponibilidade real em Portugal, verões sem ar condicionado, apartamentos com vizinhos por cima, horários e feriados portugueses, e o SNS como referência quando é preciso encaminhar. Os detalhes que decidem se um conselho é aplicável ou apenas bonito.",
+      "Apartamentos sem ar condicionado em agosto, vizinhos por cima, turnos, horários reais de quem trabalha. E quando é preciso encaminhar para um médico, o artigo diz onde. São os detalhes que decidem se um conselho se aplica à sua casa ou se é apenas bonito.",
     grad: "var(--grad-azul)",
   },
   {
@@ -132,8 +132,7 @@ export default function Pagina() {
                 ler o estudo em vez da notícia sobre o estudo. Reparar quando um número que toda a
                 gente repete vem de um livro e não de um ensaio — e escrever no artigo que é frágil,
                 sobretudo quando dava mais jeito não escrever. E depois passar tudo isso para
-                português de Portugal, com euros, com prédios com vizinhos, com agosto sem ar
-                condicionado.
+                linguagem simples, com prédios com vizinhos e com agosto sem ar condicionado.
               </p>
               <p>
                 Este site existe por causa de um número. Portugal é o país da OCDE onde se consomem

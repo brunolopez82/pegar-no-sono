@@ -1,8 +1,7 @@
 # Pegar no Sono
 
 Blog sobre métodos naturais e não-químicos para dormir melhor — respiração, rotinas,
-ambiente e hábitos — para adultos portugueses cujo sono está partido por ansiedade e stress.
-Escrito em português de Portugal.
+ambiente e hábitos — para adultos cujo sono está partido por ansiedade e stress.
 
 **pegarnosono.com**
 
@@ -108,4 +107,5 @@ Detalhe completo em [ESCREVER-ARTIGO.md](./ESCREVER-ARTIGO.md). O essencial:
   é perigoso. Qualquer questão clínica aponta para o médico de família.
 - **Nenhum número sem fonte primária.** Quando um número famoso é frágil, escreve-se que é
   frágil — essa honestidade é a vantagem competitiva.
-- **Português de Portugal**, sem exceções.
+- **Português de Portugal na escrita**, mas sem o anunciar como argumento: o site não se
+  define pela variante da língua, e nada no texto exclui quem lê de outro país.

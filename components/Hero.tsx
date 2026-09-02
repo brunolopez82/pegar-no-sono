@@ -18,8 +18,8 @@ export default function Hero({ destaque }: { destaque?: MetaArtigo }) {
             </h1>
             <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground lg:text-lg">
               Métodos naturais para quem se deita com a cabeça acelerada. Respiração, rotinas e
-              ambiente — explicados com as fontes à vista, em português de Portugal. Sem
-              suplementos e sem promessas.
+              ambiente — explicados com as fontes à vista e com a força de cada uma dita em voz alta.
+              Sem suplementos e sem promessas.
             </p>
         </div>
 

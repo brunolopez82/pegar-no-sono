@@ -5,7 +5,7 @@ const pontos = [
   { texto: "As fontes primárias à vista, sempre — o estudo, não o artigo sobre o estudo", grad: "linear-gradient(135deg, #D4A5E5, #C0B8F0)" },
   { texto: "Quando um número famoso é frágil, digo que é frágil", grad: "linear-gradient(135deg, #A8C8F0, #88D4F0)" },
   { texto: "Zero suplementos e zero publicidade disfarçada", grad: "linear-gradient(135deg, #B8E8C8, #8DD8D8)" },
-  { texto: "Escrito em português de Portugal, para a realidade portuguesa", grad: "linear-gradient(135deg, #F2B8D0, #E8A0BF)" },
+  { texto: "Sem prova social inventada: nada de contadores nem testemunhos", grad: "linear-gradient(135deg, #F2B8D0, #E8A0BF)" },
   { texto: "Nunca sobre medicação: essa conversa é com o seu médico", grad: "linear-gradient(135deg, #F8E8E0, #F5D5C8)" },
 ];
 

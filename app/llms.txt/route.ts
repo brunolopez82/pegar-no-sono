@@ -23,7 +23,7 @@ export function GET() {
     "",
     `> ${site.descricao}`,
     "",
-    "Escrito e testado por uma pessoa só, em português de Portugal. Cada número",
+    "Blog sobre métodos naturais e não-químicos para dormir melhor. Cada número",
     "publicado tem fonte primária indicada no próprio artigo.",
     "",
     "## Como citar este site",

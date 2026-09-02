@@ -53,8 +53,8 @@ Antes de escrever uma linha:
   um livro, de um comunicado, de um estudo com 12 participantes — **escrever no artigo que
   é frágil**. Essa honestidade é a vantagem competitiva do site, não um risco.
 - Ver o que ja existe em português sobre o tema e onde falha: quase sempre falta a fonte,
-  falta o número, ou falta a aplicação à realidade portuguesa (disponibilidade, preços em
-  euros, SNS, clima, horários). Essa falha é o ângulo do artigo.
+  falta o número, ou falta a aplicação à casa de quem lê (o calor sem ar condicionado, os
+  vizinhos, os turnos, os horários reais). Essa falha é o ângulo do artigo.
 - Nunca inventar uma fonte, um DOI ou uma estatística. Sem fonte, o número não entra.
 
 ## Fase 3 — Checkpoint antes de escrever
@@ -147,7 +147,13 @@ Não são estilo. São o que separa este site do resto do que existe em portugu�
 4. **Fonte primária.** O estudo, não a notícia sobre o estudo.
 5. **Sem prova social inventada.** Nada de subscritores, testemunhos ou resultados
    pessoais que não existam em registo. Nunca inventar dados do sono dele.
-6. **Português de Portugal.** Sempre. Euros, realidade portuguesa, SNS, Linha SNS 24.
+6. **Português de Portugal na escrita, sem o anunciar.** A grafia e o vocabulário são
+   de Portugal, sempre. Mas o site deixou de se vender pela variante da língua: nenhum
+   texto diz "escrito em português de Portugal", e nada exclui quem lê do Brasil, de
+   Angola ou de Moçambique. O detalhe local entra como exemplo concreto — "num
+   apartamento sem ar condicionado", "com vizinhos por cima" — e não como fronteira.
+   O encaminhamento clínico diz de que país é: "em Portugal, a Linha SNS 24 atende no
+   808 24 24 24".
 7. **Resposta primeiro**, em ~40 palavras, completa e sem rodeios.
 8. **Imagens só depois de vistas.**
 9. **Fechar clusters.** Acabar um pilar antes de abrir outro. Se ele pedir um artigo de um
