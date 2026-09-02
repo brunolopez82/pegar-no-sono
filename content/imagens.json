@@ -1,4 +1,16 @@
 {
+  "banho-gelado-emagrece": {
+    "ficheiro": "/imagens/artigos/banho-gelado-emagrece.jpg",
+    "largura": 1800,
+    "altura": 1000,
+    "origem": "https://images.unsplash.com/photo-1548236339-55676e0726e0?w=1800&h=1000&fit=crop&auto=format&q=85",
+    "larguras": [
+      480,
+      768,
+      1200,
+      1800
+    ]
+  },
   "dormir-8-horas-e-acordar-cansado": {
     "ficheiro": "/imagens/artigos/dormir-8-horas-e-acordar-cansado.jpg",
     "largura": 2752,
