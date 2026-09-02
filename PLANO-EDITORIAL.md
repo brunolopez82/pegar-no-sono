@@ -33,6 +33,7 @@ procura real mais próximo que se obtém sem ferramenta paga. O que apareceu:
 | `respiracao` | 4 | **fechado** |
 | `ansiedade` | 0 | a seguir |
 | `ritmo-circadiano` | 0 | depois |
+| `biohacking` | 0 | depois — banho gelado, jejum, frio, sauna, luz |
 | `ambiente` | 0 | depois |
 | `rotina` | 0 | depois |
 | `medir` | 0 | último — camada de monetização |
@@ -98,7 +99,8 @@ medicação. Um artigo de afiliação que quebre isto vale menos do que não exi
 ## Regras da fila
 
 - Um pilar fecha antes de o seguinte abrir.
-- Se uma query tiver o SERP tomado por conteúdo brasileiro ou por astrologia,
-  sobe na fila — é onde a diferença se nota mais.
+- Se uma query tiver o SERP tomado por listas de dicas sem fontes, por páginas
+  institucionais paradas há anos ou por astrologia, sobe na fila — é onde um
+  artigo com fontes primárias se distingue mais depressa.
 - Nenhum artigo entra sem fonte primária verificada e sem a fragilidade dessa
   fonte escrita no texto.

@@ -44,7 +44,7 @@ const regras = [
   {
     titulo: "Escrito para Portugal",
     texto:
-      "Português de Portugal, sem exceções. Preços em euros, disponibilidade real em Portugal, verões sem ar condicionado, prédios com vizinhos, horários portugueses. A maior parte do conteúdo sobre sono em português é brasileiro e erra estes detalhes.",
+      "Português de Portugal, sem exceções. Preços em euros, disponibilidade real em Portugal, verões sem ar condicionado, apartamentos com vizinhos por cima, horários e feriados portugueses, e o SNS como referência quando é preciso encaminhar. Os detalhes que decidem se um conselho é aplicável ou apenas bonito.",
     grad: "var(--grad-azul)",
   },
   {
@@ -110,12 +110,12 @@ export default function Pagina() {
                 oposto do que eu julgava, e que eu tinha passado anos sem nunca ter ido verificar.
               </p>
               <p>
-                Quando finalmente fui procurar melhor, em português, encontrei um muro. Voltaram
-                conselhos brasileiros para um clima que não é o nosso e produtos com preços em
-                reais. Voltaram páginas institucionais atualizadas pela última vez numa década
-                anterior. E voltou publicidade, muita publicidade, a coisas para tomar. Em inglês
-                estava tudo lá: os estudos, as revisões, as normas clínicas. Em português, entre
-                mim e essa informação, não estava nada.
+                Quando finalmente fui procurar melhor, encontrei um muro. Voltaram listas de dez
+                dicas iguais entre si, todas sem uma única fonte. Voltaram páginas institucionais
+                atualizadas pela última vez numa década anterior. E voltou publicidade, muita
+                publicidade, a coisas para tomar. Em inglês estava tudo lá: os estudos, as
+                revisões, as normas clínicas. Em português, entre mim e essa informação, não estava
+                praticamente nada.
               </p>
               <p>
                 Chamo-me {site.autor.nome}. Construo sites para viver e durmo mal há anos, o que faz
@@ -170,6 +170,55 @@ export default function Pagina() {
 
           <div className="tile px-6 py-12 lg:px-14 lg:py-16">
             <div className="artigo max-w-none">
+              <h2>Uma palavra que costuma assustar: biohacking</h2>
+              <p>
+                Vai encontrar esta palavra aqui, por isso mais vale explicá-la já — sobretudo
+                porque metade dela é <em>hacking</em>, e essa metade traz uma bagagem que não lhe
+                pertence.
+              </p>
+              <p>
+                <strong>Hacking, no sentido original, não tem nada que ver com invadir
+                computadores.</strong> Quer dizer abrir um sistema para perceber como funciona,
+                mexer numa peça de cada vez e observar o que muda. É o que faz quem desmonta um
+                motor para perceber o ruído, ou quem tira um bocado de código para ver o que deixa
+                de acontecer. Junte-lhe <em>bio</em> e o sistema que se está a abrir passa a ser o
+                seu próprio corpo.
+              </p>
+              <p>Na prática, aqui, resume-se a quatro passos sem nada de exótico:</p>
+              <ol>
+                <li>Escolher <strong>uma</strong> coisa para mudar.</li>
+                <li>Mudar só essa, e manter o resto igual.</li>
+                <li>Registar o que acontece durante duas a quatro semanas.</li>
+                <li>Ficar com o que resistiu e largar o resto sem pena nenhuma.</li>
+              </ol>
+              <p>
+                É metodologia aborrecida a fingir que é futurismo. A parte difícil não é a
+                tecnologia — é a disciplina de mudar uma variável de cada vez quando apetece mudar
+                cinco.
+              </p>
+              <p>
+                E porquê num site sobre sono? Porque o sono é a variável que mexe em todas as
+                outras. Quase tudo o que se experimenta — o banho gelado de manhã, comer mais tarde
+                ou mais cedo, apanhar sol nos primeiros minutos do dia, treinar à noite — acaba
+                julgado pela mesma pergunta: <em>dormi melhor, e como me senti no dia seguinte?</em>{" "}
+                O sono é a base, e é por isso que é ele o assunto desta casa. O resto ancora-se
+                nele.
+              </p>
+              <p>
+                Duas fronteiras, para saber o que esperar. A primeira já conhece:{" "}
+                <strong>técnicas e hábitos, nunca substâncias.</strong> Não há suplementos, não há
+                combinações de comprimidos, não há nada para tomar — mesmo quando o assunto é
+                biohacking, onde é precisamente isso que costuma aparecer. A segunda:{" "}
+                <strong>a maior parte do que se vende com este nome tem evidência fraca</strong>, e
+                aqui isso é dito. Quando um hábito famoso não se aguenta em pé, o artigo diz que
+                não se aguenta — e continua a valer a pena tê-lo escrito.
+              </p>
+              <p>
+                Se um hábito envolver alterar padrões alimentares, exposição ao frio intenso, ou se
+                tiver alguma condição de saúde, essa conversa é com o seu médico antes de ser
+                consigo.
+              </p>
+
               <h2>Quando isto não chega</h2>
               <p>
                 Estas técnicas servem para o sono partido por stress, horários e hábitos. Não servem

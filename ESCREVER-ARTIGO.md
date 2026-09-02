@@ -28,7 +28,8 @@ o artigo pedir.
 | `titulo` | sim | H1 e title da página |
 | `descricao` | sim | meta description e texto do cartão na listagem |
 | `resposta` | sim | resposta direta em ~40 palavras, na caixa do topo |
-| `pilar` | sim | um de: `respiracao`, `rotina`, `ambiente`, `ansiedade`, `ritmo-circadiano`, `medir` |
+| `pilar` | sim | **de que assunto é.** Um de: `fundamentos`, `respiracao`, `rotina`, `ambiente`, `ansiedade`, `ritmo-circadiano`, `biohacking`, `medir` |
+| `momento` | recomendado | **quando se faz.** Um de: `manha`, `dia`, `fim-de-tarde`, `antes-de-deitar`, `na-cama`, `de-madrugada` |
 | `data` | sim | `AAAA-MM-DD` |
 | `imagem` | recomendado | capa do artigo: topo da página, tile na listagem e imagem de partilha |
 | `imagemAlt` | com `imagem` | descrição da foto para leitores de ecrã. Nunca deixar vazio |
@@ -91,6 +92,20 @@ nome do ficheiro e do campo.
 
 ---
 
+## Pilar e momento são eixos diferentes
+
+O `pilar` diz **de que assunto** é o artigo. O `momento` diz **a que horas se faz**.
+
+A respiração diafragmática é do pilar `respiracao` e faz-se `na-cama`. O banho gelado é de
+`biohacking` e faz-se de `manha`. São coisas independentes, e é por serem independentes
+que mais tarde se consegue montar um protocolo por ordem de relógio a partir dos artigos
+que já existem — sem manter lista nenhuma à mão.
+
+Preencher o `momento` sempre que o artigo descreva algo que se **faz**. Um artigo
+explicativo (porque é que o sono importa) pode não ter momento nenhum.
+
+---
+
 ## As regras editoriais, que não são negociáveis
 
 Isto não é estilo. É o que separa este site do resto do que existe em português.
@@ -106,6 +121,7 @@ Isto não é estilo. É o que separa este site do resto do que existe em portugu
 5. **Sem prova social inventada.** Nada de contadores de subscritores, testemunhos ou
    resultados pessoais que não existam em registo.
 6. **Português de Portugal.** Sempre. Preços em euros, realidade portuguesa, SNS, Linha SNS 24.
+   Escrever para a casa do leitor — não comparar com o que outros escrevem.
 7. **Resposta primeiro.** O campo `resposta` responde à pergunta por completo em ~40
    palavras. É esse bloco que um motor de IA cita.
 8. **Imagens só depois de vistas.** Nunca colar um URL de imagem sem abrir a imagem
@@ -123,6 +139,7 @@ titulo: "Título com a pesquisa lá dentro"
 descricao: "Uma ou duas frases. Aparece no Google e no cartão da listagem."
 resposta: "A resposta completa em cerca de 40 palavras, sem rodeios e sem introdução."
 pilar: "respiracao"
+momento: "na-cama"
 data: "2026-09-05"
 imagem: "https://images.unsplash.com/photo-XXXX?w=1800&h=1000&fit=crop&auto=format&q=85"
 imagemAlt: "O que se ve na foto, numa frase"

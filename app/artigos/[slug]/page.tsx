@@ -21,7 +21,7 @@ import Hipnograma from "@/components/diagramas/Hipnograma";
  */
 const componentesMDX = { Figura, Hipnograma };
 import { todosOsArtigos, artigoPorSlug, relacionados, dataExtenso } from "@/lib/artigos";
-import { site, pilares, ogPadrao } from "@/lib/site";
+import { site, pilares, momentos, ogPadrao } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -210,13 +210,22 @@ export default async function Pagina({ params }: Props) {
                 </p>
               </div>
             </div>
-            <Link
-              href={`/temas/${a.pilar}/`}
-              className="rounded-full px-4 py-1.5 text-xs font-semibold text-foreground/70 transition-opacity hover:opacity-80"
-              style={{ background: pilar.gradiente }}
-            >
-              {pilar.nome}
-            </Link>
+            <div className="flex flex-wrap items-center gap-2">
+              {/* Quando se faz. E' este eixo que permite montar um protocolo
+                  por ordem de relogio a partir dos artigos que existem. */}
+              {a.momento && (
+                <span className="rounded-full border border-black/15 px-4 py-1.5 text-xs font-semibold text-foreground/70">
+                  {momentos[a.momento].nome}
+                </span>
+              )}
+              <Link
+                href={`/temas/${a.pilar}/`}
+                className="rounded-full px-4 py-1.5 text-xs font-semibold text-foreground/70 transition-opacity hover:opacity-80"
+                style={{ background: pilar.gradiente }}
+              >
+                {pilar.nome}
+              </Link>
+            </div>
           </div>
 
           {/* Resposta direta: o bloco que um motor de IA cita inteiro */}

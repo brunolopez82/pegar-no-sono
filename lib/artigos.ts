@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { z } from "zod";
-import { ordemPilares, type PilarSlug } from "./site";
+import { ordemPilares, ordemMomentos, type PilarSlug, type MomentoSlug } from "./site";
 
 const PASTA = path.join(process.cwd(), "content", "artigos");
 const MANIFESTO_IMAGENS = path.join(process.cwd(), "content", "imagens.json");
@@ -63,6 +63,7 @@ const esquemaFrontmatter = z
     descricao: z.string().min(1),
     resposta: z.string().min(1),
     pilar: z.enum(ordemPilares as [PilarSlug, ...PilarSlug[]]),
+    momento: z.enum(ordemMomentos as [MomentoSlug, ...MomentoSlug[]]).optional(),
     data: dataCurta,
     atualizado: dataCurta.optional(),
     destaque: z.boolean().optional(),
@@ -90,6 +91,8 @@ export type MetaArtigo = {
   /** Resposta direta em ~40 palavras. Sai no topo do artigo e alimenta os motores de IA. */
   resposta: string;
   pilar: PilarSlug;
+  /** Quando se faz, ao contrario do pilar, que diz de que assunto e'. */
+  momento?: MomentoSlug;
   data: string;
   atualizado?: string;
   destaque?: boolean;

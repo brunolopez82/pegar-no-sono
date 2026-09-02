@@ -22,6 +22,7 @@
     --grad-rosa: linear-gradient(160deg, #FBE4EE 0%, #F5CBDF 40%, #E8A0BF 100%);
     --grad-areia: linear-gradient(160deg, #F6F0E6 0%, #EDE2CE 40%, #E2D2B4 100%);
     --grad-bruma: linear-gradient(160deg, #E2E4F5 0%, #C6CBEE 40%, #AEB5E4 100%);
+    --grad-gelo: linear-gradient(160deg, #E2F4F4 0%, #C2E7EA 40%, #A6DBE0 100%);
 
     /* Diagramas dos artigos. Uma paleta so', para todos se parecerem. */
     --dia-profundo: #DDE1F4;

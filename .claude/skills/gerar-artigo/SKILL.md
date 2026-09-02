@@ -48,9 +48,9 @@ Antes de escrever uma linha:
 - Verificar **cada número** que vá aparecer. Se um número muito citado for frágil — vem de
   um livro, de um comunicado, de um estudo com 12 participantes — **escrever no artigo que
   é frágil**. Essa honestidade é a vantagem competitiva do site, não um risco.
-- Procurar o que existe em português sobre o tema. Quase de certeza é brasileiro. Se for,
-  isso é um ângulo: o que está errado para um leitor português (produtos, preços, SNS,
-  clima, grafia).
+- Ver o que ja existe em português sobre o tema e onde falha: quase sempre falta a fonte,
+  falta o número, ou falta a aplicação à realidade portuguesa (disponibilidade, preços em
+  euros, SNS, clima, horários). Essa falha é o ângulo do artigo.
 - Nunca inventar uma fonte, um DOI ou uma estatística. Sem fonte, o número não entra.
 
 ## Fase 3 — Checkpoint antes de escrever

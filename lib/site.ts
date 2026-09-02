@@ -5,13 +5,13 @@ export const site = {
   dominio: "https://pegarnosono.com",
   tagline: "Métodos naturais para dormir melhor",
   descricao:
-    "Respiração, rotinas, ambiente e hábitos. Métodos naturais e não-químicos para dormir melhor, escritos em português de Portugal para quem se deita com a cabeça acelerada.",
+    "Respiração, rotinas, ambiente e hábitos. Métodos naturais e não-químicos para dormir melhor, e o que a evidência diz sobre os hábitos que toda a gente experimenta à volta do sono. Escrito em português de Portugal.",
   idioma: "pt-PT",
   autor: {
     nome: "Bruno Lopez",
     funcao: "Designer e programador. Não sou médico.",
     // Sem credencial clínica. Dizer isto em voz alta é o que torna o site citável.
-    bio: "Quando acordava a meio da noite, fumava um cigarro. Achava que me acalmava. Não me acalmava. Depois pegava no telemóvel — e essa, provavelmente, também já fez. Construo sites para viver e durmo mal há anos; quando fui procurar melhor, em português só encontrei conselhos brasileiros, páginas paradas há uma década e publicidade a comprimidos. Por isso fui às fontes primárias e comecei a escrever a metade que faltava. Não sou médico e não vendo nada que se tome.",
+    bio: "Quando acordava a meio da noite, fumava um cigarro. Achava que me acalmava. Não me acalmava. Depois pegava no telemóvel — e essa, provavelmente, também já fez. Construo sites para viver e durmo mal há anos; quando fui procurar melhor, encontrei páginas paradas há uma década e publicidade a comprimidos. Por isso fui às fontes primárias e comecei a testar em mim, uma variável de cada vez. Não sou médico e não vendo nada que se tome.",
     email: "ola@pegarnosono.com",
     /**
      * Perfis publicos do autor, para `sameAs` no schema Person.
@@ -73,6 +73,7 @@ export type PilarSlug =
   | "ambiente"
   | "ansiedade"
   | "ritmo-circadiano"
+  | "biohacking"
   | "medir";
 
 export type Pilar = {
@@ -107,12 +108,12 @@ export const pilares: Record<PilarSlug, Pilar> = {
     gradiente: "var(--grad-roxo)",
   },
   rotina: {
-    nome: "Rotina noturna",
-    titulo: "Rotina noturna para dormir melhor",
+    nome: "Rotinas",
+    titulo: "Rotinas de noite e de manhã",
     descricao:
-      "O que fazer na hora antes de deitar: banho quente, alongamentos, horários fixos e leitura. A rotina que prepara o corpo para o sono.",
+      "O que fazer na hora antes de deitar e nos primeiros minutos depois de acordar: banho quente, alongamentos, horários fixos, luz da manhã e o que fazer antes do primeiro café.",
     resumo:
-      "Ninguém adormece a um interruptor. O sono é a última etapa de um processo que começa uma a duas horas antes de se deitar.",
+      "Ninguém adormece a um interruptor. O sono é a última etapa de um processo que começa uma a duas horas antes de se deitar — e a noite de hoje começa a ser decidida na manhã de hoje.",
     gradiente: "var(--grad-verde)",
   },
   ambiente: {
@@ -142,6 +143,15 @@ export const pilares: Record<PilarSlug, Pilar> = {
       "A hora a que adormece é decidida muito antes da noite. É decidida pela luz que apanhou de manhã e pelo que bebeu à tarde.",
     gradiente: "var(--grad-areia)",
   },
+  biohacking: {
+    nome: "Biohacking",
+    titulo: "Biohacking do sono: o que resiste à evidência",
+    descricao:
+      "Banho gelado, jejum, sauna, exposição ao frio, protocolos de luz. Os hábitos que toda a gente experimenta à volta do sono, testados um a um contra o que os estudos mostram — e separados dos que são apenas moda.",
+    resumo:
+      "Mudar uma variável de cada vez, medir, e ficar com o que resiste. É isso que a palavra quer dizer aqui — e não há nada de obscuro nela.",
+    gradiente: "var(--grad-gelo)",
+  },
   medir: {
     nome: "Medir",
     titulo: "Medir o sono",
@@ -153,6 +163,37 @@ export const pilares: Record<PilarSlug, Pilar> = {
   },
 };
 
+/**
+ * Momento do dia a que um artigo se aplica.
+ *
+ * O pilar diz de que assunto e' o artigo; o momento diz **quando se faz**. Sao
+ * eixos diferentes: a respiracao diafragmatica e' do pilar Respiracao e faz-se
+ * ja na cama; o banho gelado e' de Biohacking e faz-se de manha.
+ *
+ * E' isto que permite, mais tarde, montar um protocolo por ordem de relogio a
+ * partir dos artigos que ja existem, sem manter lista nenhuma a' mao.
+ */
+export type MomentoSlug =
+  | "manha"
+  | "dia"
+  | "fim-de-tarde"
+  | "antes-de-deitar"
+  | "na-cama"
+  | "de-madrugada";
+
+export const momentos: Record<MomentoSlug, { nome: string; ordem: number }> = {
+  manha: { nome: "Ao acordar", ordem: 1 },
+  dia: { nome: "Durante o dia", ordem: 2 },
+  "fim-de-tarde": { nome: "Fim de tarde", ordem: 3 },
+  "antes-de-deitar": { nome: "Uma hora antes de deitar", ordem: 4 },
+  "na-cama": { nome: "Já na cama", ordem: 5 },
+  "de-madrugada": { nome: "Se acordar de madrugada", ordem: 6 },
+};
+
+export const ordemMomentos: MomentoSlug[] = (
+  Object.keys(momentos) as MomentoSlug[]
+).sort((a, b) => momentos[a].ordem - momentos[b].ordem);
+
 export const ordemPilares: PilarSlug[] = [
   "fundamentos",
   "respiracao",
@@ -160,5 +201,6 @@ export const ordemPilares: PilarSlug[] = [
   "ambiente",
   "ansiedade",
   "ritmo-circadiano",
+  "biohacking",
   "medir",
 ];
