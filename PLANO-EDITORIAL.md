@@ -51,9 +51,18 @@ procura real mais próximo que se obtém sem ferramenta paga. O que apareceu:
    nicotina precisa de fonte primária sobre o efeito estimulante e sobre o
    sono, e a regra 1 continua a valer: descreve-se o que não resultou, não se
    dá conselho sobre deixar de fumar. Isso é conversa para o médico.
-2. `nao-consigo-desligar-a-cabeca` — ruminação noturna
-3. `despejo-mental-antes-de-deitar` — brain dump
-4. `o-que-fazer-quando-nao-adormeces` — controlo de estímulos: sair da cama
+2. `despejo-mental-antes-de-deitar` — brain dump. **Trocado para segundo** a
+   2 set 2026, com base na investigação de palavras-chave em
+   `pesquisa/keywords-ansiedade-2026-08-31.csv`: dificuldade 12 contra 30 do
+   `nao-consigo-desligar-a-cabeca`, e praticamente sem cobertura em pt-PT.
+   É também técnica pura — não depende de história pessoal e é testável em
+   catorze noites, o que faz dele o primeiro candidato a dados próprios.
+3. `o-que-fazer-quando-nao-adormeces` — controlo de estímulos: sair da cama.
+   Dificuldade 18.
+4. `nao-consigo-desligar-a-cabeca` — ruminação noturna. **Adiado para quarto:**
+   dificuldade 30, é o único do pilar com concorrência portuguesa instalada
+   (Visão e CNN Portugal). Ataca-se melhor com três artigos do pilar já a
+   apontar para ele do que sozinho.
 5. `nsdr-e-yoga-nidra`
 
 ### Pilar 5 — Ritmo circadiano
