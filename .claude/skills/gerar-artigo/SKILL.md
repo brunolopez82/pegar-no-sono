@@ -1,6 +1,6 @@
 ---
 name: gerar-artigo
-description: Escreve e publica um artigo novo no Pegar no Sono, do zero até estar online. Entrevista o Bruno primeiro para apanhar o ângulo dele, investiga as fontes primárias, escreve o .mdx completo com resposta, passos, FAQ e fontes, descarrega a capa, compila, faz push e confirma que ficou no ar. Usar quando ele disser "gerar artigo", "novo artigo", "vamos escrever o artigo desta semana", ou nomear um tema para publicar.
+description: Escreve e publica um artigo novo no Pegar no Sono, do zero até estar online. Entrevista o Bruno primeiro para apanhar o ângulo dele, investiga as fontes primárias, escreve o .mdx completo com resposta, passos, FAQ e fontes, descarrega a capa, compila, faz push e confirma que ficou no ar. Usar quando ele disser "gerar artigo", "novo artigo", "o artigo desta semana", ou nomear um tema — e tambem na rotina automatica de quinta-feira, em que corre sozinha sem ninguem para responder.
 ---
 
 # Gerar artigo
@@ -11,8 +11,17 @@ página de tema, sitemap, RSS, `llms.txt`, dados estruturados — atualiza-se so
 A regra que governa esta skill inteira: **o artigo tem de trazer alguma coisa que só o
 Bruno pode escrever.** Os quatro primeiros artigos do site são explicadores bem
 documentados a partir de fontes públicas — exatamente o que um modelo reconstrói sozinho.
-Se este artigo sair igual, não valeu a pena publicá-lo. A entrevista da fase 1 existe
-para isso e não se salta.
+Se este artigo sair igual, não valeu a pena publicá-lo.
+
+Com ele presente, isso vem da entrevista. Sem ele — na quinta-feira automática — vem do
+que estiver escrito no `NOTAS-DO-BRUNO.md` e na entrada da fila. **Se não houver nada
+escrito, o artigo sai sem material pessoal e diz-se isso na descrição do branch.** Nunca
+se inventa uma experiência dele: é a regra 5, e é o único erro deste sistema que não tem
+volta, porque sai publicado sob o nome dele.
+
+Sem material pessoal, o que distingue o artigo continua a existir e não é pouco: fonte
+primária em vez de fonte secundária, a fragilidade da fonte escrita no texto, o detalhe
+específico que os outros deixam cair, e a tabela onde os outros põem parágrafos.
 
 ## Antes de começar
 
@@ -23,7 +32,24 @@ Ler também `ARQUITETURA-DE-ARTIGOS.md`, que decide a forma: qual dos seis forma
 comprimento, por que ordem vão as secções, e onde ligar. O modelo de plano no fim desse
 ficheiro é o que se preenche na Fase 3, antes de escrever uma linha.
 
-## Fase 1 — Entrevista
+## Fase 0 — Qual é o artigo
+
+```bash
+npm run proximo
+```
+
+Diz o tema, lendo a fila do `PLANO-EDITORIAL.md` e cruzando-a com o que já está
+publicado. **Não se escolhe nem se discute.** Se o Bruno nomeou um tema, esse ganha e o
+`proximo` fica para a semana seguinte.
+
+## Fase 1 — Material do Bruno
+
+Há dois modos, e a diferença é só se ele está lá para responder.
+
+### Modo A — com ele presente
+
+**Perguntar em texto simples, numerado. Nunca usar o AskUserQuestion** — ele dispensa-o
+e responde melhor a escrever.
 
 **Perguntar em texto simples, numerado. Nunca usar o AskUserQuestion** — ele dispensa-o
 e responde melhor a escrever.
@@ -44,6 +70,21 @@ Se uma resposta vier vaga, **insistir uma vez**. "Não sei" a todas as perguntas
 significa que ainda não há artigo — dizer isso e parar, em vez de escrever um explicador
 genérico.
 
+### Modo B — sozinho, na quinta-feira
+
+Ninguém vai responder. Não perguntar, não esperar, não parar.
+
+1. Ler o `NOTAS-DO-BRUNO.md` e procurar entrada para este tema.
+2. Ler a entrada do tema no `PLANO-EDITORIAL.md` — algumas já trazem material dele
+   registado, como a do `acordar-as-3-da-manha`.
+3. Se houver material, usá-lo tal como está escrito, sem o esticar.
+4. Se não houver, escrever sem ele. **Não substituir por uma história inventada,
+   nem por «muitas pessoas relatam», que é prova social sem prova.**
+
+Depois de publicar o branch, deixar escrito na descrição se o artigo saiu com ou sem
+material dele. É por aí que ele decide se quer acrescentar uma secção antes de fazer
+merge.
+
 ## Fase 2 — Investigação
 
 Antes de escrever uma linha:
@@ -59,16 +100,21 @@ Antes de escrever uma linha:
 
 ## Fase 3 — Checkpoint antes de escrever
 
-Mostrar ao Bruno, e **esperar aprovação**:
+**Modo A, com ele presente:** mostrar e **esperar aprovação**. Corrigir aqui é barato;
+corrigir depois do artigo escrito é refazer tudo.
+
+**Modo B, sozinho:** não há aprovação para esperar. O plano escreve-se na descrição do
+branch e o branch é que é o checkpoint — nunca se faz push para `main`, porque `main`
+publica sozinho em produção e isto é conteúdo de saúde com o nome dele à frente.
+
+Em qualquer dos modos, o plano é o mesmo:
 
 - o `titulo` e o `slug` propostos (o slug é o URL e não se muda depois sem partir links)
 - a **`resposta`** completa, em ~40 palavras — é o bloco que os motores de IA citam, e é a
   peça mais importante do artigo
 - os `##` que vai ter, por ordem
 - as fontes encontradas, com o que cada uma sustenta
-- o que a entrevista deu e que vai entrar como material dele
-
-Corrigir aqui é barato. Corrigir depois do artigo escrito é refazer tudo.
+- o material dele que vai entrar, e de onde veio — ou que não há nenhum
 
 ## Fase 4 — Escrever o `.mdx`
 
@@ -112,13 +158,58 @@ uma data ou URL estiverem mal formados, se houver `imagem` sem `imagemAlt`, ou s
 `relacionados` apontar para um artigo inexistente. Se falhar, corrigir — nunca contornar a
 validação.
 
-Depois:
+Compilar não chega. As três verificações a seguir são o que impede este artigo de sair
+pior do que os doze que já lá estão:
+
+```bash
+npm run verificar
+```
+
+Estrutura e linha editorial: cabeçalhos em pergunta, tabela, ligações internas, FAQ,
+parágrafos a abrir com pronome solto, grafia, e percentagens sem estudo por perto. **O
+alvo é zero avisos** — em 2026-09-02 os doze artigos estavam a zero, e um artigo novo com
+avisos baixa a média do site.
+
+```bash
+npm run verificar-fontes
+```
+
+Valida cada DOI contra o CrossRef e compara o título e o ano registados com o que está
+escrito na citação. Apanha o erro que nenhuma leitura apanha: o DOI certo com o título
+errado. Não serve pedir o URL ao editor — Wiley, NEJM, Oxford, Science e Annals respondem
+403 a robôs, e isso não diz nada sobre o link estar vivo.
+
+```bash
+npm run auditar
+```
+
+O HTML compilado: títulos, descrições, duplicados, H1, `alt`, canónico, ligações internas
+partidas e saltos na hierarquia de cabeçalhos.
+
+Só depois de as três passarem:
+
+**Modo A — com ele presente e com o plano aprovado:**
 
 ```bash
 git add -A && git commit -m "Artigo: <titulo curto>" && git push
 ```
 
+`main` publica sozinho em produção.
+
+**Modo B — sozinho, na quinta-feira:**
+
+```bash
+git checkout -b artigo/<slug> && git add -A && git commit -m "Artigo: <titulo curto>" && git push -u origin artigo/<slug>
+```
+
+**Nunca para `main` neste modo.** `main` deploya para produção sem ninguém ver, e isto é
+conteúdo de saúde publicado sob o nome dele. Na descrição do branch: o plano da fase 3, o
+resultado das três verificações, e se o artigo saiu com ou sem material dele.
+
 ## Fase 7 — Confirmar que ficou online
+
+Só no modo A. No modo B não há nada online para confirmar — o artigo está no branch
+à espera dele.
 
 O deploy demora cerca de dois minutos. **Não dizer que está publicado sem verificar no
 servidor.** Sondar até responder 200:

@@ -1,9 +1,21 @@
 # Plano editorial — Pegar no Sono
 
 Ordem de publicação por **potencial de tráfego em Portugal**, não por gosto.
-Atualizado a 2026-09-01. Substitui a ordem de pilares do `topical-architecture.md`.
+Atualizado a 2026-09-02. Substitui a ordem de pilares do `topical-architecture.md`.
 
 Cadência: **um artigo por semana, à quinta-feira.**
+
+O tema não se escolhe nem se discute — pergunta-se:
+
+```bash
+npm run proximo
+```
+
+Lê a fila deste ficheiro, cruza com o que já está em `content/artigos/` e diz
+qual é o próximo. **A fila é a única coisa mantida à mão neste ficheiro.** O
+estado é sempre calculado, porque a versão escrita à mão desatualizou-se em
+menos de dois dias: dizia «ansiedade: 0 artigos» com dois já publicados, e
+quem a lesse escolhia um tema repetido.
 
 ## Como esta ordem foi decidida
 
@@ -27,21 +39,15 @@ procura real mais próximo que se obtém sem ferramenta paga. O que apareceu:
 
 ## Estado
 
-| Pilar | Artigos | Estado |
-|---|---|---|
-| `fundamentos` | 5 | **fechado** |
-| `respiracao` | 4 | **fechado** |
-| `ansiedade` | 0 | a seguir |
-| `ritmo-circadiano` | 0 | depois |
-| `biohacking` | 0 | depois — banho gelado, jejum, frio, sauna, luz |
-| `ambiente` | 0 | depois |
-| `rotina` | 0 | depois |
-| `medir` | 0 | último — camada de monetização |
+Não está escrito aqui de propósito. `npm run proximo` conta os ficheiros e diz
+a verdade. Em 2026-09-02: 12 artigos, `fundamentos` e `respiracao` fechados,
+`ansiedade` a meio, `biohacking` aberto fora de ordem com o artigo do banho
+gelado, que foi pedido em vez de sair da fila.
 
 ## Fila, por ordem
 
 ### Pilar 4 — Ansiedade e mente (a seguir; maior urgência emocional do mapa)
-1. `acordar-as-3-da-manha` — **a maior query do mapa.** O ângulo é a honestidade:
+1. ~~`acordar-as-3-da-manha`~~ — **publicado.** O ângulo é a honestidade:
    acordar de madrugada é normal em ciclos de sono; o que transforma isso em
    problema é o que se faz nos dez minutos seguintes. Concorrência = astrologia.
    **Material do Bruno para este artigo** (dado a 1 set 2026, já publicado na
@@ -51,7 +57,7 @@ procura real mais próximo que se obtém sem ferramenta paga. O que apareceu:
    nicotina precisa de fonte primária sobre o efeito estimulante e sobre o
    sono, e a regra 1 continua a valer: descreve-se o que não resultou, não se
    dá conselho sobre deixar de fumar. Isso é conversa para o médico.
-2. `despejo-mental-antes-de-deitar` — brain dump. **Trocado para segundo** a
+2. ~~`despejo-mental-antes-de-deitar`~~ — **publicado.** Brain dump. Trocado para segundo a
    2 set 2026, com base na investigação de palavras-chave em
    `pesquisa/keywords-ansiedade-2026-08-31.csv`: dificuldade 12 contra 30 do
    `nao-consigo-desligar-a-cabeca`, e praticamente sem cobertura em pt-PT.
@@ -106,6 +112,9 @@ Técnicas, nunca substâncias; nenhum número sem fonte; aditivo em relação a
 medicação. Um artigo de afiliação que quebre isto vale menos do que não existir.
 
 ## Regras da fila
+
+- **O próximo é o que o `npm run proximo` disser.** Se houver razão para saltar
+  um tema, muda-se a ordem neste ficheiro — não se decide na altura de escrever.
 
 - Um pilar fecha antes de o seguinte abrir.
 - Se uma query tiver o SERP tomado por listas de dicas sem fontes, por páginas
