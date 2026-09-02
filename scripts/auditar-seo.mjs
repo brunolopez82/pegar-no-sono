@@ -66,6 +66,16 @@ for (const p of paginas) {
     }
   }
 
+  // --- hierarquia de titulos ---
+  // Saltar de H1 para H3 parte a navegacao por titulos e a interpretacao do
+  // documento. Guideline 13 do Bing.
+  const niveis = [...h.matchAll(/<h([1-6])[^>]*>/g)].map((m) => Number(m[1]));
+  let anterior = 0;
+  for (const n of niveis) {
+    if (anterior && n > anterior + 1) reportar(`salto na hierarquia de titulos: H${anterior} para H${n}`);
+    anterior = n;
+  }
+
   // --- H1 ---
   const h1 = h.match(/<h1[^>]*>/g) || [];
   if (h1.length === 0) reportar("sem H1");

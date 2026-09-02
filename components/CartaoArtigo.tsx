@@ -14,11 +14,19 @@ export default function CartaoArtigo({
   artigo,
   variante = "gradiente",
   atraso = 0,
+  nivel = 3,
 }: {
   artigo: MetaArtigo;
   variante?: "imagem" | "gradiente" | "liso";
   atraso?: number;
+  /**
+   * Nivel do titulo do cartao. Onde os cartoes vem logo a seguir ao H1, sem
+   * cabecalho de seccao pelo meio, tem de ser 2 — saltar de H1 para H3 parte a
+   * hierarquia para quem navega por titulos e para os motores.
+   */
+  nivel?: 2 | 3;
 }) {
+  const Titulo = (nivel === 2 ? "h2" : "h3") as "h2" | "h3";
   const pilar = pilares[artigo.pilar];
   const comImagem = variante === "imagem" && Boolean(artigo.imagem);
 
@@ -40,9 +48,9 @@ export default function CartaoArtigo({
             <span className="mb-4 inline-block text-xs font-semibold uppercase tracking-widest text-white/60">
               {pilar.nome}
             </span>
-            <h3 className="mb-3 font-display text-xl font-black leading-tight text-white lg:text-2xl">
+            <Titulo className="mb-3 font-display text-xl font-black leading-tight text-white lg:text-2xl">
               {artigo.titulo}
-            </h3>
+            </Titulo>
             <p className="mb-6 text-sm leading-relaxed text-white/70">{artigo.descricao}</p>
             <div className="flex items-center justify-between border-t border-white/20 pt-5">
               <span className="text-xs text-white/50">{artigo.minutos} min de leitura</span>
@@ -68,9 +76,9 @@ export default function CartaoArtigo({
         }
       >
         <span className="etiqueta">{pilar.nome}</span>
-        <h3 className="mb-3 font-display text-xl font-black leading-tight text-foreground lg:text-2xl">
+        <Titulo className="mb-3 font-display text-xl font-black leading-tight text-foreground lg:text-2xl">
           {artigo.titulo}
-        </h3>
+        </Titulo>
         <p className="mb-6 text-sm leading-relaxed text-foreground/70">{artigo.descricao}</p>
         <div className="flex items-center justify-between border-t border-black/10 pt-5">
           <span className="text-xs text-foreground/70">

@@ -31,6 +31,7 @@ export default function Pagina() {
                   artigo={a}
                   variante={i === 1 ? "imagem" : "gradiente"}
                   atraso={i * 0.08}
+                  nivel={2}
                 />
               ))}
             </div>

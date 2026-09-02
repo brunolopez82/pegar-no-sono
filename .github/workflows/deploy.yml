@@ -26,6 +26,15 @@ jobs:
       - run: npm ci
       - run: npm run build          # output:'export' gera o HTML estatico em out/
 
+      # Guarda o HTML que ja estava publicado, para saber a seguir o que mudou
+      # mesmo. Se o branch ainda nao existir (primeiro deploy), segue sem ele.
+      - name: Buscar a versao publicada
+        continue-on-error: true
+        run: |
+          git fetch origin deploy --depth=1 || exit 0
+          mkdir -p anterior
+          git --work-tree=anterior checkout origin/deploy -- . || true
+
       # Publica APENAS o HTML compilado no branch "deploy".
       # A Hostinger fica ligada a esse branch, nunca ao main.
       - name: Publicar no branch deploy
@@ -39,26 +48,44 @@ jobs:
           git commit -m "Build de ${GITHUB_SHA::7}"
           git push --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" deploy
 
-      # Avisa o Bing (e Yandex, Seznam, Naver) de que o site mudou, em vez de
-      # esperar que passem por aqui. O Google nao usa IndexNow: esse descobre
-      # pelo sitemap.
+      # Avisa o Bing (e Yandex, Seznam, Naver). O Google nao usa IndexNow.
       #
-      # Corre depois de publicar, para nunca anunciar conteudo que ainda nao
-      # esta no ar. O out/ continua acessivel; o passo anterior so entrou la
-      # dentro, nao o apagou.
+      # Submete SO as paginas cujo HTML mudou desde o deploy anterior. As
+      # guidelines do Bing desaconselham submissoes em lote e contam a
+      # re-submissao de paginas iguais como desperdicio de rastreio: com um
+      # artigo novo por semana, mandar o site inteiro de cada vez seria pedir
+      # ao Bing para reler noventa e nove paginas que nao mexeram.
       #
-      # Nunca pode partir o deploy: um ping falhado a um motor de busca nao e
-      # motivo para marcar a build como vermelha.
+      # Sem versao anterior (primeiro deploy), submete tudo — a e' correcto.
+      #
+      # Nunca pode partir o deploy: o site ja esta publicado neste ponto.
       #
       # A chave tem de ser a mesma que esta em public/<chave>.txt.
-      - name: Avisar o IndexNow
+      - name: Avisar o IndexNow do que mudou
         continue-on-error: true
         env:
           CHAVE: e21db589dfd8f6a4b157daf462a26e93
         run: |
-          grep -o '<loc>[^<]*</loc>' out/sitemap.xml | sed 's|<loc>||; s|</loc>||' > urls.txt
-          echo "URLs no sitemap: $(wc -l < urls.txt)"
-          jq -Rn --arg k "$CHAVE" '{host: "pegarnosono.com", key: $k, keyLocation: ("https://pegarnosono.com/" + $k + ".txt"), urlList: [inputs]}' < urls.txt > corpo.json
+          : > mudaram.txt
+          for f in $(cd out && find . -name index.html); do
+            caminho=${f#./}
+            url="https://pegarnosono.com/${caminho%index.html}"
+            antigo="anterior/$caminho"
+            if [ ! -f "$antigo" ] || ! cmp -s "out/$caminho" "$antigo"; then
+              echo "$url" >> mudaram.txt
+            fi
+          done
+
+          total=$(wc -l < mudaram.txt)
+          echo "Paginas alteradas neste deploy: $total"
+          cat mudaram.txt
+
+          if [ "$total" -eq 0 ]; then
+            echo "Nada mudou no HTML. Nao ha nada a submeter."
+            exit 0
+          fi
+
+          jq -Rn --arg k "$CHAVE" '{host: "pegarnosono.com", key: $k, keyLocation: ("https://pegarnosono.com/" + $k + ".txt"), urlList: [inputs]}' < mudaram.txt > corpo.json
           codigo=$(curl -s -o resposta.txt -w '%{http_code}' -X POST -H 'Content-Type: application/json; charset=utf-8' --data-binary @corpo.json https://api.indexnow.org/indexnow)
           echo "IndexNow devolveu HTTP $codigo"
           cat resposta.txt
