@@ -162,6 +162,44 @@ apontado para o domínio, ou não usado de todo.
 
 ---
 
+## Indexação
+
+**Google** — descobre pelo `sitemap.xml`, que o `robots.txt` já declara. Submeter uma vez
+em [Search Console](https://search.google.com/search-console) → Sitemaps → `sitemap.xml`.
+Escolher propriedade do tipo **Domínio**, não Prefixo de URL: cobre o www e o não-www de
+uma vez.
+
+**Bing, Yandex, Seznam, Naver** — avisados automaticamente a cada deploy pelo passo
+IndexNow do workflow, que submete todos os URLs do sitemap. Não é preciso fazer nada.
+
+A chave do IndexNow vive em dois sítios que **têm de coincidir**:
+
+- `public/e21db589dfd8f6a4b157daf462a26e93.txt` (o conteúdo do ficheiro é o próprio nome,
+  sem extensão)
+- a variável `CHAVE` no passo "Avisar o IndexNow" em `.github/workflows/deploy.yml`
+
+Se mudar uma, mudar a outra. Com as duas dessincronizadas o IndexNow devolve 403 e o passo
+falha em silêncio — de propósito, porque um ping falhado não é motivo para marcar um deploy
+como vermelho.
+
+### "Discovered but not crawled" no Bing
+
+Não é uma avaria. Quer dizer que o Bing sabe que o URL existe e ainda não o foi buscar. Num
+domínio novo e sem ligações de fora, é o estado normal durante dias ou semanas, e a
+redacção do painel ("URL cannot appear on Bing") é mais alarmante do que a situação.
+
+Antes de procurar culpados, confirmar que o servidor responde ao robô:
+
+```bash
+curl -s -o /dev/null -w "%{http_code}
+" -A "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)" https://pegarnosono.com/
+```
+
+200 significa que o problema não é do site. O que resolve a sério é o IndexNow, tempo, e
+pelo menos uma ligação de fora a apontar para o domínio.
+
+---
+
 ## Scripts do repositório
 
 Nenhum destes corre no build. São ferramentas para correr à mão, e o resultado fica

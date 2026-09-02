@@ -38,3 +38,30 @@ jobs:
           git add -A
           git commit -m "Build de ${GITHUB_SHA::7}"
           git push --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" deploy
+
+      # Avisa o Bing (e Yandex, Seznam, Naver) de que o site mudou, em vez de
+      # esperar que passem por ca'. O Google nao usa IndexNow — esse continua a
+      # descobrir pelo sitemap.
+      #
+      # Nunca pode partir o deploy: o site ja' esta' publicado neste ponto e um
+      # ping falhado nao e' motivo para marcar a build como vermelha.
+      - name: Avisar o IndexNow
+        continue-on-error: true
+        run: |
+          CHAVE=e21db589dfd8f6a4b157daf462a26e93
+          URLS=$(grep -o '<loc>[^<]*</loc>' out/sitemap.xml | sed 's|<loc>||;s|</loc>||' | head -100)
+          CORPO=$(printf '%s
+' "$URLS" | python3 -c "
+import sys, json
+urls = [l.strip() for l in sys.stdin if l.strip()]
+print(json.dumps({
+  'host': 'pegarnosono.com',
+  'key': '$CHAVE',
+  'keyLocation': 'https://pegarnosono.com/$CHAVE.txt',
+  'urlList': urls,
+}))")
+          echo "A submeter $(printf '%s
+' "$URLS" | wc -l) URLs"
+          codigo=$(curl -s -o /dev/null -w '%{http_code}' -X POST             -H 'Content-Type: application/json; charset=utf-8'             -d "$CORPO" https://api.indexnow.org/indexnow)
+          echo "IndexNow devolveu HTTP $codigo"
+          # 200 = aceite, 202 = aceite e a validar a chave. Os dois sao bons.
