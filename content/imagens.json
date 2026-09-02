@@ -1,4 +1,16 @@
 {
+  "acordar-as-3-da-manha": {
+    "ficheiro": "/imagens/artigos/acordar-as-3-da-manha.jpg",
+    "largura": 1800,
+    "altura": 1000,
+    "origem": "https://images.unsplash.com/photo-1502322328990-fc8f47a2d9a5?w=1800&h=1000&fit=crop&auto=format&q=85",
+    "larguras": [
+      480,
+      768,
+      1200,
+      1800
+    ]
+  },
   "banho-gelado-emagrece": {
     "ficheiro": "/imagens/artigos/banho-gelado-emagrece.jpg",
     "largura": 1800,
