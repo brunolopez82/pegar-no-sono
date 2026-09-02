@@ -9,7 +9,7 @@ export const site = {
     "Métodos naturais para dormir melhor: respiração, rotinas, ambiente e hábitos. Com as fontes à vista, em português de Portugal.",
   idioma: "pt-PT",
   autor: {
-    nome: "Bruno Lopez",
+    nome: "Bruno Lopes",
     funcao: "Designer e programador. Não sou médico.",
     // Sem credencial clínica. Dizer isto em voz alta é o que torna o site citável.
     bio: "Quando acordava a meio da noite, fumava um cigarro. Achava que me acalmava. Não me acalmava. Depois pegava no telemóvel — e essa, provavelmente, também já fez. Construo sites para viver e durmo mal há anos; quando fui procurar melhor, encontrei páginas paradas há uma década e publicidade a comprimidos. Por isso fui às fontes primárias e comecei a testar em mim, uma variável de cada vez. Não sou médico e não vendo nada que se tome.",
@@ -17,7 +17,7 @@ export const site = {
     /**
      * Perfis publicos do autor, para `sameAs` no schema Person.
      *
-     * Isto e' o que liga "Bruno Lopez" a uma pessoa verificavel em vez de a um
+     * Isto e' o que liga "Bruno Lopes" a uma pessoa verificavel em vez de a um
      * nome numa pagina. Em conteudo de saude conta desproporcionadamente: um
      * autor sem presenca externa comprovavel e' E-E-A-T fraco.
      *
