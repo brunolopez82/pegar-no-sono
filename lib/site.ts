@@ -57,8 +57,13 @@ export const ogPadrao = {
 };
 
 /**
- * Foto do autor. Ponha um ficheiro em public/autor.jpg e ele entra sozinho.
- * Enquanto nao existir, e' desenhado um monograma — nunca uma foto de outra pessoa.
+ * Foto do autor, em public/autor.jpg. Entra sozinha na pagina inicial, na barra
+ * de cada artigo e no /sobre/ — nao ha nada a ligar a' mao.
+ *
+ * A que la' esta' e' um retrato real do Bruno, recortado de
+ * bruno-lopes.png do projecto Inpry. Se for substituida, tem de continuar a
+ * ser ele: conteudo de saude assinado com o retrato de um desconhecido e' o
+ * oposto do que torna um site citavel. Sem ficheiro, desenha-se um monograma.
  */
 export function temFotoAutor(): boolean {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
