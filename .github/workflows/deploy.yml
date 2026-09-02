@@ -57,6 +57,24 @@ jobs:
           git commit -m "Build de ${GITHUB_SHA::7}"
           git push --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" deploy
 
+      # TEMPORARIO: so' /artigos/ devolve 500 em caminhos inexistentes; todas as
+      # outras pastas devolvem 404. Isso e' a assinatura de um .htaccess invalido
+      # deixado la' dentro por uma instalacao anterior. O nosso build nunca cria
+      # .htaccess em subpastas — so' na raiz.
+      - name: Limpar restos em /artigos/
+        if: env.FTP_SERVER != ''
+        continue-on-error: true
+        run: |
+          echo "=== antes ==="
+          curl -sS -k --ftp-pasv --max-time 30 --list-only --user "$FTP_USERNAME:$FTP_PASSWORD" "ftp://$FTP_SERVER/artigos/" | grep -E "^\.|htaccess|php|cgi" || echo "  (sem ficheiros ocultos)"
+
+          for f in .htaccess .htaccess.bak .user.ini index.php; do
+            curl -sS -k --ftp-pasv --max-time 20 --user "$FTP_USERNAME:$FTP_PASSWORD"               -Q "DELE /artigos/$f" "ftp://$FTP_SERVER/" -o /dev/null 2>&1               && echo "  apagado: /artigos/$f" || echo "  nao existia: /artigos/$f"
+          done
+
+          echo "=== depois ==="
+          curl -sS -k --ftp-pasv --max-time 30 --list-only --user "$FTP_USERNAME:$FTP_PASSWORD" "ftp://$FTP_SERVER/artigos/" | grep -E "^\.|htaccess|php|cgi" || echo "  (limpo)"
+
       # Envia o site para a Hostinger por FTP.
       #
       # Porque FTP e nao a integracao Git da Hostinger: essa faz um build
@@ -82,12 +100,6 @@ jobs:
           port: 21
           local-dir: ./out/
           server-dir: /public_html/
-          # UMA VEZ SO'. Apaga tudo no servidor antes de enviar, para varrer os
-          # ficheiros de instalacoes anteriores que sobreviveram a todos os
-          # deploys e que devolviam 500 em /artigos/<slug-inexistente>/.
-          # Tirar esta linha logo a seguir: com ela ligada, cada publicacao
-          # apaga o site inteiro antes de o repor, e isso e' downtime a toa.
-          dangerous-clean-slate: true
           # O .git do out/ e' um artefacto do passo anterior, nao pertence ao site.
           exclude: |
             **/.git*
