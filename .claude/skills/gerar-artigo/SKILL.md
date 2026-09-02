@@ -19,6 +19,10 @@ para isso e não se salta.
 Ler `ESCREVER-ARTIGO.md` na raiz do repositório. É a norma; esta skill é o processo.
 Em caso de conflito, ganha o `ESCREVER-ARTIGO.md`.
 
+Ler também `ARQUITETURA-DE-ARTIGOS.md`, que decide a forma: qual dos seis formatos, que
+comprimento, por que ordem vão as secções, e onde ligar. O modelo de plano no fim desse
+ficheiro é o que se preenche na Fase 3, antes de escrever uma linha.
+
 ## Fase 1 — Entrevista
 
 **Perguntar em texto simples, numerado. Nunca usar o AskUserQuestion** — ele dispensa-o

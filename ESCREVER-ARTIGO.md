@@ -1,5 +1,9 @@
 # Como adicionar um artigo
 
+> Este ficheiro é a **norma**: que campos existem, o que é obrigatório, como se publica.
+> Para decidir a **forma** do artigo — formato, comprimento, sequência de secções, onde
+> ligar — ver [ARQUITETURA-DE-ARTIGOS.md](./ARQUITETURA-DE-ARTIGOS.md).
+
 Publicar um artigo = **criar um ficheiro**. Mais nada. Não se toca em menus, listagens,
 sitemap, páginas de tema nem dados estruturados — tudo isso se atualiza sozinho a partir
 do ficheiro.
