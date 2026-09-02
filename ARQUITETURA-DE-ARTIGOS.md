@@ -318,6 +318,105 @@ isolado. Acima de 8, está a distrair.
 
 ---
 
+## 11. Ser citado, não só indexado
+
+O SEO clássico ganha-se com uma página que responde bem. O **AEO** — otimização para
+motores de resposta: AI Overviews, ChatGPT, Perplexity, Copilot — ganha-se com uma página
+de onde se consegue **arrancar um pedaço** e usá-lo isolado, sem o resto.
+
+São objetivos diferentes e ambos se servem da mesma escrita, desde que se respeitem seis
+regras.
+
+### 11.1. Cada afirmação tem de sobreviver sozinha
+
+É a regra que muda mais texto. Um motor de resposta extrai um parágrafo e mostra-o fora do
+contexto. Se esse parágrafo depender do anterior, chega ao leitor partido.
+
+| Não sobrevive | Sobrevive |
+|---|---|
+| "Isso acontece porque o corpo arrefece." | "A temperatura do corpo desce cerca de um grau antes de adormecer." |
+| "Como vimos, o número é frágil." | "O número dos 96% vem de um livro de 1981, não de um ensaio clínico." |
+| "Ele recomenda quatro ciclos." | "Andrew Weil recomenda quatro ciclos de 4-7-8, duas vezes por dia." |
+
+**Teste prático:** tapar tudo menos um parágrafo. Se ficar ambíguo — "isso", "ele", "como
+vimos", "este método" sem nome — reescrever com o sujeito explícito.
+
+Não significa repetir o nome em todas as frases. Significa que **o primeiro parágrafo de
+cada `##`** tem de nomear o assunto.
+
+### 11.2. Definir antes de discutir
+
+Um motor de resposta procura definições. Quando um artigo introduz um conceito, a primeira
+frase define-o na forma **"X é Y"**:
+
+> A respiração em caixa é uma sequência de quatro fases iguais: inspirar quatro tempos,
+> segurar quatro, expirar quatro, segurar quatro.
+
+Só depois se discute origem, evidência ou variantes.
+
+### 11.3. Cabeçalhos com a forma da pergunta
+
+Quando a secção responde a uma pergunta que as pessoas fazem, o `##` **é** essa pergunta.
+Quando não, mantém-se a afirmação (regra 4).
+
+| Secção sobre | Cabeçalho |
+|---|---|
+| Dose | "Quantas vezes por dia se deve fazer?" |
+| Segurança | "Quem não deve fazer isto" |
+| Mecanismo | "Porque é que a expiração longa acalma" |
+
+Mistura-se: um artigo todo em perguntas lê-se mal. Duas a três por artigo chegam.
+
+### 11.4. Números com unidade, intervalo e fonte na mesma frase
+
+Um número solto não é citável — não se sabe de onde veio. Um número com origem é.
+
+> Um ensaio de 2016 com 3018 participantes encontrou menos 29% de dias de baixa, mas
+> nenhuma redução dos dias de doença.
+
+Contém quem, quando, quantos, o resultado e o limite. É extraível inteiro.
+
+### 11.5. Tabelas para tudo o que é comparação
+
+São o formato que os motores de resposta extraem melhor e o que o leitor em diagonal lê
+primeiro. Sempre que houver duas ou mais coisas com os mesmos atributos — técnicas,
+fases do sono, causas de um sintoma — é tabela, não prosa.
+
+### 11.6. A FAQ é conteúdo, não apêndice
+
+Cada `resposta` da FAQ tem de **fazer sentido isolada**, porque é assim que é citada: sem o
+título do artigo, sem a pergunta ao lado, sem nada antes.
+
+Regras: 40 a 70 palavras, começa por responder, repete o assunto por nome, e não diz "como
+explicado acima".
+
+### O que já é automático
+
+Não é preciso pensar nisto — o sistema trata:
+
+- `resposta` no topo, em ~40 palavras — o bloco que os motores citam inteiro
+- schema `Article`, `HowTo`, `FAQPage`, `BreadcrumbList`, `Person`
+- `llms.txt`, `feed.xml`, `sitemap.xml`
+- `robots.txt` a convidar GPTBot, ClaudeBot, PerplexityBot e OAI-SearchBot
+- HTML estático: ~1900 palavras entregues antes de correr JavaScript
+
+### Checklist de reescrita
+
+Um artigo está pronto quando:
+
+- [ ] a `resposta` responde por completo em 40 palavras, sem rodeios
+- [ ] cada `##` nomeia o assunto no primeiro parágrafo
+- [ ] nenhum parágrafo começa por "isso", "isto", "ele" ou "como vimos"
+- [ ] cada conceito novo tem uma frase "X é Y" antes de ser discutido
+- [ ] duas a três secções têm forma de pergunta
+- [ ] cada número tem quem, quando e quantos na mesma frase
+- [ ] toda a comparação está em tabela
+- [ ] cada resposta da FAQ se percebe fora do artigo
+- [ ] 3 a 5 ligações internas, no sítio onde a dúvida nasce
+- [ ] `momento` preenchido se o artigo descreve algo que se faz
+
+---
+
 ## Modelo de plano
 
 Para colar e preencher antes de escrever.
