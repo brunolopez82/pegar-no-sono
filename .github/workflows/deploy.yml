@@ -57,21 +57,6 @@ jobs:
           git commit -m "Build de ${GITHUB_SHA::7}"
           git push --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" deploy
 
-      # TEMPORARIO: descobrir onde fica mesmo a raiz web deste dominio.
-      # Lista so' nomes; nada de credenciais vai para o log.
-      - name: Mapear a arvore de FTP
-        if: env.FTP_SERVER != ''
-        continue-on-error: true
-        run: |
-          lista() {
-            echo "===== $1"
-            curl -sS -k --ftp-pasv --max-time 30 --list-only               --user "$FTP_USERNAME:$FTP_PASSWORD" "ftp://$FTP_SERVER$1" 2>&1 | head -40
-            echo "  (codigo de saida: $?)"
-          }
-          lista "/"
-          lista "/domains/"
-          lista "/domains/pegarnosono.com/"
-
       # Envia o site para a Hostinger por FTP.
       #
       # Porque FTP e nao a integracao Git da Hostinger: essa faz um build
