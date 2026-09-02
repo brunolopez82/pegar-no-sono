@@ -40,28 +40,27 @@ jobs:
           git push --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" deploy
 
       # Avisa o Bing (e Yandex, Seznam, Naver) de que o site mudou, em vez de
-      # esperar que passem por ca'. O Google nao usa IndexNow — esse continua a
-      # descobrir pelo sitemap.
+      # esperar que passem por aqui. O Google nao usa IndexNow: esse descobre
+      # pelo sitemap.
       #
-      # Nunca pode partir o deploy: o site ja' esta' publicado neste ponto e um
-      # ping falhado nao e' motivo para marcar a build como vermelha.
+      # Corre depois de publicar, para nunca anunciar conteudo que ainda nao
+      # esta no ar. O out/ continua acessivel; o passo anterior so entrou la
+      # dentro, nao o apagou.
+      #
+      # Nunca pode partir o deploy: um ping falhado a um motor de busca nao e
+      # motivo para marcar a build como vermelha.
+      #
+      # A chave tem de ser a mesma que esta em public/<chave>.txt.
       - name: Avisar o IndexNow
         continue-on-error: true
+        env:
+          CHAVE: e21db589dfd8f6a4b157daf462a26e93
         run: |
-          CHAVE=e21db589dfd8f6a4b157daf462a26e93
-          URLS=$(grep -o '<loc>[^<]*</loc>' out/sitemap.xml | sed 's|<loc>||;s|</loc>||' | head -100)
-          CORPO=$(printf '%s
-' "$URLS" | python3 -c "
-import sys, json
-urls = [l.strip() for l in sys.stdin if l.strip()]
-print(json.dumps({
-  'host': 'pegarnosono.com',
-  'key': '$CHAVE',
-  'keyLocation': 'https://pegarnosono.com/$CHAVE.txt',
-  'urlList': urls,
-}))")
-          echo "A submeter $(printf '%s
-' "$URLS" | wc -l) URLs"
-          codigo=$(curl -s -o /dev/null -w '%{http_code}' -X POST             -H 'Content-Type: application/json; charset=utf-8'             -d "$CORPO" https://api.indexnow.org/indexnow)
+          grep -o '<loc>[^<]*</loc>' out/sitemap.xml | sed 's|<loc>||; s|</loc>||' > urls.txt
+          echo "URLs no sitemap: $(wc -l < urls.txt)"
+          jq -Rn --arg k "$CHAVE" '{host: "pegarnosono.com", key: $k, keyLocation: ("https://pegarnosono.com/" + $k + ".txt"), urlList: [inputs]}' < urls.txt > corpo.json
+          codigo=$(curl -s -o resposta.txt -w '%{http_code}' -X POST -H 'Content-Type: application/json; charset=utf-8' --data-binary @corpo.json https://api.indexnow.org/indexnow)
           echo "IndexNow devolveu HTTP $codigo"
-          # 200 = aceite, 202 = aceite e a validar a chave. Os dois sao bons.
+          cat resposta.txt
+          # 200 = aceite. 202 = aceite, a validar a chave. 403 = a chave nao bate
+          # com o ficheiro em public/. 422 = URL fora do dominio declarado.
