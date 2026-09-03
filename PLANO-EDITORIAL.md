@@ -63,7 +63,8 @@ gelado, que foi pedido em vez de sair da fila.
    `nao-consigo-desligar-a-cabeca`, e praticamente sem cobertura em pt-PT.
    É também técnica pura — não depende de história pessoal e é testável em
    catorze noites, o que faz dele o primeiro candidato a dados próprios.
-3. `o-que-fazer-quando-nao-adormeces` — controlo de estímulos: sair da cama.
+3. ~~`o-que-fazer-quando-nao-adormeces`~~ — **publicado.** Controlo de estímulos:
+   sair da cama.
    Dificuldade 18.
 4. `nao-consigo-desligar-a-cabeca` — ruminação noturna. **Adiado para quarto:**
    dificuldade 30, é o único do pilar com concorrência portuguesa instalada

@@ -11,7 +11,8 @@
     "auditar": "node scripts/auditar-seo.mjs",
     "verificar": "node scripts/verificar-artigos.mjs",
     "verificar-fontes": "node scripts/verificar-fontes.mjs",
-    "proximo": "node scripts/proximo-artigo.mjs"
+    "proximo": "node scripts/proximo-artigo.mjs",
+    "imagens": "npx tsx scripts/descarregar-imagens.mts"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.20",

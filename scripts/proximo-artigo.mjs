@@ -24,7 +24,9 @@ for (const f of readdirSync(PASTA).filter((x) => x.endsWith(".mdx"))) {
 const plano = readFileSync("PLANO-EDITORIAL.md", "utf8");
 const fila = [];
 for (const l of plano.split(/\r?\n/)) {
-  const m = l.match(/^(\d+)\.\s+`([a-z0-9-]+)`\s*(?:—\s*(.*))?$/);
+  // O ~~riscado~~ marca os que ja' sairam. Tem de casar na mesma, senao a
+  // contagem mente — foi o que aconteceu no dia seguinte a criar isto.
+  const m = l.match(/^(\d+)\.\s+~{0,2}`([a-z0-9-]+)`~{0,2}\s*(?:—\s*(.*))?$/);
   if (m) fila.push({ n: +m[1], slug: m[2], nota: (m[3] || "").replace(/\*\*/g, "").trim() });
 }
 
