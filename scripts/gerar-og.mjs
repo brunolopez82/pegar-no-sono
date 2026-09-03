@@ -39,7 +39,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${L}" height="${A}" 
   <text x="80" y="410" font-family="${FONTE}" font-size="40" fill="#000000" opacity="0.62">Métodos naturais para dormir melhor</text>
 
   <rect x="80" y="470" width="150" height="5" fill="#000000" opacity="0.35"/>
-  <text x="80" y="540" font-family="${FONTE}" font-size="30" fill="#000000" opacity="0.55">Técnicas, não substâncias · Português de Portugal</text>
+  <text x="80" y="540" font-family="${FONTE}" font-size="30" fill="#000000" opacity="0.55">Fontes primárias · Sem promessas</text>
 </svg>`;
 
 await sharp(Buffer.from(svg, "utf8")).png().toFile("public/og-default.png");

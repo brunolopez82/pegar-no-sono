@@ -24,9 +24,9 @@ export const metadata: Metadata = {
 
 const regras = [
   {
-    titulo: "Técnicas, nunca substâncias",
+    titulo: "A mesma régua para tudo",
     texto:
-      "Este site trata de respiração, rotinas, luz, temperatura, ruído e horários. Não recomenda suplementos, chás, melatonina nem qualquer produto que se tome. Não é uma posição contra nada — é uma delimitação do assunto.",
+      "Respiração, rotinas, luz, temperatura, ruído, horários — e também os suplementos que toda a gente experimenta, porque ficar calado sobre eles não é neutralidade. O que não muda é a régua: fonte primária, e a fragilidade dela dita em voz alta. Nada aqui é recomendação por omissão.",
     grad: "var(--grad-roxo)",
   },
   {
@@ -204,10 +204,12 @@ export default function Pagina() {
                 nele.
               </p>
               <p>
-                Duas fronteiras, para saber o que esperar. A primeira já conhece:{" "}
-                <strong>técnicas e hábitos, nunca substâncias.</strong> Não há suplementos, não há
-                combinações de comprimidos, não há nada para tomar — mesmo quando o assunto é
-                biohacking, onde é precisamente isso que costuma aparecer. A segunda:{" "}
+                Duas fronteiras, para saber o que esperar. A primeira:{" "}
+                <strong>nada aqui é recomendação por omissão.</strong> Escrevo sobre técnicas,
+                sobre hábitos e também sobre os suplementos que toda a gente experimenta — mas
+                escrever sobre uma coisa não é receitá-la, e qualquer artigo que toque num
+                suplemento leva a secção de interações e manda quem já toma medicação falar com
+                o médico ou o farmacêutico primeiro. A segunda:{" "}
                 <strong>a maior parte do que se vende com este nome tem evidência fraca</strong>, e
                 aqui isso é dito. Quando um hábito famoso não se aguenta em pé, o artigo diz que
                 não se aguenta — e continua a valer a pena tê-lo escrito.

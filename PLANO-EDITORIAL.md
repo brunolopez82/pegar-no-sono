@@ -90,10 +90,30 @@ gelado, que foi pedido em vez de sair da fila.
 16. `banho-quente-antes-de-dormir`
 17. `relaxamento-muscular-progressivo`
 
-### Pilar 6 — Medir (última; é a camada de monetização)
-18. `aplicacoes-de-sono`
-19. `aneis-e-relogios-de-sono-em-portugal` — preços em euros, disponibilidade real
-20. `ler-os-dados-sem-ficar-obcecado`
+### Pilar 7 — Suplementos (aberto a 3 set 2026, quando a regra 1 mudou)
+
+Por procura, o `melatonina-serve-para-que` devia estar muito mais acima — o SERP
+português está tomado por farmácias online e nenhuma delas diz o essencial. Fica
+aqui à mesma porque a regra de fechar um pilar antes de abrir o seguinte vale
+mais do que a procura de um artigo isolado.
+
+Todos levam as quatro obrigações da regra 1: «natural» não é selo de segurança,
+secção de interações, nunca dose para crianças, e enquadramento português.
+
+18. `melatonina-serve-para-que` — **o primeiro e o mais importante.** O ângulo é
+    que ela é reguladora do ritmo, não iniciadora do sono: quase toda a gente a
+    toma para a coisa errada. Mais as interações com ISRS, contracetivos,
+    antihipertensores e antidiabéticos, a dose real contra a dose vendida, e o
+    facto de em Portugal não ser o balcão livre que é nos Estados Unidos.
+19. `magnesio-para-dormir` — procura enorme, evidência mais fraca do que o rótulo
+    sugere, e o problema de haver treze formas diferentes de magnésio.
+20. `valeriana-e-outras-plantas` — a mais estudada das plantas, e mesmo assim o
+    resultado é modesto. Bom sítio para dizer que «natural» não quer dizer inerte.
+
+### Pilar 8 — Medir (última; é a camada de monetização)
+21. `aplicacoes-de-sono`
+22. `aneis-e-relogios-de-sono-em-portugal` — preços em euros, disponibilidade real
+23. `ler-os-dados-sem-ficar-obcecado`
 
 ## Caminho de monetização
 
@@ -109,7 +129,7 @@ Por ordem de chegada, não em paralelo:
 4. **Produto próprio.** Depois da lista.
 
 Regra que não muda: a camada de monetização não altera a linha editorial.
-Técnicas, nunca substâncias; nenhum número sem fonte; aditivo em relação a
+A mesma régua para tudo; nenhum número sem fonte; aditivo em relação a
 medicação. Um artigo de afiliação que quebre isto vale menos do que não existir.
 
 ## Regras da fila

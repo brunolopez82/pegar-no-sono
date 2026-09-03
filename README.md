@@ -101,7 +101,8 @@ de um desconhecido é o oposto do que torna um site citável.
 
 Detalhe completo em [ESCREVER-ARTIGO.md](./ESCREVER-ARTIGO.md). O essencial:
 
-- **Técnicas, nunca substâncias.**
+- **A mesma régua para tudo**, técnicas e suplementos: assunto, nunca recomendação por
+  omissão, e sempre com a fragilidade da evidência dita.
 - **Aditivo, nunca subtrativo em relação a medicação.** Nada aqui serve para iniciar,
   alterar ou interromper um medicamento. Interromper certos medicamentos por conta própria
   é perigoso. Qualquer questão clínica aponta para o médico de família.

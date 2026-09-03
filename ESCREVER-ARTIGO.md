@@ -135,8 +135,28 @@ explicativo (porque é que o sono importa) pode não ter momento nenhum.
 
 Isto não é estilo. É o que separa este site do resto do que existe em português.
 
-1. **Técnicas, nunca substâncias.** Respiração, rotinas, luz, temperatura, ruído,
-   horários. Sem suplementos, sem chás, sem melatonina.
+1. **Técnicas primeiro, suplementos com a mesma régua.** O site trata de respiração,
+   rotinas, luz, temperatura, ruído e horários — e também de suplementos naturais, porque
+   as pessoas tomam-nos de qualquer maneira. Ficar calado não é neutralidade: é deixá-las
+   decidir com a bula de quem vende.
+
+   O que não muda é a régua. **Um suplemento entra como assunto, nunca como recomendação
+   por omissão**, e leva o mesmo tratamento de tudo o resto: fonte primária, e a
+   fragilidade dela dita em voz alta. Se a evidência do magnésio é mais fraca do que o
+   rótulo sugere, é isso que fica escrito.
+
+   Quatro obrigações em qualquer artigo que toque num suplemento. Sem elas, não sai:
+
+   - **«Natural» não é um selo de segurança, e o artigo di-lo.** A valeriana, o hipericão
+     e a melatonina em dose alta interagem com medicação a sério. A palavra «natural» é
+     marketing, não farmacologia — e desmontá-la é exatamente o trabalho deste site.
+   - **Secção de interações, obrigatória.** A melatonina mexe com antidepressivos ISRS,
+     contracetivos, antihipertensores e antidiabéticos. Quem já toma medicação vai ao
+     médico ou ao farmacêutico antes de acrescentar seja o que for.
+   - **Nunca dose para crianças.** Encaminhar para o pediatra e parar aí.
+   - **Disponibilidade e enquadramento em Portugal.** Muito do que se lê vem dos Estados
+     Unidos, onde a melatonina se compra ao balcão em gomas de 10 mg. Aqui não é assim, e
+     o artigo diz como é.
 2. **Aditivo, nunca subtrativo em relação a medicação.** Nunca se sugere reduzir, parar ou
    alterar o que quer que seja. Qualquer questão clínica aponta para o médico de família.
    Todos os artigos levam o aviso — é automático, mas o texto também não deve contradizê-lo.

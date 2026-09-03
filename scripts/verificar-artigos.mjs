@@ -21,6 +21,13 @@ const NAO_PT_PT = [
   ["econômic", "económic"], ["acadêmic", "académic"], ["dormitório", "quarto"],
 ];
 
+// Suplementos passaram a ser assunto legitimo a 3 set 2026, mas com quatro
+// obrigacoes — ver a regra 1 do ESCREVER-ARTIGO.md. Estas sao as que uma
+// maquina consegue verificar. O gatilho e' o nome concreto de um suplemento,
+// nao a palavra "suplemento" solta, senao os paragrafos que falam da linha
+// editorial em abstrato disparavam sozinhos.
+const SUPLEMENTOS = /\b(melatonina|valeriana|hiperic[ãa]o|magn[ée]sio|tript[oó]fano|ashwagandha|GABA|passiflora|camomila|glicina|5-HTP|L-teanina)\b/i;
+
 // Formulacoes que quebram a linha editorial: nunca subtrativo em relacao a medicacao.
 const PROIBIDO = [
   /deix(e|ar) de tomar/i, /parar? (a|o) (medicaç|comprimid)/i,
@@ -118,6 +125,23 @@ for (const f of ficheiros) {
   for (const re of PROIBIDO) {
     const m = corpo.match(re);
     if (m) avisos.push(`linha editorial: "${m[0]}" — nunca subtrativo em relação a medicação`);
+  }
+
+  // As obrigacoes da regra 1 quando um suplemento e' nomeado. Um artigo que
+  // fale de melatonina sem dizer que ela mexe com antidepressivos, com a
+  // pilula e com a tensao nao e' um artigo incompleto — e' um artigo perigoso.
+  const supl = (fm + corpo).match(SUPLEMENTOS);
+  if (supl) {
+    const tudo = fm + corpo;
+    if (!/intera(ç|c)(ão|ao|ões|oes)|interage|interagem/i.test(tudo)) {
+      avisos.push(`nomeia "${supl[0]}" e não tem secção de interações — obrigatória (regra 1)`);
+    }
+    if (!/m[ée]dico|farmac[êe]utic/i.test(tudo)) {
+      avisos.push(`nomeia "${supl[0]}" e não encaminha para o médico ou o farmacêutico`);
+    }
+    if (/crian[çc]a|beb[ée]|filho/i.test(tudo) && !/pediatra/i.test(tudo)) {
+      avisos.push(`fala de "${supl[0]}" e de crianças sem encaminhar para o pediatra`);
+    }
   }
 
   // Numeros grandes no corpo devem ter ano ou fonte por perto.

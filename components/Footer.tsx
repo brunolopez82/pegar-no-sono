@@ -10,7 +10,7 @@ export default function Footer() {
             {site.nome}
           </p>
           <p className="max-w-sm text-sm text-muted-foreground">
-            {site.tagline}. Técnicas, não substâncias.
+            {site.tagline}. Com as fontes à vista.
           </p>
           <a
             href={`mailto:${site.autor.email}`}

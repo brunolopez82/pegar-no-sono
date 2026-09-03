@@ -149,7 +149,7 @@ de haver tráfego, é trabalho perdido — a regra do plano mantém-se.
 
 ---
 
-## A decisão que é do Bruno: melatonina
+## Melatonina — DECIDIDO a 3 set 2026: entra
 
 A regra 1 diz **técnicas, nunca substâncias**, e nunca melatonina. Por isso não escrevi
 isto como tema — mas há aqui uma tensão que vale a pena ele decidir, e não eu.
@@ -171,9 +171,36 @@ serve o leitor mais do que o silêncio.
 **O argumento contra:** abre uma porta. Escrito o primeiro artigo sobre um suplemento, o
 seguinte é mais fácil, e a linha que distingue este site dos outros esbate-se.
 
-Se ele quiser, o formato seguro é **um só artigo, de aviso, sem dose recomendada e sem
-marca nenhuma** — e a regra 1 passa a dizer explicitamente que a exceção é essa e mais
-nenhuma.
+**O Bruno decidiu que entra**, e não como exceção: a regra 1 foi reescrita para admitir
+suplementos naturais em geral, com quatro obrigações. Ver . O
+
+> pegar-no-sono@1.0.0 verificar
+> node scripts/verificar-artigos.mjs
+
+13 artigos verificados
+
+artigo                                         palav  ? tab lig faq fon  momento
+----------------------------------------------------------------------------------------
+acordar-as-3-da-manha                           1326  3   1   5   5   5  de-madrugada
+banho-gelado-emagrece                           2330  4   1   3   5   7  manha
+despejo-mental-antes-de-deitar                  1403  3   2   4   5   2  antes-de-deitar
+dormir-8-horas-e-acordar-cansado                1681  3   1   3   6   5  manha
+higiene-do-sono                                 1250  3   2   4   6   4  manha
+metodo-4-7-8-para-adormecer                     1264  3   1   4   5   2  na-cama
+o-que-fazer-quando-nao-adormeces                1454  5   1   4   6   4  na-cama
+porque-e-que-o-sono-e-importante                2556  3   1   7   5  10  manha
+quantas-horas-de-sono-por-noite                 1518  2   1   4   6   5  manha
+respiracao-diafragmatica-para-dormir            1114  3   1   3   5   2  na-cama
+respiracao-em-caixa-box-breathing               1244  3   1   7   4   3  antes-de-deitar
+sono-profundo-e-sono-rem                        1592  2   1   4   6   5  —
+tecnica-militar-para-adormecer-em-dois-minuto   1210  2   1   4   4   2  na-cama
+
+========================================================================================
+sem avisos em nenhum artigo passou a recusar qualquer artigo que nomeie um suplemento sem secção
+de interações, sem encaminhamento para médico ou farmacêutico, ou que fale de crianças sem
+mandar ao pediatra.
+
+Os três primeiros artigos ficaram na fila como pilar 7.
 
 ---
 
