@@ -230,8 +230,25 @@ o texto dá ao leitor uma razão para sair — e o que os fecha.
 número frágil por desmontar, um erro comum.
 
 **Aos 30–40%, quando entra o mecanismo.** É onde o texto fica abstracto.
-→ Uma citação em destaque com a ideia toda numa frase. No corpus há uma por artigo, quase
-sempre aqui. *"A expiração é o travão."*
+→ O **destaque**: o bloco `> ` que sai a toda a largura, em Montserrat 900 sobre o gradiente.
+Uma por artigo, quase sempre aqui. *"A expiração é o travão."*
+
+O destaque tem três regras, e o `npm run verificar` recusa-as se forem quebradas:
+
+1. **Um por artigo. Nem zero nem dois.** Vale por ser raro. Dois num artigo e nenhum é a
+   tese — passa a papel de parede, e o leitor deixa de reparar.
+2. **Não repete uma frase que já esteja no corpo.** É a falha decorativa clássica dos
+   *pull-quotes*: levantar uma frase do parágrafo de cima obriga a lê-la duas vezes e não
+   acrescenta nada. Se a frase é boa de mais para não a destacar, ela sai do corpo e só
+   fica no destaque. O `respiracao-diafragmatica` teve exactamente este erro durante meses.
+3. **Aguenta-se sozinho.** Nada de abrir com *Isso*, *Nesse estudo*, *Aqui*. O destaque é
+   a unidade mais fotografada e mais citada da página — é o que um leitor manda a alguém e
+   o que um motor de IA arranca do contexto. Se fora da página não disser nada, está a
+   desperdiçar o melhor sítio do artigo.
+
+Não é um separador visual nem uma pausa. Se for usado para arejar o texto, é decoração; a
+maneira de arejar é parágrafo curto, lista ou tabela. O destaque é a frase que se quer ver
+citada.
 
 **A meio da secção de evidência.** Nomes de estudos e ressalvas cansam.
 → Partir em lista curta. As quatro ressalvas do `respiracao-diafragmatica` são quatro linhas

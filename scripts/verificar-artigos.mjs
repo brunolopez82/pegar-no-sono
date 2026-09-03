@@ -82,6 +82,29 @@ for (const f of ficheiros) {
   const pronomes = paragrafos.filter((p) => /^(Isso|Isto|Ele|Ela|Essa|Esse|Aqui|Nesta|Neste|Dito isto)\b/.test(p));
   for (const p of pronomes) avisos.push(`parágrafo abre com pronome solto: "${p.slice(0, 44)}…"`);
 
+  // ------------------------------------------------------------- destaque
+  // O bloco `> ` e' a unidade mais fotografada e mais citada da pagina: sai
+  // a toda a largura, em Montserrat 900. Vale por ser raro e por dizer a
+  // tese — nao por partir o texto. Um por artigo, nem zero nem dois.
+  const destaques = (corpo.match(/^> .+$/gm) || []).map((d) => d.slice(2).trim());
+  if (destaques.length === 0) avisos.push("sem destaque — falta a frase que resume o artigo");
+  if (destaques.length > 1) avisos.push(`${destaques.length} destaques — o bloco vale por ser raro, use um`);
+
+  for (const d of destaques) {
+    // Arrancado da pagina, tem de continuar a dizer alguma coisa.
+    if (/^(Isso|Isto|Ele|Ela|Essa|Esse|Nesse|Nessa|Neste|Nesta|Aqui|Ali|Assim|Por isso)\b/.test(d)) {
+      avisos.push(`destaque abre com pronome solto e não se aguenta sozinho: "${d.slice(0, 44)}…"`);
+    }
+    // Repetir uma frase que esta' mesmo ao lado obriga a ler duas vezes.
+    const corpoSemDestaques = corpo.replace(/^> .+$/gm, "");
+    const frases = d.split(/(?<=[.!?])\s+/).filter((f) => f.split(/\s+/).length >= 6);
+    for (const f of frases) {
+      if (corpoSemDestaques.includes(f.trim())) {
+        avisos.push(`destaque repete uma frase do corpo: "${f.trim().slice(0, 44)}…"`);
+      }
+    }
+  }
+
   for (const q of corpo.match(/^## .*\?$/gm) || []) {
     const i = corpo.indexOf(q);
     const seguinte = corpo.slice(i + q.length).trim().split("\n\n")[0] || "";
