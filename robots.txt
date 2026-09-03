@@ -1,0 +1,12 @@
+User-Agent: GPTBot
+User-Agent: ClaudeBot
+User-Agent: PerplexityBot
+User-Agent: Google-Extended
+User-Agent: OAI-SearchBot
+Allow: /
+
+User-Agent: *
+Allow: /
+
+Host: https://pegarnosono.com
+Sitemap: https://pegarnosono.com/sitemap.xml
