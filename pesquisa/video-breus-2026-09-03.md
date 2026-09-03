@@ -30,6 +30,10 @@ famoso número dos 96% vem de um livro de 1981.
 No único ponto em que o vídeo cruza dois artigos nossos a fundo, ele engana-se e nós
 estamos certos, com a fonte à vista. É a prova de que o método funciona.
 
+**Inventário completo:** este ficheiro é a *selecção* — o que eu recomendo escrever. O
+ é o *inventário*: os 119 blocos do vídeo fragmentados por
+tema, marcados para blog e para redes sociais.
+
 ---
 
 ## Temas novos, que não estão na fila
