@@ -61,11 +61,12 @@ const esquemaFrontmatter = z
   .object({
     titulo: z.string().min(1),
     // Titulo para a etiqueta <title>, quando o `titulo` do artigo e' longo
-    // demais para caber num resultado do Google. O Google corta por volta dos
-    // 60 caracteres, e o site acrescenta " | Pegar no Sono" (16), por isso o
-    // que sobra para o artigo sao cerca de 44. O H1 continua a ser o `titulo`
-    // completo: e' o <title> que se encurta, nao a pagina.
-    tituloSeo: z.string().min(1).max(46).optional(),
+    // demais para caber num resultado de pesquisa. O Bing marcou como "title
+    // too long" exatamente os titulos com 55 ou mais caracteres, e nenhum com
+    // 53 — o orcamento e' portanto 54. Os artigos ja' nao levam o sufixo
+    // " | Pegar no Sono", por isso os 54 sao todos para o titulo. O H1
+    // continua a ser o `titulo` completo: e' o <title> que se encurta.
+    tituloSeo: z.string().min(1).max(54).optional(),
     descricao: z.string().min(1),
     // Meta description. Se faltar, usa-se a `descricao` — e nesse caso ela
     // propria tem de caber nos 160. Ver validarMetaDescricoes().
@@ -216,12 +217,14 @@ function validarReferencias(artigos: Artigo[]): void {
 
   // O <title> real leva " | Pegar no Sono" colado atras, e e' o total que
   // conta. Sem esta guarda, um titulo de artigo longo passa despercebido.
-  const SUFIXO = " | Pegar no Sono".length;
+  // Os artigos usam `title: { absolute: ... }`, ou seja sem o sufixo da
+  // marca — ver app/artigos/[slug]/page.tsx. O <title> e' exatamente isto.
+  const MAX_TITULO = 54;
   for (const a of artigos) {
-    const t = (a.tituloSeo ?? a.titulo).length + SUFIXO;
-    if (t > 60) {
+    const t = (a.tituloSeo ?? a.titulo).length;
+    if (t > MAX_TITULO) {
       erros.push(
-        `content/artigos/${a.slug}.mdx — <title> com ${t} caracteres contando o sufixo (max 60). ` +
+        `content/artigos/${a.slug}.mdx — <title> com ${t} caracteres (max ${MAX_TITULO}). ` +
           "Acrescente um campo `tituloSeo` curto; o `titulo` continua a ser o H1.",
       );
     }

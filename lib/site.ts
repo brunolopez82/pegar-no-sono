@@ -155,6 +155,7 @@ export const pilares: Record<PilarSlug, Pilar> = {
   "ritmo-circadiano": {
     nome: "Ritmo circadiano",
     titulo: "Ritmo circadiano: luz, cafeína e horários",
+    tituloSeo: "Ritmo circadiano: luz e horários",
     descricao:
       "Luz da manhã, cafeína, álcool, exercício e sestas. Como o relógio interno decide a que horas tem sono — e como o acertar.",
     resumo:
@@ -229,12 +230,12 @@ for (const [slug, p] of Object.entries(pilares)) {
     );
   }
 
-  // O <title> real leva " | Pegar no Sono" colado atras. E' o total que o
-  // Google corta, por volta dos 60.
+  // O <title> real leva " | Pegar no Sono" colado atras, e e' o total que
+  // conta. O Bing marca como longo a partir dos 55, por isso o limite e' 54.
   const t = (p.tituloSeo ?? p.titulo).length + SUFIXO_TITULO;
-  if (t > 60) {
+  if (t > 54) {
     throw new Error(
-      `lib/site.ts — pilar "${slug}": <title> com ${t} caracteres contando o sufixo (max 60). ` +
+      `lib/site.ts — pilar "${slug}": <title> com ${t} caracteres contando o sufixo (max 54). ` +
         "Acrescente um campo `tituloSeo` curto.",
     );
   }

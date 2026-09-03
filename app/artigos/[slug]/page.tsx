@@ -42,7 +42,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     // O <title> encurta quando o artigo declara `tituloSeo`; o H1 nao muda.
-    title: a.tituloSeo ?? a.titulo,
+    // `absolute` corta o sufixo " | Pegar no Sono" do template global: sao
+    // 16 caracteres de um orcamento de ~54, e num artigo a palavra-chave
+    // vale mais do que a marca. As paginas de tema mantem o sufixo.
+    title: { absolute: a.tituloSeo ?? a.titulo },
     description: meta,
     alternates: { canonical: `/artigos/${slug}/` },
     openGraph: {

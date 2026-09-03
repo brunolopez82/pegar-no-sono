@@ -47,7 +47,11 @@ for (const p of paginas) {
   const titulo = t ? desescapar(t[1]) : null;
   if (!titulo) reportar("sem <title>");
   else {
-    if (titulo.length > 60) reportar(`title com ${titulo.length} caracteres (o Google corta a ~60)`);
+    // 54, nao 60. O Bing Webmaster marcou "title too long" em exatamente os 9
+    // titulos com 55 ou mais caracteres, e em nenhum dos que tinham 53. Este
+    // limiar estava em 60 e por isso a auditoria dava "sem problemas"
+    // enquanto o Bing acumulava 9 avisos.
+    if (titulo.length > 54) reportar(`title com ${titulo.length} caracteres (o Bing marca a partir de 55)`);
     if (titulo.length < 15) reportar(`title com apenas ${titulo.length} caracteres`);
     if (!foraDoIndice) {
       if (!titulos.has(titulo)) titulos.set(titulo, []);
