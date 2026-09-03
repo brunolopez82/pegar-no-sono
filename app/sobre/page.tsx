@@ -24,6 +24,12 @@ export const metadata: Metadata = {
 
 const regras = [
   {
+    titulo: "A comissão diz-se antes",
+    texto:
+      "Alguns artigos terão ligações de afiliado, e quando tiverem está escrito no topo do artigo — antes da recomendação, não no rodapé depois de já ter clicado. A comissão não muda o que aqui se escreve: nada é recomendado por render, e um produto com evidência fraca é descrito como tendo evidência fraca mesmo que dê dinheiro.",
+    grad: "var(--grad-areia)",
+  },
+  {
     titulo: "A mesma régua para tudo",
     texto:
       "Respiração, rotinas, luz, temperatura, ruído, horários — e também os suplementos que toda a gente experimenta, porque ficar calado sobre eles não é neutralidade. O que não muda é a régua: fonte primária, e a fragilidade dela dita em voz alta. Nada aqui é recomendação por omissão.",

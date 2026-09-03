@@ -77,6 +77,11 @@ const esquemaFrontmatter = z
     data: dataCurta,
     atualizado: dataCurta.optional(),
     destaque: z.boolean().optional(),
+    /** Declara que o artigo tem ligacoes de afiliado. Faz aparecer a
+     *  divulgacao antes do corpo. Nao se poe a mao com ligeireza: o build
+     *  falha se houver ligacao de afiliado sem isto, e tambem se isto
+     *  estiver ligado sem haver ligacao nenhuma. */
+    afiliacao: z.boolean().optional(),
     imagem: z.url("tem de ser um URL completo, com https://").optional(),
     imagemAlt: z.string().min(1).optional(),
     passos: z.array(esquemaPasso).min(1).optional(),
@@ -111,6 +116,8 @@ export type MetaArtigo = {
   data: string;
   atualizado?: string;
   destaque?: boolean;
+  /** O artigo tem ligacoes de afiliado e mostra a divulgacao. */
+  afiliacao?: boolean;
   /** Imagem de capa: usada no tile da listagem e no topo do artigo. */
   imagem?: string;
   imagemAlt?: string;
@@ -241,6 +248,30 @@ function validarReferencias(artigos: Artigo[]): void {
       );
     } else if (m.length < 25) {
       erros.push(`content/artigos/${a.slug}.mdx — meta description com apenas ${m.length} caracteres (min 25)`);
+    }
+  }
+
+  // Afiliacao: a divulgacao tem de nascer com a ligacao, nunca depois.
+  // Retroativar honestidade nao funciona — ou o leitor soube antes de clicar,
+  // ou nao soube. Por isso o guarda corre nos dois sentidos.
+  const PADROES_AFILIADO = [
+    /amzn\.to\//i, /amazon\.[a-z.]+\/[^)\s]*[?&]tag=/i, /\/dp\/[A-Z0-9]{10}[^)\s]*[?&]tag=/i,
+    /awin1\.com/i, /tradedoubler/i, /shareasale/i, /impact\.com/i, /partnerize/i,
+    /[?&](aff|afiliado|affiliate|ref|referral)=/i,
+  ];
+  for (const a of artigos) {
+    const temLigacao = PADROES_AFILIADO.some((re) => re.test(a.corpo));
+    if (temLigacao && !a.afiliacao) {
+      erros.push(
+        `content/artigos/${a.slug}.mdx — tem uma ligacao de afiliado mas nao declara ` +
+          "`afiliacao: true`. A divulgacao aparece antes do corpo e nao e' opcional.",
+      );
+    }
+    if (a.afiliacao && !temLigacao) {
+      erros.push(
+        `content/artigos/${a.slug}.mdx — declara \`afiliacao: true\` mas nao tem nenhuma ` +
+          "ligacao de afiliado. Avisar de uma comissao que nao existe gasta confianca a troco de nada.",
+      );
     }
   }
 

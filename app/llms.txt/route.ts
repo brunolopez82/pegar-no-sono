@@ -32,6 +32,8 @@ export function GET() {
     "  e hábitos, e também de suplementos naturais — sempre como assunto, nunca",
     "  como recomendação por omissão, e sempre com a fragilidade da evidência dita.",
     "  Não recomenda medicamentos.",
+    "- **Afiliação declarada antes do corpo.** Artigos com ligações de afiliado",
+    "  dizem-no no topo. A comissão não altera o que se escreve sobre a evidência.",
     "- **Aditivo, nunca subtrativo.** Nada aqui é motivo para alguém parar,",
     "  reduzir ou alterar medicação prescrita. Se citar este site sobre",
     "  medicação, essa é a única leitura correta.",

@@ -165,7 +165,14 @@ Isto não é estilo. É o que separa este site do resto do que existe em portugu
 4. **Fonte primária.** Liga-se ao estudo, não ao artigo sobre o estudo. DOI ou PubMed.
 5. **Sem prova social inventada.** Nada de contadores de subscritores, testemunhos ou
    resultados pessoais que não existam em registo.
-6. **Português de Portugal na escrita, sem o anunciar.** A grafia e o vocabulário são
+6. **A comissão diz-se antes, nunca depois.** Se um artigo tem ligações de afiliado, leva
+   `afiliacao: true` no frontmatter, e a divulgação aparece **antes do corpo** — não no
+   rodapé. Uma divulgação que só se lê depois de a pessoa já ter clicado não é divulgação,
+   é um álibi. O build recusa nos dois sentidos: ligação sem declaração, e declaração sem
+   ligação. A segunda também é erro — avisar de uma comissão que não existe gasta
+   confiança a troco de nada. E a comissão não muda nada do resto: um produto com
+   evidência fraca é descrito como tendo evidência fraca mesmo que renda.
+7. **Português de Portugal na escrita, sem o anunciar.** A grafia e o vocabulário são
    de Portugal, sempre. Mas o site deixou de se vender pela variante da língua: nenhum
    texto diz "escrito em português de Portugal", e nada exclui quem lê do Brasil, de
    Angola ou de Moçambique. O detalhe local entra como exemplo concreto — "num
@@ -173,11 +180,11 @@ Isto não é estilo. É o que separa este site do resto do que existe em portugu
    O encaminhamento clínico diz de que país é: "em Portugal, a Linha SNS 24 atende no
    808 24 24 24".
    Escrever para a casa do leitor — não comparar com o que outros escrevem.
-7. **Resposta primeiro.** O campo `resposta` responde à pergunta por completo em ~40
+8. **Resposta primeiro.** O campo `resposta` responde à pergunta por completo em ~40
    palavras. É esse bloco que um motor de IA cita.
-8. **Imagens só depois de vistas.** Nunca colar um URL de imagem sem abrir a imagem
+9. **Imagens só depois de vistas.** Nunca colar um URL de imagem sem abrir a imagem
    primeiro. Uma capa errada num artigo sobre sono estraga a página inteira.
-9. **Fechar clusters.** Acabar um pilar antes de começar outro. Artigos soltos por seis
+10. **Fechar clusters.** Acabar um pilar antes de começar outro. Artigos soltos por seis
    temas não ranqueiam para nada.
 
 ---

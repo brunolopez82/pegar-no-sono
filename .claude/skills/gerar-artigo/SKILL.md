@@ -258,14 +258,18 @@ Não são estilo. São o que separa este site do resto do que existe em portugu�
 4. **Fonte primária.** O estudo, não a notícia sobre o estudo.
 5. **Sem prova social inventada.** Nada de subscritores, testemunhos ou resultados
    pessoais que não existam em registo. Nunca inventar dados do sono dele.
-6. **Português de Portugal na escrita, sem o anunciar.** A grafia e o vocabulário são
+6. **A comissão diz-se antes, nunca depois.** Artigo com ligações de afiliado leva
+   `afiliacao: true` no frontmatter, e a divulgação sai antes do corpo — nunca no rodapé.
+   O build recusa nos dois sentidos: ligação sem declaração, e declaração sem ligação. A
+   comissão não muda nada: um produto com evidência fraca é descrito como tendo evidência
+   fraca mesmo que renda.
+7. **Português de Portugal na escrita, sem o anunciar.** A grafia e o vocabulário são
    de Portugal, sempre. Mas o site deixou de se vender pela variante da língua: nenhum
    texto diz "escrito em português de Portugal", e nada exclui quem lê do Brasil, de
    Angola ou de Moçambique. O detalhe local entra como exemplo concreto — "num
-   apartamento sem ar condicionado", "com vizinhos por cima" — e não como fronteira.
-   O encaminhamento clínico diz de que país é: "em Portugal, a Linha SNS 24 atende no
-   808 24 24 24".
-7. **Resposta primeiro**, em ~40 palavras, completa e sem rodeios.
-8. **Imagens só depois de vistas.**
-9. **Fechar clusters.** Acabar um pilar antes de abrir outro. Se ele pedir um artigo de um
+   apartamento sem ar condicionado" — e não como fronteira. O encaminhamento clínico diz
+   de que país é: "em Portugal, a Linha SNS 24 atende no 808 24 24 24".
+8. **Resposta primeiro**, em ~40 palavras, completa e sem rodeios.
+9. **Imagens só depois de vistas.**
+10. **Fechar clusters.** Acabar um pilar antes de abrir outro. Se ele pedir um artigo de um
    pilar novo com o atual por fechar, dizê-lo uma vez — e depois fazer o que ele decidir.

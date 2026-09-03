@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import Divulgacao from "@/components/Divulgacao";
 import remarkGfm from "remark-gfm";
 import CartaoArtigo from "@/components/CartaoArtigo";
 import Revelar from "@/components/Revelar";
@@ -243,6 +244,9 @@ export default async function Pagina({ params }: Props) {
               {a.resposta}
             </p>
           </div>
+
+          {/* Divulgacao de afiliacao: antes do corpo, nunca no rodape */}
+          {a.afiliacao && <Divulgacao />}
 
           {/* Corpo */}
           <div className="tile px-6 py-12 lg:px-14 lg:py-20">
