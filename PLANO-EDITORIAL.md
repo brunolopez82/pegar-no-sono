@@ -3,7 +3,20 @@
 Ordem de publicação por **potencial de tráfego em Portugal**, não por gosto.
 Atualizado a 2026-09-02. Substitui a ordem de pilares do `topical-architecture.md`.
 
-Cadência: **um artigo por semana, à quinta-feira.**
+Cadência: **dois artigos por semana, à segunda e à quinta-feira.**
+
+Era um por semana até 3 set 2026. Subiu para dois com um fim à vista: fechar os
+pilares `ansiedade` (faltam 2) e `ritmo-circadiano` (5) antes do fim de setembro,
+porque é o cluster completo que ranqueia, não o artigo solto. **São 7 artigos, quatro
+semanas em vez de sete.** Feito isso, volta a um por semana.
+
+Não subir para três. A profundidade é o que distingue este site — descompilar o PDF
+do Bootzin de 1972 para ler uma nota de rodapé não se faz a correr, e é exatamente
+isso que nenhum concorrente português está a fazer.
+
+E convém dizê-lo: **mais artigos não resolvem a indexação.** O travão continua a ser
+não haver um único link externo. Publicar mais dá mais páginas prontas para quando
+esse portão abrir; não abre o portão.
 
 O tema não se escolhe nem se discute — pergunta-se:
 
