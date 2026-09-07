@@ -38,6 +38,7 @@ o artigo pedir.
 | `data` | sim | `AAAA-MM-DD` |
 | `imagem` | recomendado | capa do artigo: topo da página, tile na listagem e imagem de partilha |
 | `imagemAlt` | com `imagem` | descrição da foto para leitores de ecrã. Nunca deixar vazio |
+| `fotografias` | não | até duas fotografias no corpo, chamadas por `<Fotografia id="..." />`. Ver a §9 da arquitetura |
 | `atualizado` | não | `AAAA-MM-DD`, quando o artigo for revisto |
 | `destaque` | não | `true` põe o artigo em grande na página inicial. Só um de cada vez |
 | `passos` | não | gera o bloco "Resumo em passos" **e** o schema HowTo |
@@ -69,16 +70,16 @@ funcionar — usa o gradiente do tema no lugar da foto.
 
 ## 5. Descarregar a capa
 
-Sempre que acrescentar um artigo **com** `imagem`:
+Sempre que acrescentar ou mudar uma `imagem` ou uma entrada de `fotografias`:
 
 ```bash
-node scripts/descarregar-imagens.ts
+npm run imagens
 ```
 
-Descarrega a foto para `public/imagens/artigos/<slug>.jpg` e escreve as dimensões reais em
-`content/imagens.json`. É isso que permite servir a imagem do próprio domínio, sem pedidos
-ao Unsplash e sem salto de layout. Ambos os ficheiros são versionados — commitar junto com
-o artigo.
+Descarrega a capa para `public/imagens/artigos/<slug>.jpg`, cada fotografia do corpo para
+`<slug>--<id>.jpg`, e escreve as dimensões reais em `content/imagens.json`. É isso que
+permite servir as imagens do próprio domínio, sem pedidos a terceiros e sem salto de
+layout. Os ficheiros são versionados — commitar junto com o artigo.
 
 Se se esquecer, o site continua a funcionar: cai para o URL remoto do frontmatter.
 

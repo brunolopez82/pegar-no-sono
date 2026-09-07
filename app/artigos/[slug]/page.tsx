@@ -12,15 +12,26 @@ import DadosEstruturados from "@/components/DadosEstruturados";
 import { AvatarAutor } from "@/components/SobreAutor";
 import ImagemArtigo from "@/components/ImagemArtigo";
 import Figura from "@/components/Figura";
+import Fotografia from "@/components/Fotografia";
 import Hipnograma from "@/components/diagramas/Hipnograma";
+import type { Artigo } from "@/lib/artigos";
 
 /**
  * Componentes que um artigo pode usar no corpo em MDX.
  *
-  * Sem isto, um Hipnograma escrito no .mdx e uma etiqueta que nao renderiza. Um
+ * Sem isto, um Hipnograma escrito no .mdx e uma etiqueta que nao renderiza. Um
  * diagrama novo entra aqui e fica disponivel a todos os artigos.
+ *
+ * E' uma funcao, e nao um objecto fixo, por causa da `Fotografia`: no .mdx
+ * escreve-se so' `<Fotografia id="cama" />`, e o componente precisa do artigo
+ * para ir buscar o URL, o `alt` e a legenda ao frontmatter. Fechar o artigo
+ * aqui e' o que permite que a etiqueta no texto fique com uma so' propriedade.
  */
-const componentesMDX = { Figura, Hipnograma };
+const componentesMDX = (artigo: Artigo) => ({
+  Figura,
+  Hipnograma,
+  Fotografia: (props: { id: string }) => <Fotografia artigo={artigo} {...props} />,
+});
 import { todosOsArtigos, artigoPorSlug, relacionados, dataExtenso, metaDescricao } from "@/lib/artigos";
 import { site, pilares, momentos, ogPadrao } from "@/lib/site";
 
@@ -253,7 +264,7 @@ export default async function Pagina({ params }: Props) {
             <div className="artigo">
               <MDXRemote
                 source={a.corpo}
-                components={componentesMDX}
+                components={componentesMDX(a)}
                 options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
               />
             </div>

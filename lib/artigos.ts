@@ -57,6 +57,26 @@ const esquemaFonte = z.object({
   nota: z.string().optional(),
 });
 
+/**
+ * Fotografia no corpo do artigo. Declara-se aqui e chama-se no .mdx com
+ * `<Fotografia id="..." />`, no sitio exacto onde entra.
+ *
+ * O `id` e' a chave: liga a entrada do frontmatter a etiqueta no corpo e da'
+ * nome ao ficheiro descarregado. O `alt` e' obrigatorio pela mesma razao que
+ * na capa — uma fotografia sem descricao e' uma fotografia invisivel para
+ * quem usa leitor de ecra, e aqui nem sequer ha um titulo por perto que
+ * compense. A `legenda` e' opcional e nao repete o `alt`: o `alt` descreve o
+ * que se ve, a legenda diz o que se deve concluir.
+ */
+const esquemaFotografia = z.object({
+  id: z
+    .string()
+    .regex(/^[a-z0-9-]+$/, "so' minusculas, digitos e hifenes — vai dar nome a um ficheiro"),
+  url: z.url("tem de ser um URL completo, com https://"),
+  alt: z.string().min(1, "obrigatorio: descreve a fotografia para quem nao a ve"),
+  legenda: z.string().optional(),
+});
+
 const esquemaFrontmatter = z
   .object({
     titulo: z.string().min(1),
@@ -84,6 +104,8 @@ const esquemaFrontmatter = z
     afiliacao: z.boolean().optional(),
     imagem: z.url("tem de ser um URL completo, com https://").optional(),
     imagemAlt: z.string().min(1).optional(),
+    /** Fotografias do corpo. No maximo duas: ver a §9 da ARQUITETURA-DE-ARTIGOS.md. */
+    fotografias: z.array(esquemaFotografia).max(2, "no maximo duas por artigo").optional(),
     passos: z.array(esquemaPasso).min(1).optional(),
     faq: z.array(esquemaPergunta).min(1).optional(),
     fontes: z.array(esquemaFonte).min(1).optional(),
@@ -93,11 +115,37 @@ const esquemaFrontmatter = z
   .refine((d) => !d.imagem || Boolean(d.imagemAlt), {
     path: ["imagemAlt"],
     message: "obrigatorio sempre que existe `imagem`",
-  });
+  })
+  // Dois ids iguais dariam dois ficheiros com o mesmo nome: o segundo apagava
+  // o primeiro em silencio e as duas etiquetas no corpo mostravam a mesma foto.
+  .refine(
+    (d) => {
+      const ids = (d.fotografias ?? []).map((f) => f.id);
+      return new Set(ids).size === ids.length;
+    },
+    { path: ["fotografias"], message: "os `id` tem de ser distintos dentro do mesmo artigo" },
+  );
 
 export type Passo = z.infer<typeof esquemaPasso>;
 export type Pergunta = z.infer<typeof esquemaPergunta>;
 export type Fonte = z.infer<typeof esquemaFonte>;
+
+/**
+ * Fotografia do corpo, ja' resolvida contra o manifesto de imagens locais.
+ * Os campos `local`/`larguras` so' existem depois de correr `npm run imagens`;
+ * sem eles, o componente cai para o `url` remoto — como faz a capa.
+ */
+export type Fotografia = z.infer<typeof esquemaFotografia> & {
+  local?: string;
+  largura?: number;
+  altura?: number;
+  larguras?: number[];
+};
+
+/** A chave de uma fotografia do corpo no manifesto e no nome do ficheiro. */
+export function chaveFotografia(slug: string, id: string): string {
+  return `${slug}--${id}`;
+}
 
 export type MetaArtigo = {
   slug: string;
@@ -127,6 +175,8 @@ export type MetaArtigo = {
   imagemAltura?: number;
   /** Larguras disponiveis para srcset. Vazio quando nao ha copia local. */
   imagemLarguras?: number[];
+  /** Fotografias do corpo, chamadas no .mdx por `<Fotografia id="..." />`. */
+  fotografias?: Fotografia[];
   passos?: Passo[];
   faq?: Pergunta[];
   fontes?: Fonte[];
@@ -175,6 +225,16 @@ function ler(ficheiro: string): Artigo {
     imagemLargura: imagensLocais[slug]?.largura,
     imagemAltura: imagensLocais[slug]?.altura,
     imagemLarguras: imagensLocais[slug]?.larguras,
+    fotografias: fm.fotografias?.map((f) => {
+      const entrada = imagensLocais[chaveFotografia(slug, f.id)];
+      return {
+        ...f,
+        local: entrada?.ficheiro,
+        largura: entrada?.largura,
+        altura: entrada?.altura,
+        larguras: entrada?.larguras,
+      };
+    }),
     palavras,
     // 200 palavras/minuto, arredondado, minimo de 1.
     minutos: Math.max(1, Math.round(palavras / 200)),
@@ -248,6 +308,34 @@ function validarReferencias(artigos: Artigo[]): void {
       );
     } else if (m.length < 25) {
       erros.push(`content/artigos/${a.slug}.mdx — meta description com apenas ${m.length} caracteres (min 25)`);
+    }
+  }
+
+  // Fotografias do corpo: a etiqueta no texto e a entrada no frontmatter sao
+  // duas metades da mesma coisa e falham em silencio quando se separam. Uma
+  // etiqueta sem entrada renderiza vazio; uma entrada sem etiqueta descarrega
+  // um ficheiro que nunca aparece na pagina. Ambas partem o build.
+  for (const a of artigos) {
+    const declaradas = new Set((a.fotografias ?? []).map((f) => f.id));
+    const usadas = new Set(
+      [...a.corpo.matchAll(/<Fotografia\s[^>]*id="([^"]+)"/g)].map((m) => m[1]),
+    );
+
+    for (const id of usadas) {
+      if (!declaradas.has(id)) {
+        erros.push(
+          `content/artigos/${a.slug}.mdx — <Fotografia id="${id}" /> no corpo sem entrada ` +
+            "correspondente em `fotografias` no frontmatter",
+        );
+      }
+    }
+    for (const id of declaradas) {
+      if (!usadas.has(id)) {
+        erros.push(
+          `content/artigos/${a.slug}.mdx — fotografias: "${id}" declarada e nunca usada. ` +
+            `Falta <Fotografia id="${id}" /> no corpo, no sitio onde entra.`,
+        );
+      }
     }
   }
 

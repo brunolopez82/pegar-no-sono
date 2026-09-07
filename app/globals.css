@@ -148,6 +148,24 @@
   min-width: 660px;
 }
 
+/*
+ * Uma fotografia nao e' um diagrama. Nao precisa do cartao por baixo nem do
+ * respiro interior — esses existem para dar fundo a um desenho de linhas — e
+ * nunca desliza na horizontal: encolhe com a coluna, como qualquer imagem.
+ */
+.artigo .figura-foto .figura-tela {
+  overflow: hidden;
+  background: none;
+  padding: 0;
+}
+
+.artigo .figura-foto img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
 .artigo figure.figura figcaption {
   margin-top: 0.9rem;
   font-size: 0.85rem;

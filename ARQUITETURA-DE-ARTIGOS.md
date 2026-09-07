@@ -294,15 +294,89 @@ sol, meditação em retiro — que contradizem o tom de um site que se define po
 **Sem capa, o artigo não parte:** cai para o gradiente do pilar, que é comportamento
 previsto. É preferível a uma foto errada.
 
-**Imagens no corpo:** ainda não há nenhuma no site. Onde valem a pena, por ordem de retorno:
+**Imagens no corpo.** Por ordem de retorno:
 
 1. **Diagrama de mecanismo** — o diafragma a descer, as fases da noite. Substitui parágrafos.
 2. **Tabela comparativa** — já se usa em Markdown e funciona.
-3. **Fotografia ilustrativa a meio** — a de menor retorno. Se não acrescenta compreensão, é
-   peso.
+3. **Fotografia** — vale quando acrescenta compreensão. Quando não acrescenta, é peso.
 
 O que o Bing pede aqui é explícito: a imagem reforça o texto, nunca é a única fonte da
 informação.
+
+### Fotografias: no máximo duas, e cada uma tem de justificar o lugar
+
+Um artigo pode ter **capa mais duas fotografias no corpo**. Não é uma quota a preencher:
+zero continua a ser uma resposta certa, e um explicador que vive de estrutura conceptual
+não melhora com fotografias.
+
+**A regra que decide:** a fotografia entra se um leitor que só olhasse para ela ficasse a
+perceber alguma coisa que o texto ao lado está a dizer. Fica de fora se serve só para
+partir o texto — arejar faz-se com parágrafo curto, lista ou tabela, e está escrito na §7.
+
+Os dois casos que se aguentam:
+
+- **A cena que o texto manda imaginar.** O artigo da ruminação manda escolher uma cena
+  concreta e cheia de detalhe; a fotografia *é* essa cena. Não ilustra a instrução,
+  demonstra-a. É o caso de maior retorno depois do diagrama.
+- **O momento que o leitor reconhece em si.** Sentado na beira da cama às duas da manhã.
+  Vale porque o site escreve para quem está nessa posição, e porque uma fotografia diz
+  isso mais depressa do que um parágrafo.
+
+Onde entram: nos pontos de quebra da §7 — a seguir ao destaque, onde entra o mecanismo, e
+na secção de aplicação. Não em cima do primeiro `##`, que é onde o leitor ainda está a
+decidir se fica.
+
+**Pessoas podem aparecer.** Até setembro de 2026 as capas eram todas interiores sem
+ninguém, mas isso era hábito, não regra. O que se recusa é a pose de banco de imagens:
+mãos na cabeça, cara em desespero, relógio em grande plano, silhueta ao pôr do sol,
+meditação em retiro. Vale o registo documental — luz real, cena ordinária, sem drama —
+que é o equivalente visual de não ter hype.
+
+### Como se declara
+
+O `id` liga as duas metades e dá nome ao ficheiro. O URL, o `alt` e a legenda vivem no
+frontmatter; no corpo fica só a etiqueta, no sítio exacto onde entra.
+
+```mdx
+fotografias:
+  - id: "beira-da-cama"
+    url: "https://..."
+    alt: "O que se vê na fotografia, para quem não a vê"
+    legenda: "O que se deve concluir dela. Não repete o alt."
+```
+
+```mdx
+<Fotografia id="beira-da-cama" />
+```
+
+**O `alt` e a `legenda` são textos diferentes de propósito.** O `alt` descreve o que está
+na fotografia, para quem usa leitor de ecrã. A legenda diz o que se conclui dela, e é lida
+por toda a gente. Uma legenda que repete o `alt` desperdiça as duas.
+
+**O build recusa nos dois sentidos**, pela mesma lógica da divulgação de afiliação: uma
+etiqueta sem entrada no frontmatter renderiza vazio, e uma entrada sem etiqueta descarrega
+um ficheiro que nunca aparece na página. Ambas partem a compilação, com o nome do ficheiro
+e do `id`. O `alt` também é obrigatório, e dois `id` iguais no mesmo artigo também param
+tudo.
+
+Depois de acrescentar ou mudar qualquer imagem — capa ou corpo:
+
+```bash
+npm run imagens
+```
+
+Descarrega tudo para `public/imagens/artigos/`, gera as quatro larguras em JPEG e WebP, e
+escreve as dimensões reais em `content/imagens.json`. É isso que evita o salto de layout e
+que tira o site da dependência de um domínio de terceiros. **Enquanto não correr, a página
+funciona mas fica presa ao URL remoto** — estado de passagem, não de chegada. Os ficheiros
+gerados são versionados e vão no mesmo commit que o artigo.
+
+### O que ainda não sabemos
+
+Não há dados de scroll nem de tempo na página. Que uma fotografia a meio segura o leitor é
+hipótese, não medição — como os pontos de quebra da §7. O limite de duas existe por isso:
+é baixo o suficiente para que estar errado custe pouco. Quando houver Search Console com
+dados a sério, o número revê-se com eles à frente.
 
 ---
 

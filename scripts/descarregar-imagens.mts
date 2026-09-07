@@ -22,15 +22,38 @@ import matter from "gray-matter";
 // Le o frontmatter directamente em vez de importar lib/artigos.ts: assim o
 // script nao depende da cadeia de imports do site (que ja o partiu uma vez,
 // quando lib/artigos.ts passou a importar um valor de ./site).
-async function capas(): Promise<{ slug: string; imagem?: string }[]> {
+// Cada imagem a descarregar, seja capa ou fotografia do corpo. A `chave` da'
+// nome ao ficheiro e e' a entrada no manifesto: o slug para a capa,
+// `slug--id` para uma fotografia do corpo (ver chaveFotografia em
+// lib/artigos.ts — os dois lados tem de concordar ou o site cai para o URL
+// remoto sem dizer nada).
+type Alvo = { chave: string; url: string; descricao: string };
+
+async function alvos(): Promise<Alvo[]> {
   const pasta = path.join("content", "artigos");
   const nomes = (await readdir(pasta)).filter((f) => f.endsWith(".mdx"));
-  return Promise.all(
-    nomes.map(async (f) => ({
-      slug: f.replace(/\.mdx$/, ""),
-      imagem: matter(await readFile(path.join(pasta, f), "utf8")).data.imagem,
-    })),
-  );
+  const lista: Alvo[] = [];
+
+  for (const f of nomes) {
+    const slug = f.replace(/\.mdx$/, "");
+    const dados = matter(await readFile(path.join(pasta, f), "utf8")).data;
+
+    if (dados.imagem) {
+      lista.push({ chave: slug, url: dados.imagem, descricao: `${slug} (capa)` });
+    } else {
+      console.log(`  — ${slug}: sem capa, ignorado`);
+    }
+
+    for (const foto of dados.fotografias ?? []) {
+      lista.push({
+        chave: `${slug}--${foto.id}`,
+        url: foto.url,
+        descricao: `${slug} · ${foto.id}`,
+      });
+    }
+  }
+
+  return lista;
 }
 
 const PASTA = path.join("public", "imagens", "artigos");
@@ -51,20 +74,15 @@ const manifesto: Record<string, Entrada> = {};
 
 await mkdir(PASTA, { recursive: true });
 
-for (const artigo of await capas()) {
-  if (!artigo.imagem) {
-    console.log(`  — ${artigo.slug}: sem capa, ignorado`);
-    continue;
-  }
-
-  const resposta = await fetch(artigo.imagem);
+for (const alvo of await alvos()) {
+  const resposta = await fetch(alvo.url);
   if (!resposta.ok) {
-    throw new Error(`${artigo.slug}: a imagem devolveu ${resposta.status} — ${artigo.imagem}`);
+    throw new Error(`${alvo.descricao}: a imagem devolveu ${resposta.status} — ${alvo.url}`);
   }
 
   const bruto = Buffer.from(await resposta.arrayBuffer());
   const meta = await sharp(bruto).metadata();
-  if (!meta.width || !meta.height) throw new Error(`${artigo.slug}: dimensoes ilegiveis`);
+  if (!meta.width || !meta.height) throw new Error(`${alvo.descricao}: dimensoes ilegiveis`);
 
   // Nunca aumentar: se o original for menor, essa largura nao e' gerada.
   const larguras = LARGURAS.filter((l) => l <= meta.width!);
@@ -77,8 +95,8 @@ for (const artigo of await capas()) {
     const jpg = await base.clone().jpeg({ quality: 80, progressive: true, mozjpeg: true }).toBuffer();
     const webp = await base.clone().webp({ quality: 74 }).toBuffer();
 
-    await writeFile(path.join(PASTA, `${artigo.slug}-${l}.jpg`), jpg);
-    await writeFile(path.join(PASTA, `${artigo.slug}-${l}.webp`), webp);
+    await writeFile(path.join(PASTA, `${alvo.chave}-${l}.jpg`), jpg);
+    await writeFile(path.join(PASTA, `${alvo.chave}-${l}.webp`), webp);
 
     pesos.push(`${l}px ${Math.round(jpg.length / 1024)}/${Math.round(webp.length / 1024)} KB`);
   }
@@ -88,17 +106,17 @@ for (const artigo of await capas()) {
   await sharp(bruto)
     .resize({ width: maior, withoutEnlargement: true })
     .jpeg({ quality: 80, progressive: true, mozjpeg: true })
-    .toFile(path.join(PASTA, `${artigo.slug}.jpg`));
+    .toFile(path.join(PASTA, `${alvo.chave}.jpg`));
 
-  manifesto[artigo.slug] = {
-    ficheiro: `/imagens/artigos/${artigo.slug}.jpg`,
+  manifesto[alvo.chave] = {
+    ficheiro: `/imagens/artigos/${alvo.chave}.jpg`,
     largura: meta.width,
     altura: meta.height,
-    origem: artigo.imagem,
+    origem: alvo.url,
     larguras,
   };
 
-  console.log(`  ✓ ${artigo.slug}`);
+  console.log(`  ✓ ${alvo.descricao}`);
   console.log(`      jpg/webp por largura: ${pesos.join("  ·  ")}`);
 }
 
