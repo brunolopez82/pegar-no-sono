@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fartigos\u002F[slug]","\u002Ftemas\u002F[pilar]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
