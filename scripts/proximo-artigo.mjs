@@ -8,9 +8,34 @@
 // publicados, e quem o lesse escolhia um tema repetido.
 
 import { readFileSync, readdirSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import path from "node:path";
 
 const PASTA = "content/artigos";
+
+// Artigos escritos que ainda nao foram para `main` vivem num ramo
+// `artigo/<slug>`. Antes de 24 set 2026 este script nao os via — contava
+// so' os ficheiros publicados — e duas sessoes escreveram o mesmo artigo
+// no mesmo dia, porque a primeira tinha deixado o dela num ramo a' espera
+// de merge. Enquanto houver rascunhos por fechar, tem de se saber.
+function rascunhosEmRamos() {
+  try {
+    const saida = execFileSync(
+      "git",
+      ["for-each-ref", "--format=%(refname)", "refs/heads/artigo", "refs/remotes/origin/artigo"],
+      { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
+    );
+    const slugs = new Set();
+    for (const l of saida.split(/\r?\n/)) {
+      const m = l.match(/\/artigo\/([a-z0-9-]+)$/);
+      if (m) slugs.add(m[1]);
+    }
+    return slugs;
+  } catch {
+    // Sem git, ou fora de um repositorio: se' segue com o que ha'.
+    return new Set();
+  }
+}
 
 const publicados = new Map();
 for (const f of readdirSync(PASTA).filter((x) => x.endsWith(".mdx"))) {
@@ -38,28 +63,41 @@ for (const [p, n] of [...porPilar].sort((a, b) => b[1] - a[1])) {
   console.log(`  ${p.padEnd(18)} ${n}`);
 }
 
+const ramos = rascunhosEmRamos();
 const porFazer = fila.filter((x) => !publicados.has(x.slug));
 const feitos = fila.filter((x) => publicados.has(x.slug));
+const rascunhos = porFazer.filter((x) => ramos.has(x.slug));
+const livres = porFazer.filter((x) => !ramos.has(x.slug));
 
 console.log(`\nfila: ${fila.length} temas, ${feitos.length} publicados, ${porFazer.length} por fazer`);
 
-if (!porFazer.length) {
-  console.log("\nA fila acabou. Acrescentar temas ao PLANO-EDITORIAL.md antes da proxima quinta.");
+if (rascunhos.length) {
+  console.log("\nJA ESCRITOS, a espera de merge (nao voltar a escrever):");
+  for (const x of rascunhos) console.log(`  ${x.slug}   ->  ramo artigo/${x.slug}`);
+}
+
+if (!livres.length) {
+  if (rascunhos.length) {
+    console.log("\nTodos os temas por fazer ja' tem rascunho num ramo. Fazer merge desses");
+    console.log("antes de escrever mais, ou acrescentar temas ao PLANO-EDITORIAL.md.");
+  } else {
+    console.log("\nA fila acabou. Acrescentar temas ao PLANO-EDITORIAL.md antes da proxima quinta.");
+  }
   process.exit(0);
 }
 
-const proximo = porFazer[0];
+const proximo = livres[0];
 console.log("\n" + "=".repeat(72));
 console.log(`PROXIMO:  ${proximo.slug}`);
 if (proximo.nota) console.log(`          ${proximo.nota}`);
 console.log("=".repeat(72));
 
 console.log("\ndepois desse:");
-for (const x of porFazer.slice(1, 4)) console.log(`  ${x.slug}`);
+for (const x of livres.slice(1, 4)) console.log(`  ${x.slug}`);
 
 // A regra da fila: um pilar fecha antes de o seguinte abrir. Vale a pena
 // dize-lo aqui em vez de esperar que alguem se lembre.
-const restaNoPilar = porFazer.filter((x) => {
+const restaNoPilar = livres.filter((x) => {
   const i = plano.indexOf("`" + x.slug + "`");
   const cab = plano.slice(0, i).match(/### Pilar [^\n]+/g);
   const iP = plano.indexOf("`" + proximo.slug + "`");
