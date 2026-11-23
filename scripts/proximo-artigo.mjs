@@ -19,6 +19,21 @@ const PASTA = "content/artigos";
 // no mesmo dia, porque a primeira tinha deixado o dela num ramo a' espera
 // de merge. Enquanto houver rascunhos por fechar, tem de se saber.
 function rascunhosEmRamos() {
+  // Ler `refs/remotes/origin/artigo` so' encontra o que ja' esta' no clone.
+  // Um clone superficial que trouxe apenas o `main` nao tem esses refs, e o
+  // script volta a dizer que um tema por fazer esta' livre quando ele ja'
+  // tem rascunho num ramo — foi o que aconteceu a 1 out 2026. Buscar
+  // primeiro, e em silencio: sem rede, segue-se com o que ha' no clone.
+  try {
+    execFileSync(
+      "git",
+      ["fetch", "--quiet", "origin", "+refs/heads/artigo/*:refs/remotes/origin/artigo/*"],
+      { stdio: "ignore", timeout: 30000 },
+    );
+  } catch {
+    // Sem rede ou sem remoto: os ramos locais ainda sao vistos.
+  }
+
   try {
     const saida = execFileSync(
       "git",
